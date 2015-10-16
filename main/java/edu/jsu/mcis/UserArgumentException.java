@@ -5,7 +5,6 @@ public class UserArgumentException{
 	private String incorrectArgument="";
 	private String unrecognizedArgument="";
 
-
 	public void setIncorrectDataType(String name){
 		incorrectArgument=name;
 	}

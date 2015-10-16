@@ -29,7 +29,7 @@ public class ArgumentParser{
   private int incorrectDataTypeMessage;
   public enum DATATYPE{INT,FLOAT,BOOLEAN,STRING};
   public DATATYPE data;
-  UserArgumentException temp=new UserArgumentException();
+  private UserArgumentException temp;
 
 	public ArgumentParser(){
 		namedArguments=new LinkedHashMap<String,String>();
@@ -44,9 +44,11 @@ public class ArgumentParser{
 		userNamedArguments=new ArrayList<String>();
 		data=DATATYPE.STRING;
 		helpMessage=0;
+		missingArgumentWidthAndHeightMessage=0;
 		missingArgumentHeightMessage=0;
 		unrecognizedArgumentsMessage=0;
 		incorrectDataTypeMessage=0;
+		temp= new UserArgumentException();
 	}
 
 	public void addPositionalArgument(String x){
@@ -152,7 +154,6 @@ public class ArgumentParser{
 				break;
 			}
 			while(userPositionalArguments.get(j).charAt(k)=='-'){
-				System.out.println(userPositionalArguments.get(j).substring(userPositionalArguments.get(j).lastIndexOf("-")+1));
 				userNamedArguments.add(userPositionalArguments.get(j).substring(userPositionalArguments.get(j).lastIndexOf("-")+1));
 				userNamedArguments.add(userPositionalArguments.get(j+1));
 				userPositionalArguments.remove(userPositionalArguments.get(j+1));
@@ -160,7 +161,7 @@ public class ArgumentParser{
 				j=0;
 			}
 		}
-		System.out.println(userPositionalArguments);
+
 		checkUserInputSize();
 		matchPositionalArguments();
 		matchNamedArguments();
@@ -170,8 +171,6 @@ public class ArgumentParser{
  	public <T> T getValue(String name){
  		for(String namedArg: namedArguments.keySet()){
 			if(name.equals(namedArg)){
-				System.out.println(namedArg);
-				System.out.println(namedArguments.get(name));
 				return (T) namedArguments.get(name);
 			}
 		}
@@ -206,7 +205,6 @@ public class ArgumentParser{
  	}
 
  	public String missingArgumentWidthAndHeightMessage(){
- 		missingArgumentWidthAndHeightMessage=0;
  		missingArgumentWidthAndHeightMessage++;
  		return "usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height";
  	}
@@ -237,7 +235,6 @@ public class ArgumentParser{
 
  	public boolean isMissingArgumentWidthAndHeightMessageCalled(){
 		if(missingArgumentWidthAndHeightMessage>0){
- 		 	missingArgumentWidthAndHeightMessage=0;
  			return true;
  		}
  		else
