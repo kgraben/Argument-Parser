@@ -256,41 +256,4 @@ public class ArgumentParserTest {
 		ap.parse(data);
 		assertEquals("usage: java VolumeCalculator length width height" + "\n" + "Calcuate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)",ap.getHelpMessage());
 	}
-
-	@Test
-	public void testSetAndGetUserArg() {
-		String test = "Ya'ay!";
-		argument.setUserArg(test);
-		assertEquals(test, argument.getUserArg());
-	}
-
-	@Test
-	public void testIsIncorrectDataTypeMessageCalledReturnsFalse(){
-		ap.addPositionalArgument("length");
-		ap.addPositionalArgument("width");
-		ap.addPositionalArgument("height");
-		String[] data= {"7","5"};
-		ap.parse(data);
-		assertFalse(ap.isIncorrectDataTypeMessageCalled());
-	}
-
-	@Test
-	public void testIsUnrecognizedArgumentsMessageCalledReturnsFalse(){
-		ap.addPositionalArgument("length");
-		ap.addPositionalArgument("width");
-		ap.addPositionalArgument("height");
-		String[] data= {"7","5","2"};
-		ap.parse(data);
-		assertFalse(ap.isUnrecognizedArgumentsMessageCalled());
-	}
-
-	@Test
-	public void testIsMissingArgumentHeightMessageCalledReturnsFalse(){
-		ap.addPositionalArgument("length");
-		ap.addPositionalArgument("width");
-		ap.addPositionalArgument("height");
-		String[] data= {"7","5","2"};
-		ap.parse(data);
-		assertFalse(ap.isMissingArgumentHeightMessageCalled());
-	}
 }
