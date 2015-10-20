@@ -23,7 +23,7 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height");
 		String[] data= {"7","5","2"};
 		ap.parse(data);
-		assertEquals(ap.getSizeOfHashMap(),3);
+		assertEquals(3,ap.getSizeOfHashMap());
 	}
 
 	@Test
@@ -43,7 +43,8 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height");
 		String[] data={"7"};
 		ap.parse(data);
-		assertEquals(true, ap.isMissingArgumentWidthAndHeightMessageCalled());
+		assertEquals(true,ap.isMissingArgumentWidthAndHeightMessageCalled());
+		assertEquals(false,ap.isMissingArgumentHeightMessageCalled());
 	}
 
 	@Test
@@ -54,6 +55,8 @@ public class ArgumentParserTest {
 		String[] data= {"7","5"};
 		ap.parse(data);
 		assertEquals(true, ap.isMissingArgumentHeightMessageCalled());
+		assertEquals(false,ap.isMissingArgumentWidthAndHeightMessageCalled());
+		assertEquals(false,ap.isUnrecognizedArgumentsMessageCalled());
 	}
 
 	@Test
@@ -63,7 +66,7 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height");
 		String[] data= {"7","5", "3", "7"};
 		ap.parse(data);
-		assertEquals(true, ap.isUnrecognizedArgumentsMessageCalled());
+		assertEquals(true,ap.isUnrecognizedArgumentsMessageCalled());
 	}
 
 	@Test
@@ -189,9 +192,9 @@ public class ArgumentParserTest {
 	}
 	@Test
   public void testDataTypeInt(){
-    ap.addPositionalArgument("length",ap.data.INT);
-		ap.addPositionalArgument("width",ap.data.INT);
-		ap.addPositionalArgument("height",ap.data.INT);
+		ap.addPositionalArgument("length",Argument.DATATYPE.INT);
+		ap.addPositionalArgument("width",Argument.DATATYPE.INT);
+		ap.addPositionalArgument("height",Argument.DATATYPE.INT);
 		String[] data= {"7","5", "3"};
 		ap.parse(data);
 		int num=7;
@@ -199,28 +202,28 @@ public class ArgumentParserTest {
   }
 	@Test
   public void testDataTypeBoolean(){
-    ap.addPositionalArgument("length",ap.data.INT);
-		ap.addPositionalArgument("Dog",ap.data.BOOLEAN);
-		ap.addPositionalArgument("height",ap.data);
+		ap.addPositionalArgument("length",Argument.DATATYPE.INT);
+		ap.addPositionalArgument("Dog",Argument.DATATYPE.BOOLEAN);
+		ap.addPositionalArgument("height",Argument.DATATYPE.STRING);
 		String[] data= {"7","true", "3"};
 		ap.parse(data);
 		boolean value=true;
-		assertEquals(ap.getValue("Dog"), value);
+		assertEquals(true, ap.getValue("Dog"));
   }
 	@Test
   public void testDataTypeString(){
-    ap.addPositionalArgument("length",ap.data.INT);
-		ap.addPositionalArgument("Dog",ap.data);
-		ap.addPositionalArgument("height",ap.data.FLOAT);
+		ap.addPositionalArgument("length",Argument.DATATYPE.INT);
+		ap.addPositionalArgument("Dog",Argument.DATATYPE.STRING);
+		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
 		String[] data= {"7","true", "4.0"};
 		ap.parse(data);
 		assertEquals(ap.getValue("Dog"), "true");
   }
 	@Test
   public void testDataTypeFloat(){
-    ap.addPositionalArgument("length",ap.data.INT);
-		ap.addPositionalArgument("Dog",ap.data.FLOAT);
-		ap.addPositionalArgument("height",ap.data.FLOAT);
+		ap.addPositionalArgument("length",Argument.DATATYPE.INT);
+		ap.addPositionalArgument("Dog",Argument.DATATYPE.FLOAT);
+		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
 		String[] data= {"7","8", "4"};
 		ap.parse(data);
 		float number=8.0f;
@@ -229,9 +232,9 @@ public class ArgumentParserTest {
 
 	@Test
   public void testInvalidDataTypeFloat(){
-  	ap.addPositionalArgument("length",ap.data.FLOAT);
-		ap.addPositionalArgument("width",ap.data.FLOAT);
-		ap.addPositionalArgument("height",ap.data.FLOAT);
+		ap.addPositionalArgument("length",Argument.DATATYPE.FLOAT);
+		ap.addPositionalArgument("width",Argument.DATATYPE.FLOAT);
+		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
 		String[] data= {"7","something", "4"};
 		ap.parse(data);
 		assertEquals(true,ap.isIncorrectDataTypeMessageCalled());
@@ -239,9 +242,9 @@ public class ArgumentParserTest {
 
   @Test
   public void testInvalidDataTypeInteger(){
-    ap.addPositionalArgument("length",ap.data.FLOAT);
-		ap.addPositionalArgument("width",ap.data.INT);
-		ap.addPositionalArgument("height",ap.data.FLOAT);
+		ap.addPositionalArgument("length",Argument.DATATYPE.FLOAT);
+		ap.addPositionalArgument("width",Argument.DATATYPE.INT);
+		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
 		String[] data= {"7","something", "4"};
 		ap.parse(data);
 		assertEquals(true,ap.isIncorrectDataTypeMessageCalled());
