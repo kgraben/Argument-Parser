@@ -6,3 +6,5 @@ By: Christopher Burdette (cbgithub),
     Kurtis Graben (kurtdawg24),
     Khoi Phan (kphanjsu),
     Hui Wang (wanghuida0)
+
+  How to set project up in github available <a href="http://tinyurl.com/githubsetup">here </a>.
