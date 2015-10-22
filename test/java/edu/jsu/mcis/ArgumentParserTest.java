@@ -373,5 +373,16 @@ public class ArgumentParserTest {
 	
 	
 	}
+	@Test
+	public void testFlagIsTrue(){				
+		ap.addPositionalArgument("length",Argument.DATATYPE.FLOAT);
+		ap.addPositionalArgument("width",Argument.DATATYPE.INT);
+		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
+		ap.addFlag("myarg");
+		
+		String[] data = {"7", "--myarg", "5", "3"};
+		ap.parse(data);
+		assertEquals(true, ap.getValue("flag")); 
+	}
 
 }
