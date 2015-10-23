@@ -26,6 +26,7 @@ public class ArgumentParser{
     private int missingArgumentWidthAndHeightMessage;
     private int unrecognizedArgumentsMessage;
     private int incorrectDataTypeMessage;
+    private String name;
     //private UserArgumentException temp; 
 	
 	public ArgumentParser(){
@@ -38,13 +39,14 @@ public class ArgumentParser{
 		missingArgumentHeightMessage=0;
 		unrecognizedArgumentsMessage=0;
 		incorrectDataTypeMessage=0;
+		name="";
 	}
 	
 	public void addPositionalArgument(String x){
 		Argument temp = new Argument();
 		temp.setDataType(Argument.DATATYPE.STRING);
 		temp.setPositionalName(x);
-		positionalArguments.put(x,temp);
+		positionalArguments.put(temp.getPositionalName(),temp);
 		
 	}
 
@@ -54,14 +56,14 @@ public class ArgumentParser{
 		Argument temp = new Argument();
 		temp.setDataType(t);
 		temp.setPositionalName(x);
-		positionalArguments.put(x,temp);
+		positionalArguments.put(temp.getPositionalName(),temp);
 		
 	}
 	
 	
 	public void addNamedArgument(String x){
 		Argument temp = new Argument();
-		temp.setnamedName(x);
+		temp.setnamedArgumentName(x);
 		namedArguments.put(x,temp);
 	
 	}
@@ -69,15 +71,11 @@ public class ArgumentParser{
 	
 	
 	
-	public void checkUserInputSize() throws ArrayIndexOutOfBoundsException{
+	public void checkUserInputSize(){
 		
 		if(userPositionalArguments.size()==1 && (!userPositionalArguments.contains("--h") && !userPositionalArguments.contains("-h"))){
-			try{
-				missingArgumentWidthAndHeightMessage();
-				}
-			catch(NullPointerException ex){
-		
-			}
+				throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
+			
 			
 			
 		}
@@ -85,23 +83,17 @@ public class ArgumentParser{
 		
 			
 		else if(userPositionalArguments.size()==2){
-			try{
-				 missingArgumentHeightMessage();
-			}
-			catch(NullPointerException ex){
-			
-			}
+			throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
 		}
 		else if(userPositionalArguments.size()>positionalArguments.size()){
+			unrecognizedArgumentsMessage++;
+			//unrecognizedArgumentsMessage();
 				for(int m=3; m < userPositionalArguments.size(); m++){
-					//temp.setUnrecognizedArgument(userPositionalArguments.get(m));	
-					try{
-						 unrecognizedArgumentsMessage();
-				    	System.out.println("usage: java VolumeCalculator length width height" + "\n" + "VolumeCalcultor.java: error: unrecognized arguments: " + userPositionalArguments.get(m));
-				    }
-				    catch(NullPointerException ex){
-				    
-				    }
+					Argument temp= new Argument();
+					temp.setUnrecognizedArgument(userPositionalArguments.get(m));	
+					
+					throw new UnknownArgumentException("usage: java VolumeCalculator length width height" + "\n" + "VolumeCalcultor.java: error: unrecognized arguments: " + temp.getUnrecognizedArgument());
+				   
 				}
 				
 		 }
@@ -114,16 +106,16 @@ public class ArgumentParser{
 		for(String s: namedArguments.keySet()){
 			Argument temp=namedArguments.get(s);
 			
-				if(temp.getnamedName()=="Type"){
+				if(temp.getnamedArgumentName()=="Type"){
 					String box="Box";
-					temp.setNamedValue(box);
+					temp.setNamedArgumentValue(box);
 					namedArguments.put(s,temp);
 			
 				}
 			
-				else if(temp.getnamedName()=="Digits"){
+				else if(temp.getnamedArgumentName()=="Digits"){
 					String digit="4";
-					temp.setNamedValue(digit);
+					temp.setNamedArgumentValue(digit);
 					namedArguments.put(s,temp);
 				}
 			}
@@ -146,7 +138,7 @@ public class ArgumentParser{
 					for(int i=0; i < userNamedArguments.size(); i+=2){
 						Argument temp2=new Argument();
 						if((i % 2==0) && (j % 2==1)){
-							temp2.setNamedValue(userNamedArguments.get(j));
+							temp2.setNamedArgumentValue(userNamedArguments.get(j));
 							namedArguments.put(userNamedArguments.get(i),temp2);
 							j+=2;
 						}
@@ -175,7 +167,7 @@ public class ArgumentParser{
 	
 	
 	
-	public void matchPositionalArguments(){
+	public void matchPositionalArguments (){
 			int i=0;
 			
 			 if(userPositionalArguments.size()==positionalArguments.size()){
@@ -193,9 +185,11 @@ public class ArgumentParser{
 							}
 							catch(NumberFormatException ex){
 								//UserArgumentException temp=new UserArgumentException();
+								//incorrectDataTypeMessage();
+								incorrectDataTypeMessage++;
 								temp.setIncorrectDataType(temp.getPositionalValue());
-								incorrectDataTypeMessage();
-								//throw new IncorrectDataTypeException("usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: argument width: invalid Integer value: " + temp.getIncorrectDataType());
+								setIncorrectDataTypeMessage(temp.getIncorrectDataType());
+								throw new IncorrectDataTypeException("usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: argument width: invalid Integer value: " + temp.getIncorrectDataType());
 							}
 							
 							i++;	
@@ -212,9 +206,11 @@ public class ArgumentParser{
 							}
 							catch(NumberFormatException ex){
 								//UserArgumentException temp=new UserArgumentException();
+								//incorrectDataTypeMessage();
+								incorrectDataTypeMessage++;
 								temp.setIncorrectDataType(temp.getPositionalValue());
-								incorrectDataTypeMessage();
-								//throw new IncorrectDataTypeException("usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: argument width: invalid float value: " + temp.getIncorrectDataType());
+								setIncorrectDataTypeMessage(temp.getIncorrectDataType());
+								throw new IncorrectDataTypeException("usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: argument width: invalid float value: " + temp.getIncorrectDataType());
 							}
 							
 							i++;
@@ -252,32 +248,38 @@ public class ArgumentParser{
 		}
 		//userPositionalArguments equals <"7","2", "--Type", "square", "Digits", "3"> can't add duplicates
 		//Therefore we should probably use a LinkedList??? 
-		
-		for(int j=0; j < userPositionalArguments.size(); j++){
-		
-			int k=0;
-		
-			if(userPositionalArguments.contains("--h") ||userPositionalArguments.contains("-h") ){
-				getHelpMessage();
+		if(userPositionalArguments.contains("--h") ||userPositionalArguments.contains("-h") || userPositionalArguments.contains("--help") ){
+				System.out.println(getHelpMessage());
+				//System.out.println(userPositionalArguments);
 				
-				break;
-				//userArg.remove("--h");
+				userPositionalArguments.remove("--h");
+				userPositionalArguments.remove("--help");
+				userPositionalArguments.remove("-h");
+				//System.out.println(userPositionalArguments);
+				
+		}
+		
+		
+			for(int j=0; j < userPositionalArguments.size(); j++){
+		
+				int k=0;
+	
+		
+				//finally got it working(11:45am). just changed if statement to while. Also I put the user arguments into an arraylist first.
+				while(userPositionalArguments.get(j).charAt(k)=='-'){
+		
+				
+					userNamedArguments.add(userPositionalArguments.get(j).substring(userPositionalArguments.get(j).lastIndexOf("-")+1));
+					userNamedArguments.add(userPositionalArguments.get(j+1));
+					userPositionalArguments.remove(userPositionalArguments.get(j+1));
+					userPositionalArguments.remove(userPositionalArguments.get(j));
+					j=0;
+				
+			
+			
+			
 			}
 		
-			//finally got it working(11:45am). just changed if statement to while. Also I put the user arguments into an arraylist first.
-			while(userPositionalArguments.get(j).charAt(k)=='-'){
-		
-				
-				userNamedArguments.add(userPositionalArguments.get(j).substring(userPositionalArguments.get(j).lastIndexOf("-")+1));
-				userNamedArguments.add(userPositionalArguments.get(j+1));
-				userPositionalArguments.remove(userPositionalArguments.get(j+1));
-				userPositionalArguments.remove(userPositionalArguments.get(j));
-				j=0;
-				
-			
-			
-			
-		}
 			
 		
 	
@@ -338,44 +340,14 @@ public class ArgumentParser{
    			
    			Argument temp= new Argument();
    			temp=namedArguments.get(name);
-   			return (T) temp.getNamedValue();
+   			return (T) temp.getNamedArgumentValue();
    		
    		
    		}
    		
    
    			
-   		/*
-   		for(String namedArg: namedArguments.keySet()){
-			if(name.equals(namedArg)){
-				return (T) namedArguments.get(name);
-			
-			}
-		}
-		
-   		for(String intName: intArguments.keySet()){
-			if(name.equals(intName)){
-				int num=Integer.parseInt(intArguments.get(name));
-				return (T) new Integer(num);
-			
-			}
-		}
-		for(String booleanName: booleanArguments.keySet()){
-			if(name.equals(booleanName)){
-				boolean num=Boolean.parseBoolean(booleanArguments.get(name));
-				return (T) Boolean.valueOf(num);
-			}
-		}
-		for(String floatName: floatArguments.keySet()){
-			if(name.equals(floatName)){
-				float num=Float.parseFloat(floatArguments.get(name));
-				return (T) new Float(num);
-			}
-		}
-	
-		return (T) stringArguments.get(name);
-		*/	 		
-   	
+
    	
    	
    	public int getSizeOfHashMap(){
@@ -388,34 +360,32 @@ public class ArgumentParser{
    	
    	public String getHelpMessage(){
    		helpMessage++;
-   		return "usage: java VolumeCalculator length width height" + "\n" + "Calcuate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)";
-   		
+   		return "usage: java VolumeCalculator length width height" + "\n" + "Calcuate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)";	
    	}
    	
-   	public String missingArgumentWidthAndHeightMessage(){
-   		missingArgumentWidthAndHeightMessage++;
-   		return "usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height";
    	
-   	}
-   	
-   	public String missingArgumentHeightMessage(){
-   		 missingArgumentHeightMessage++;
-   		return "usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height";
-   	
-   	}
+   
    	
    	public String unrecognizedArgumentsMessage(){
-   		unrecognizedArgumentsMessage++;
-   		return "usage: java VolumeCalculator length width height" + "\n" + "VolumeCalcultor.java: error: unrecognized arguments: ";
+   		return "usage: java VolumeCalculator length width height" + "\n" + "VolumeCalcultor.java: error: unrecognized arguments: " + userPositionalArguments.get(3);
    	
+   	}
+   	
+   	public void setIncorrectDataTypeMessage(String s){
+   		name=s;
+   	}
+   	
+   	public String getIncorrectDataTypeMessage(){
+   		return name;
    	}
    	
    	public String incorrectDataTypeMessage(){
-   		incorrectDataTypeMessage++;
-   		return "usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: argument width: invalid float value: ";
-   	
+   		
+   		return "usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: argument width: invalid float value: " + getIncorrectDataTypeMessage();
    	}
    	
+   
+  
    	public boolean isHelpMessageCalled(){
    		if(helpMessage>0){
    			return true;
@@ -424,27 +394,7 @@ public class ArgumentParser{
    			return false;
    	
    	}
-   	
-   	public boolean isMissingArgumentWidthAndHeightMessageCalled(){
-   		if(missingArgumentWidthAndHeightMessage>0){ 
-   		 	
-   			return true;
-   		}
-   		else
-   			return false;
-   	
-   	}
-   	
-   	
-   	public boolean isMissingArgumentHeightMessageCalled(){
-   		 if(missingArgumentHeightMessage>0){
-   			return true;
-   		}
-   		else
-   			return false;
-   	
-   	}
-   	
+   
    	
    	public boolean isUnrecognizedArgumentsMessageCalled(){
    		if(unrecognizedArgumentsMessage>0){
@@ -467,6 +417,7 @@ public class ArgumentParser{
    	
    	}
    	
+   
    	
    	
    	

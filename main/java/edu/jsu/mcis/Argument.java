@@ -8,8 +8,8 @@ public class Argument{
 	
 	private String positionalValue;
 	private String positionalName;
-	private String namedValue;
-	private String namedName;
+	private String namedArgumentValue;
+	private String namedArgumentName;
 	private String incorrectArgument="";
 	private String unrecognizedArgument="";
 	private String type;
@@ -24,7 +24,7 @@ public class Argument{
 	
 		positionalValue="";
 		positionalName="";
-		namedValue="";
+		namedArgumentValue="";
 		type="";
 		digit="";
 		data=DATATYPE.STRING;
@@ -62,25 +62,25 @@ public class Argument{
 		return positionalName;
 	
 	}
-	public void setnamedName(String s){
-		namedName=s;
+	public void setnamedArgumentName(String s){
+		namedArgumentName=s;
 	
 	
 	}
-	public String getnamedName(){
-		return namedName;
+	public String getnamedArgumentName(){
+		return namedArgumentName;
 	
 	}
 	
-	public void setNamedValue(String s){
-		namedValue=s;
+	public void setNamedArgumentValue(String s){
+		namedArgumentValue=s;
 	
 	
 	}
 	
 	
-	public String getNamedValue(){
-		return namedValue;
+	public String getNamedArgumentValue(){
+		return namedArgumentValue;
 	
 	}
 	
