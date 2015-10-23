@@ -2,9 +2,9 @@
 Library           ArgumentParserKeywords
 
 
-
+ 
 | *Variable*  | *Value*                                                                                                   |
-| ${expected} | usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: unrecognized arguments: 43 |
+| ${expected} | usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: unrecognized arguments: 43 |                                                                                                                                                                                                                                  
 | ${expectedHelp} | usage: java VolumeCalculator length width height\nCalcuate the volume of a box.\npositional arguments:\n   length the length of the box (float)\n   width the width of the box(float)\n   height the height of the box(float) |
 | ${expectedInvalid} | usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: argument width: invalid float value: something |
 
@@ -32,7 +32,7 @@ Library           ArgumentParserKeywords
 |                                        | Should Be Equal                       | 3.5                | ${bathrooms} |            |            |
 | Test Usage Message 					 | Start Program With Arguments 	     | -h                 |              |			  |            |
 |                    					 | ${output}=                            | Get Program Output |              |            |            |
-|                    					 | Should Be Equal                       | ${expectedHelp}    | ${output}    |            |            |
+|                    					 | Should Be Equal                       | ${expectedHelp}    | ${output}    |            |            |                                                                                                                      
 | Test Incorrect Datatype Message        | Start Program With DataType Arguments          | 7                  | something    | 2           |
 |                                        | ${output}=                            | Get Program Output |              |             |
 |                                        | Should Be Equal                       | ${output}          | ${expectedInvalid} |             |
@@ -90,21 +90,8 @@ Library           ArgumentParserKeywords
 |                              | ${digits}=                            | Get Digits         |              |            |            |            |            |            |
 |                              | Should Be Equal                       | 1                  | ${digits}    |            |            |            |            |            |
 
-
-| *Test Case*                  | *Action*                              | *Argument*         | *Argument*   | *Argument* | *Argument* |
-| Test Help Flag               | Start Program With Arguments          | 7                  | --help       | 3          | 2          |
-|                              | ${output}=                            | Get Program Output |              |            |            |
-|                              | Should Be Equal                       | ${expected}        | ${output}    |            |            |
-
-| *Test Case*                  | *Action*                              | *Argument*         | *Argument*   | *Argument* | *Argument* | *Argument* | *Argument* | *Argument* |
-| Test Short Form Arguments    | Start Volume Cacluator With Arguments | -t                 | ellipsoid    | 7          | 3          | -d         | 1          | 2          |
-|                              | ${length}=                            | Get Length         |              |            |            |            |            |            |
-|                              | Should Be Equal                       | 7                  | ${length}    |            |            |            |            |            |
-|                              | ${width}=                             | Get Width          |              |            |            |            |            |            |
-|                              | Should Be Equal                       | 3                  | ${width}     |            |            |            |            |            |
-|                              | ${height}=                            | Get Height         |              |            |            |            |            |            |
-|                              | Should Be Equal                       | 2                  | ${height}    |            |            |            |            |            |
-|                              | ${type}=                              | Get Type           |              |            |            |            |            |            |
-|                              | Should Be Equal                       | ellipsoid          | ${type}      |            |            |            |            |            |
-|                              | ${digits}=                            | Get Digits         |              |            |            |            |            |            |
-|                              | Should Be Equal                       | 1                  | ${digits}    |            |            |            |            |            |
+                                                                                                                                                                                                                             
+| *Test Case*        | *Action*                     | *Argument*         | *Argument*  | *Argument*  | *Argument*  |
+| Test Help Flag     | Start Program With Arguments | 7                  | --help      | 3           | 2           |
+|                    | ${output}=                   | Get Program Output |             |             |             |
+|                    | Should Be Equal              | ${expectedHelp}        | ${output}   |             |             |

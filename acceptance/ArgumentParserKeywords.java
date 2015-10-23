@@ -9,14 +9,20 @@ public class ArgumentParserKeywords {
 	
     
     
-    public void StartVolumeCalculatorWithArguments(String[] args){
+    public void StartVolumeCalculatorWithArguments(String[] args) throws UnknownArgumentException{
     	ap=new ArgumentParser();
     	ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
 		ap.addNamedArgument("Type");
 		ap.addNamedArgument("Digits");
-		ap.parse(args);
+		try{
+			ap.parse(args);
+		}
+		catch(UnknownArgumentException ex){
+			
+			
+		}
 				
     }
     
@@ -33,6 +39,9 @@ public class ArgumentParserKeywords {
     
     public void StartProgramWithArguments(String[] args){
     	ap=new ArgumentParser();
+    	ap.addPositionalArgument("length");
+		ap.addPositionalArgument("width");
+		ap.addPositionalArgument("height");
     	ap.parse(args);
     	
     }
@@ -47,12 +56,18 @@ public class ArgumentParserKeywords {
 		
 	} 
 	
-   	public void StartProgramWithDataTypeArguments(String[] args){
+   	public void StartProgramWithDataTypeArguments(String[] args) throws IncorrectDataTypeException{
     	ap=new ArgumentParser();
     	ap.addPositionalArgument("length",Argument.DATATYPE.FLOAT);
 		ap.addPositionalArgument("width", Argument.DATATYPE.FLOAT);
 		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
-		ap.parse(args);
+		try{
+			ap.parse(args);
+		}
+		catch(IncorrectDataTypeException ex){
+		
+		
+		}
 		
 			
 			
@@ -62,6 +77,7 @@ public class ArgumentParserKeywords {
     public String getPet(){
     	return ap.getValue("pet");
     }
+
     public String getNumber(){
     	return ap.getValue("number");
     }
@@ -103,23 +119,17 @@ public class ArgumentParserKeywords {
     	
     	}
     	
-    	else if(ap.isMissingArgumentWidthAndHeightMessageCalled()){
-    		return ap.missingArgumentWidthAndHeightMessage();
-    	}
-    	
-    	else if(ap.isMissingArgumentHeightMessageCalled()){
-    		return ap.missingArgumentHeightMessage();
-    	}
-    	
     	else if(ap.isUnrecognizedArgumentsMessageCalled()){
+    		return ap.unrecognizedArgumentsMessage(); 
     	
-    		return ap.unrecognizedArgumentsMessage();
     	}
     	
     	else if(ap.isIncorrectDataTypeMessageCalled()){
     		return ap.incorrectDataTypeMessage();
     	
     	}
+    	
+    	
     	
     	
    	 	
