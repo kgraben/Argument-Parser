@@ -31,7 +31,7 @@ public class ArgumentParserTest {
 
 
 	
-	@Test //(expected=MissingArgumentException.class)
+	@Test (expected=MissingArgumentException.class)
 	
 	public void testOnly1numberEntered(){
 		ap.addPositionalArgument("length");
@@ -39,29 +39,17 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height");
 		String[] data={"7"};
 		ap.parse(data);
-		//assertEquals(true, ap.isMissingArgumentWidthAndHeightMessageCalled());
-		assertEquals(true,ap.isMissingArgumentWidthAndHeightMessageCalled());
-		assertEquals(false,ap.isMissingArgumentHeightMessageCalled());
+
 	
 		
 	
 	
 	}
-	/*
-	@Test (expected=ArrayIndexOutOfBoundsException.class)
-	
-	public void testIfNonumberEntered(){
-		String[] data=new String[0];
-		ap.parse(data);
-		
-	
-	}
-	*/
-	
 
 
 
-	@Test //(expected=MissingArgumentException.class)
+
+	@Test (expected=MissingArgumentException.class)
 
 	public void testLessThan3NumbersEntered(){
 		ap.addPositionalArgument("length");
@@ -69,15 +57,13 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height");
 		String[] data= {"7","5"};
 		ap.parse(data);
-		assertEquals(true, ap.isMissingArgumentHeightMessageCalled());
-		assertEquals(false,ap.isMissingArgumentWidthAndHeightMessageCalled());
-		assertEquals(false,ap.isUnrecognizedArgumentsMessageCalled());
 		
 		
 	}
 
-	@Test //(expected=UnrecognizedArgumentsException.class)
+	@Test (expected=UnknownArgumentException.class)
 	public void testMoreThan3NumbersEntered(){
+		assertEquals(ap.isUnrecognizedArgumentsMessageCalled(),false);
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
@@ -103,8 +89,7 @@ public class ArgumentParserTest {
 		String[] data= {"7","5", "3"};
 		ap.parse(data);
 		assertEquals(ap.getValue("length"), "7");
-		assertEquals(false,ap.isHelpMessageCalled());
-	
+		
 	
 	
       }
@@ -114,7 +99,7 @@ public class ArgumentParserTest {
 	public void testHelpMessageCalled(){
 
 	
-		
+		assertEquals(ap.isHelpMessageCalled(),false);
 		String[] data= {"-h"};
 		ap.parse(data);
 		assertEquals(true, ap.isHelpMessageCalled());
@@ -122,6 +107,10 @@ public class ArgumentParserTest {
 	
 	
       }
+
+      
+      
+      
       
       
 
@@ -321,8 +310,9 @@ public class ArgumentParserTest {
     
     }
       
-     @Test //(expected=IncorrectDataTypeException.class)
+     @Test (expected=IncorrectDataTypeException.class)
     public void testInvalidDataTypeFloat(){
+    	assertEquals(false,ap.isIncorrectDataTypeMessageCalled());
     	ap.addPositionalArgument("length",Argument.DATATYPE.FLOAT);
 		ap.addPositionalArgument("width",Argument.DATATYPE.FLOAT);
 		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
@@ -333,32 +323,95 @@ public class ArgumentParserTest {
 
     }
     
-    @Test //(expected=IncorrectDataTypeException.class)
+    @Test (expected=IncorrectDataTypeException.class)
     public void testInvalidDataTypeInteger(){
     	ap.addPositionalArgument("length",Argument.DATATYPE.FLOAT);
 		ap.addPositionalArgument("width",Argument.DATATYPE.INT);
 		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
 		String[] data= {"7","something", "4"};
 		ap.parse(data);
-		assertEquals(true,ap.isIncorrectDataTypeMessageCalled());
+		
 		
 
     }
     
-     @Test //(expected=IncorrectDataTypeException.class)
+    @Test
+    public void testGetHelpMessageShortNameAnywhere(){
+    	ap.addPositionalArgument("length");
+		ap.addPositionalArgument("width");
+		ap.addPositionalArgument("height");
+		String[] data= {"7","5", "--h", "4"};
+		ap.parse(data);
+		assertEquals(ap.isHelpMessageCalled(),true);
+
+    }
+    
+      @Test
+    public void testGetHelpMessageLongNameAnywhere(){
+    	ap.addPositionalArgument("length");
+		ap.addPositionalArgument("width");
+		ap.addPositionalArgument("height");
+		String[] data= {"7","5", "--help", "4"};
+		ap.parse(data);
+		assertEquals(ap.isHelpMessageCalled(),true);
+
+    }
+    
+     @Test
+    public void testGetHelpMessageAnywhereWithNamedArguments(){
+    	ap.addPositionalArgument("length");
+		ap.addPositionalArgument("width");
+		ap.addPositionalArgument("height");
+		ap.addNamedArgument("Type");
+		ap.addNamedArgument("Digits");
+		String[] data= {"7","--Type","circle","5", "--h", "4","--Digits","2"};
+		ap.parse(data);
+		assertEquals(ap.isHelpMessageCalled(),true);
+
+    }
+    
+    
+    }
+	@Test
+	public void testFlagIsTrue(){				
+		ap.addPositionalArgument("length",Argument.DATATYPE.FLOAT);
+		ap.addPositionalArgument("width",Argument.DATATYPE.INT);
+		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
+		ap.addFlag("myarg");
+		
+		String[] data = {"7", "--myarg", "5", "3"};
+		ap.parse(data);
+		assertEquals(true, ap.getValue("flag")); 
+	}
+    
+    
+    
+    /*
+     @Test (expected=Exception.class)
     public void testInvalidDataTypeMessageFalse(){
     	ap.addPositionalArgument("length",Argument.DATATYPE.FLOAT);
 		ap.addPositionalArgument("width",Argument.DATATYPE.INT);
 		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
 		String[] data= {"7","5", "4"};
 		ap.parse(data);
-		assertEquals(false,ap.isIncorrectDataTypeMessageCalled());
+		//assertEquals(false,ap.isIncorrectDataTypeMessageCalled());
 		
 
     }
+   
     
+	@Test
+	public void testGetHelpAnyWhere(){
+		ap.addPositionalArgument("length");
+		ap.addPositionalArgument("width");
+		ap.addPositionalArgument("height");
+		String[] data={"7","--h","5","4"};
+		ap.parse(data);
+		assertTrue("hello");
+	}
     
-  
+     */
+
     
     
     
@@ -372,17 +425,6 @@ public class ArgumentParserTest {
 	
 	
 	
-	}
-	@Test
-	public void testFlagIsTrue(){				
-		ap.addPositionalArgument("length",Argument.DATATYPE.FLOAT);
-		ap.addPositionalArgument("width",Argument.DATATYPE.INT);
-		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
-		ap.addFlag("myarg");
-		
-		String[] data = {"7", "--myarg", "5", "3"};
-		ap.parse(data);
-		assertEquals(true, ap.getValue("flag")); 
 	}
 
 }
