@@ -67,6 +67,10 @@ public class ArgumentParser{
 		namedArguments.put(x,temp);
 	
 	}
+	// This is to make the unit test compile
+	public void addFlag(String flag){
+		addNamedArgument(flag);
+	}
 	
 	
 	
