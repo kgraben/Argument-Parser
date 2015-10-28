@@ -5,7 +5,7 @@ import java.io.*;
 
 
 public class Argument{
-	
+
 	private String positionalValue;
 	private String positionalName;
 	private String namedArgumentValue;
@@ -14,99 +14,71 @@ public class Argument{
 	private String unrecognizedArgument="";
 	private String type;
 	private String digit;
-	public enum DATATYPE{INT,FLOAT,BOOLEAN,STRING};
-    public DATATYPE data;
-	
-
-	
-	
+	private Type data;
+	public enum Type{INT,FLOAT,BOOLEAN,STRING};
+  
 	public Argument(){
-	
 		positionalValue="";
 		positionalName="";
 		namedArgumentValue="";
 		type="";
 		digit="";
-		data=DATATYPE.STRING;
+		data=Type.STRING;
 	}
-	
-	
-	
+
 	public void setPositionalValue(String s){
 		positionalValue=s;
-		
 	}
-	
+
 	public String getPositionalValue(){
-	
 		return positionalValue;
-	
 	}
-	
-	public void setDataType(DATATYPE T){
+
+	public void setType(Type T){
 		data=T;
-	
-	
 	}
-	
-	public DATATYPE getDataType(){
+
+	public Type getType(){
 		return data;
-	
 	}
-	
+
 	public void setPositionalName(String s){
 		positionalName=s;
-
 	}
+
 	public String getPositionalName(){
 		return positionalName;
-	
 	}
+
 	public void setnamedArgumentName(String s){
 		namedArgumentName=s;
-	
-	
 	}
+
 	public String getnamedArgumentName(){
 		return namedArgumentName;
-	
 	}
-	
+
 	public void setNamedArgumentValue(String s){
 		namedArgumentValue=s;
-	
-	
 	}
-	
-	
+
 	public String getNamedArgumentValue(){
 		return namedArgumentValue;
-	
 	}
-	
-	
-	public void setIncorrectDataType(String name){
+
+	public void setIncorrectType(String name){
 		incorrectArgument=name;
 	}
 
-	public String getIncorrectDataType(){
+	public String getIncorrectType(){
 		return incorrectArgument;
-	
 	}
-	
+
 	public void setUnrecognizedArgument(String name){
 		unrecognizedArgument=name;
 	}
 
 	public String getUnrecognizedArgument(){
 		return unrecognizedArgument;
-	
 	}
-	
-	
-
-
-
-
-
 }
