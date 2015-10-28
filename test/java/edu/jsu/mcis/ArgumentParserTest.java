@@ -61,9 +61,9 @@ public class ArgumentParserTest {
 		String[] data= {"7","5", "3"};
 		ap.parse(data);
 		assertEquals(ap.getValue("length"), "7");
-  }
+	}
 
-  @Test
+	@Test
 	public void testHelpMessageCalled(){
 		assertEquals(ap.isHelpMessageCalled(),false);
 		String[] data= {"-h"};
