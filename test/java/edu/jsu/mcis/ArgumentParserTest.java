@@ -69,7 +69,7 @@ public class ArgumentParserTest {
 		String[] data= {"-h"};
 		ap.parse(data);
 		assertEquals(true, ap.isHelpMessageCalled());
-  }
+	}
 
 	@Test
 	public void testGetDefaultType(){
@@ -80,7 +80,7 @@ public class ArgumentParserTest {
 		String[] data= {"7","5", "3"};
 		ap.parse(data);
 		assertEquals("Box", ap.getValue("Type"));
-  }
+	}
 
 	@Test
 	public void testGetType(){
@@ -178,7 +178,7 @@ public class ArgumentParserTest {
 
 	@Test
 	public void testTypeInt(){
-    ap.addPositionalArgument("length",Argument.Type.INT);
+		ap.addPositionalArgument("length",Argument.Type.INT);
 		ap.addPositionalArgument("width",Argument.Type.INT);
 		ap.addPositionalArgument("height",Argument.Type.INT);
 		String[] data= {"7","5", "3"};
@@ -189,7 +189,7 @@ public class ArgumentParserTest {
 
 	@Test
 	public void testTypeBoolean(){
-    ap.addPositionalArgument("length",Argument.Type.INT);
+		ap.addPositionalArgument("length",Argument.Type.INT);
 		ap.addPositionalArgument("Dog",Argument.Type.BOOLEAN);
 		ap.addPositionalArgument("height",Argument.Type.STRING);
 		String[] data= {"7","true", "3"};
@@ -200,7 +200,7 @@ public class ArgumentParserTest {
 
 	@Test
 	public void testTypeString(){
-    ap.addPositionalArgument("length",Argument.Type.INT);
+		ap.addPositionalArgument("length",Argument.Type.INT);
 		ap.addPositionalArgument("Dog",Argument.Type.STRING);
 		ap.addPositionalArgument("height",Argument.Type.FLOAT);
 		String[] data= {"7","true", "4.0"};
@@ -210,7 +210,7 @@ public class ArgumentParserTest {
 
 	@Test
 	public void testTypeFloat(){
-    ap.addPositionalArgument("length",Argument.Type.INT);
+		ap.addPositionalArgument("length",Argument.Type.INT);
 		ap.addPositionalArgument("Dog",Argument.Type.FLOAT);
 		ap.addPositionalArgument("height",Argument.Type.FLOAT);
 		String[] data= {"7","8", "4"};
@@ -221,8 +221,8 @@ public class ArgumentParserTest {
 
 	@Test (expected=IncorrectTypeException.class)
 	public void testInvalidTypeFloat(){
-    assertEquals(false,ap.isIncorrectTypeMessageCalled());
-    ap.addPositionalArgument("length",Argument.Type.FLOAT);
+		assertEquals(false,ap.isIncorrectTypeMessageCalled());
+		ap.addPositionalArgument("length",Argument.Type.FLOAT);
 		ap.addPositionalArgument("width",Argument.Type.FLOAT);
 		ap.addPositionalArgument("height",Argument.Type.FLOAT);
 		String[] data= {"7","something", "4"};
@@ -232,7 +232,7 @@ public class ArgumentParserTest {
 
 	@Test (expected=IncorrectTypeException.class)
 	public void testInvalidTypeInteger(){
-    ap.addPositionalArgument("length",Argument.Type.FLOAT);
+		ap.addPositionalArgument("length",Argument.Type.FLOAT);
 		ap.addPositionalArgument("width",Argument.Type.INT);
 		ap.addPositionalArgument("height",Argument.Type.FLOAT);
 		String[] data= {"7","something", "4"};
@@ -241,7 +241,7 @@ public class ArgumentParserTest {
 
 	@Test
 	public void testGetHelpMessageShortNameAnywhere(){
-    ap.addPositionalArgument("length");
+		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
 		String[] data= {"7","5", "--h", "4"};
@@ -251,7 +251,7 @@ public class ArgumentParserTest {
 
 	@Test
 	public void testGetHelpMessageLongNameAnywhere(){
-    ap.addPositionalArgument("length");
+		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
 		String[] data= {"7","5", "--help", "4"};
@@ -261,7 +261,7 @@ public class ArgumentParserTest {
 
 	@Test
 	public void testGetHelpMessageAnywhereWithNamedArguments(){
-    ap.addPositionalArgument("length");
+		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
 		ap.addNamedArgument("Type");
