@@ -371,7 +371,7 @@ public class ArgumentParserTest {
     }
     
     
-    }
+    
 	@Test
 	public void testFlagIsTrue(){				
 		ap.addPositionalArgument("length",Argument.DATATYPE.FLOAT);
@@ -383,6 +383,42 @@ public class ArgumentParserTest {
 		ap.parse(data);
 		assertEquals(true, ap.getValue("flag")); 
 	}
+	
+	
+	
+	
+	@Test
+	public void testShortNamedArgument(){
+		ap.addPositionalArgument("length");
+		ap.addPositionalArgument("width");
+		ap.addPositionalArgument("height");
+		ap.addNamedArgument("Type");
+		ap.addNamedArgument("Digits");
+		String[] data= {"7","-t","circle","5", "4","--Digits","2"};
+		ap.parse(data);
+		assertEquals("circle",ap.getValue("Type"));
+	
+	
+	
+	}
+	
+	
+	
+	@Test
+	public void testShortNamedColorArgument(){
+		ap.addPositionalArgument("length");
+		ap.addPositionalArgument("width");
+		ap.addPositionalArgument("height");
+		ap.addNamedArgument("color");
+		ap.addNamedArgument("Digits");
+		String[] data= {"7","-c","red","5", "4","--Digits","2"};
+		ap.parse(data);
+		assertEquals("red",ap.getValue("color"));
+	
+	
+	
+	}
+    
     
     
     
