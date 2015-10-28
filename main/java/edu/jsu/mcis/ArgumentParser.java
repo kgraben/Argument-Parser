@@ -64,6 +64,7 @@ public class ArgumentParser{
 	public void addNamedArgument(String x){
 		Argument temp = new Argument();
 		temp.setnamedArgumentName(x);
+		temp.setShortName(x.charAt(0));
 		namedArguments.put(x,temp);
 	
 	}
@@ -107,17 +108,19 @@ public class ArgumentParser{
 	
 	public void matchNamedArguments(){
 	
+		
+	
 		for(String s: namedArguments.keySet()){
 			Argument temp=namedArguments.get(s);
 			
-				if(temp.getnamedArgumentName()=="Type"){
+				if(temp.getnamedArgumentName()=="Type"  && !userNamedArguments.contains("t")){
 					String box="Box";
 					temp.setNamedArgumentValue(box);
 					namedArguments.put(s,temp);
 			
 				}
 			
-				else if(temp.getnamedArgumentName()=="Digits"){
+				else if(temp.getnamedArgumentName()=="Digits" && !userNamedArguments.contains("d")){
 					String digit="4";
 					temp.setNamedArgumentValue(digit);
 					namedArguments.put(s,temp);
@@ -142,11 +145,18 @@ public class ArgumentParser{
 					for(int i=0; i < userNamedArguments.size(); i+=2){
 						Argument temp2=new Argument();
 						if((i % 2==0) && (j % 2==1)){
+							temp2.setnamedArgumentName(userNamedArguments.get(i));
+							temp2.setShortName(userNamedArguments.get(i).charAt(0));
 							temp2.setNamedArgumentValue(userNamedArguments.get(j));
+							System.out.println(userNamedArguments.get(i));
 							namedArguments.put(userNamedArguments.get(i),temp2);
 							j+=2;
+						
 						}
+						
 					}
+					
+					
 					
 					
 				
@@ -339,12 +349,35 @@ public class ArgumentParser{
    			else{
    				return (T) new String(temp.getPositionalValue());
    			}
+   			
+   		
+   				
    		}
    		
+   		
+   			
+   			for(int i=0; i < userNamedArguments.size(); i++){
+   				if(userNamedArguments.get(i).equals(name.substring(0,1).toLowerCase()) || userNamedArguments.get(i).equals(name.substring(0,1))){
+   				
+   					return (T) new String(userNamedArguments.get(i+1));
+   				
+   				}
+   			}
+   			
+   			
+   		
+   		
+   			
    			
    			Argument temp= new Argument();
    			temp=namedArguments.get(name);
    			return (T) temp.getNamedArgumentValue();
+   			
+   			
+   			
+   			
+   			
+   			
    		
    		
    		}
