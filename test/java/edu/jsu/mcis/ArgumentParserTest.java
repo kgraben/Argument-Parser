@@ -7,7 +7,7 @@ import edu.jsu.mcis.*;
 
 public class ArgumentParserTest {
 
-	private ArgumentParser ap;
+	public ArgumentParser ap;
 
 	@Before
 	public void startUp(){
@@ -219,7 +219,7 @@ public class ArgumentParserTest {
 		assertEquals(ap.getValue("Dog"), number);
 	}
 
-	@Test (expected=IncorrectTypeException.class)
+	@Test (expected=IncorrectDataTypeException.class)
 	public void testInvalidTypeFloat(){
 		assertEquals(false,ap.isIncorrectTypeMessageCalled());
 		ap.addPositionalArgument("length",Argument.Type.FLOAT);
@@ -230,7 +230,7 @@ public class ArgumentParserTest {
 		assertEquals(true,ap.isIncorrectTypeMessageCalled());
 	}
 
-	@Test (expected=IncorrectTypeException.class)
+	@Test (expected=IncorrectDataTypeException.class)
 	public void testInvalidTypeInteger(){
 		ap.addPositionalArgument("length",Argument.Type.FLOAT);
 		ap.addPositionalArgument("width",Argument.Type.INT);
