@@ -16,18 +16,17 @@ import java.io.*;
 public class ArgumentParser{
 
 	
-	private LinkedHashMap<String,Argument> positionalArguments;
-	private LinkedHashMap<String,Argument> namedArguments;
-	private ArrayList<String> userPositionalArguments; //ex. user types in 7 5 3. goes into array like. < 7, 5, 2>;
-	private ArrayList<String> userNamedArguments; //ex. user types in --Type Box --Digits 1. goes into array like. <--Type,Box,--Digits,1>;
-    private Argument argument;
+	private Map<String,Argument> positionalArguments;
+	private Map<String,Argument> namedArguments;
+	private List<String> userPositionalArguments; //ex. user types in 7 5 3. goes into array like. < 7, 5, 2>;
+	private List<String> userNamedArguments; //ex. user types in --Type Box --Digits 1. goes into array like. <--Type,Box,--Digits,1>;
     private int helpMessage; //To check the amount of times the method getHelpMessage is called.
     private int missingArgumentHeightMessage;
     private int missingArgumentWidthAndHeightMessage;
     private int unrecognizedArgumentsMessage;
     private int incorrectDataTypeMessage;
     private String name;
-    //private UserArgumentException temp; 
+  
 	
 	public ArgumentParser(){
 		namedArguments=new LinkedHashMap<String,Argument>();
@@ -64,10 +63,16 @@ public class ArgumentParser{
 	public void addNamedArgument(String x){
 		Argument temp = new Argument();
 		temp.setnamedArgumentName(x);
-		temp.setShortName(x.charAt(0));
 		namedArguments.put(x,temp);
 	
 	}
+	
+	
+	public void addProgramName(String program){
+		Argument temp= new Argument();
+		temp.setProgramName(program);
+	}
+	
 	// This is to make the unit test compile
 	public void addFlag(String flag){
 		addNamedArgument(flag);
@@ -80,25 +85,16 @@ public class ArgumentParser{
 		
 		if(userPositionalArguments.size()==1 && (!userPositionalArguments.contains("--h") && !userPositionalArguments.contains("-h"))){
 				throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
-			
-			
-			
-		}
-		
-		
-			
+		}	
 		else if(userPositionalArguments.size()==2){
 			throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
+		
 		}
 		else if(userPositionalArguments.size()>positionalArguments.size()){
-			unrecognizedArgumentsMessage++;
-			//unrecognizedArgumentsMessage();
-				for(int m=3; m < userPositionalArguments.size(); m++){
+			for(int m=3; m < userPositionalArguments.size(); m++){
 					Argument temp= new Argument();
-					temp.setUnrecognizedArgument(userPositionalArguments.get(m));	
-					
+					temp.setUnrecognizedArgument(userPositionalArguments.get(m));
 					throw new UnknownArgumentException("usage: java VolumeCalculator length width height" + "\n" + "VolumeCalcultor.java: error: unrecognized arguments: " + temp.getUnrecognizedArgument());
-				   
 				}
 				
 		 }
@@ -127,17 +123,6 @@ public class ArgumentParser{
 				}
 			}
 		
-			
-			
-			
-			
-			
-		
-		
-				
-			
-			
-		
 				//Nested loop is not matching the named arguments right??? Need help
 				//<color,blue,type,box,pizza,cheese>
 				//Got it fixed @2:24am. Only problem now is the acceptance test. 
@@ -160,20 +145,6 @@ public class ArgumentParser{
 					
 					
 				
-					
-					
-					
-				
-			
-			
-			
-			
-			
-		
-	
-	
-	
-	
 	}
 
 	
@@ -195,11 +166,9 @@ public class ArgumentParser{
 							try{
 							
 								Integer.parseInt(temp.getPositionalValue());
-								//intArguments.put(s,argument.getPositionalValue());
+								
 							}
 							catch(NumberFormatException ex){
-								//UserArgumentException temp=new UserArgumentException();
-								//incorrectDataTypeMessage();
 								incorrectDataTypeMessage++;
 								temp.setIncorrectDataType(temp.getPositionalValue());
 								setIncorrectDataTypeMessage(temp.getIncorrectDataType());
@@ -215,12 +184,11 @@ public class ArgumentParser{
 							try{
 							
 								Float.parseFloat(temp.getPositionalValue());
-								//floatArguments.put(s,argument.getPositionalValue());
+								
 							
 							}
 							catch(NumberFormatException ex){
-								//UserArgumentException temp=new UserArgumentException();
-								//incorrectDataTypeMessage();
+								
 								incorrectDataTypeMessage++;
 								temp.setIncorrectDataType(temp.getPositionalValue());
 								setIncorrectDataTypeMessage(temp.getIncorrectDataType());
@@ -232,13 +200,12 @@ public class ArgumentParser{
 							
 						else if(temp.getDataType()==Argument.DATATYPE.BOOLEAN){
 							temp.setPositionalValue(userPositionalArguments.get(i));
-							//booleanArguments.put(s,argument.getPositionalArg());
+							
 							i++;
 						}
 						
 						else{
 							temp.setPositionalValue(userPositionalArguments.get(i));
-							//stringArguments.put(s,argument.getPositionalArg());
 							i++;
 						}
 					
@@ -272,55 +239,20 @@ public class ArgumentParser{
 				//System.out.println(userPositionalArguments);
 				
 		}
-		
-		
-			for(int j=0; j < userPositionalArguments.size(); j++){
-		
-				int k=0;
-	
-		
-				//finally got it working(11:45am). just changed if statement to while. Also I put the user arguments into an arraylist first.
-				while(userPositionalArguments.get(j).charAt(k)=='-'){
-		
-				
-					userNamedArguments.add(userPositionalArguments.get(j).substring(userPositionalArguments.get(j).lastIndexOf("-")+1));
-					userNamedArguments.add(userPositionalArguments.get(j+1));
-					userPositionalArguments.remove(userPositionalArguments.get(j+1));
-					userPositionalArguments.remove(userPositionalArguments.get(j));
-					j=0;
-				
-			
-			
-			
+		for(int j=0; j < userPositionalArguments.size(); j++){
+			int k=0;
+			//finally got it working(11:45am). just changed if statement to while. Also I put the user arguments into an arraylist first.
+			while(userPositionalArguments.get(j).charAt(k)=='-'){
+				userNamedArguments.add(userPositionalArguments.get(j).substring(userPositionalArguments.get(j).lastIndexOf("-")+1));
+				userNamedArguments.add(userPositionalArguments.get(j+1));
+				userPositionalArguments.remove(userPositionalArguments.get(j+1));
+				userPositionalArguments.remove(userPositionalArguments.get(j));
+				j=0;
 			}
-		
-			
-		
-	
-	}
-	
-		
-		
-		
-
-		
+		}
 		checkUserInputSize();
 		matchPositionalArguments();
-		matchNamedArguments();
-		
-			
-	
-	
-		
-		
-			
-		
-		
-		
-		
-		
-	
-				
+		matchNamedArguments();			
 	}
 			
 	
@@ -353,34 +285,17 @@ public class ArgumentParser{
    		
    				
    		}
-   		
-   		
-   			
-   			for(int i=0; i < userNamedArguments.size(); i++){
-   				if(userNamedArguments.get(i).equals(name.substring(0,1).toLowerCase()) || userNamedArguments.get(i).equals(name.substring(0,1))){
+   		for(int i=0; i < userNamedArguments.size(); i++){
+   			if(userNamedArguments.get(i).equals(name.substring(0,1).toLowerCase()) || userNamedArguments.get(i).equals(name.substring(0,1))){
    				
-   					return (T) new String(userNamedArguments.get(i+1));
+   				return (T) new String(userNamedArguments.get(i+1));
    				
-   				}
    			}
-   			
-   			
-   		
-   		
-   			
-   			
-   			Argument temp= new Argument();
-   			temp=namedArguments.get(name);
-   			return (T) temp.getNamedArgumentValue();
-   			
-   			
-   			
-   			
-   			
-   			
-   		
-   		
    		}
+   		Argument temp= new Argument();
+   		temp=namedArguments.get(name);
+   		return (T) temp.getNamedArgumentValue();
+   	}
    		
    
    			
@@ -453,6 +368,10 @@ public class ArgumentParser{
    			return false;
    	
    	}
+   	
+   	
+   	
+   	
    	
    
    	
