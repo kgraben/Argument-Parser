@@ -12,6 +12,14 @@ import java.io.*;
 
 public class ArgumentParser{
 
+	/*We have it to where programName and programDescription are saved
+	and work. We now need a for loop to get it to print the missing arguments.
+
+	we also need boolean values instead of int values for the is helpmessage called,
+	etc.
+
+	*/
+
 
     private Map<String,Argument> positionalArguments;
     private Map<String,Argument> namedArguments;
@@ -61,7 +69,7 @@ public class ArgumentParser{
 		temp.setnamedArgumentName(x);
 		namedArguments.put(x,temp);
 	}
-	
+
 	//this needs to take a boolean and set the flag to true
 	public void addFlag(String flag){
 		addNamedArgument(flag);
