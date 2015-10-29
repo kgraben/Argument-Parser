@@ -3,11 +3,7 @@ import edu.jsu.mcis.*;
 
 
 public class ArgumentParserKeywords {
-   private ArgumentParser ap;
- 
-
-	
-    
+	private ArgumentParser ap;
     
     public void StartVolumeCalculatorWithArguments(String[] args) throws UnknownArgumentException{
     	ap=new ArgumentParser();
@@ -19,11 +15,9 @@ public class ArgumentParserKeywords {
 		try{
 			ap.parse(args);
 		}
-		catch(UnknownArgumentException ex){
+		catch(UnknownArgumentException ex){			
 			
-			
-		}
-				
+		}				
     }
     
   
@@ -34,7 +28,6 @@ public class ArgumentParserKeywords {
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
 		ap.parse(args);
-	
     }
     
     public void StartProgramWithArguments(String[] args){
@@ -42,8 +35,7 @@ public class ArgumentParserKeywords {
     	ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-    	ap.parse(args);
-    	
+    	ap.parse(args);	
     }
     
     public void StartAbsurdProgramWithArguments(String[] args){
@@ -52,8 +44,7 @@ public class ArgumentParserKeywords {
 		ap.addPositionalArgument("number");
 		ap.addPositionalArgument("rainy");
 		ap.addPositionalArgument("bathrooms");
-		ap.parse(args);
-		
+		ap.parse(args);	
 	} 
 	
    	public void StartProgramWithDataTypeArguments(String[] args) throws IncorrectDataTypeException{
@@ -67,12 +58,8 @@ public class ArgumentParserKeywords {
 		catch(IncorrectDataTypeException ex){
 		
 		
-		}
-		
-			
-			
+		}	
     }
-    
     
     public String getPet(){
     	return ap.getValue("pet");
@@ -92,7 +79,6 @@ public class ArgumentParserKeywords {
     	
     public String getLength(){
     	return ap.getValue("length") + "";
-    
     }
     public String getWidth(){
     	return   ap.getValue("width") + "";
@@ -103,49 +89,29 @@ public class ArgumentParserKeywords {
     
     public String getType(){
     	return ap.getValue("Type");
-    
     } 
-    public String getDigits(){
+    
+	public String getDigits(){
     	return ap.getValue("Digits");
-    
     }
-    
-   
-    	
     	
     public String getProgramOutput(){
     	if(ap.isHelpMessageCalled()){
     		return ap.getHelpMessage();
-    	
     	}
-    	
     	else if(ap.isUnrecognizedArgumentsMessageCalled()){
     		return ap.unrecognizedArgumentsMessage(); 
-    	
     	}
     	
     	else if(ap.isIncorrectDataTypeMessageCalled()){
     		return ap.incorrectDataTypeMessage();
-    	
     	}
-    	
-    	
-    	
-    	
-   	 	
+
     	int sum;
     	int i =  Integer.parseInt(getLength());
     	int z = Integer.parseInt(getWidth());
     	int k = Integer.parseInt(getHeight());
 		sum=i*z*k;
     	return Integer.toString(sum);
-   		
-
-  
-  
-    
 	}
-
-
-
 }

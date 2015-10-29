@@ -16,13 +16,13 @@ public class ArgumentParser{
 	private LinkedHashMap<String,Argument> namedArguments;
 	private ArrayList<String> userPositionalArguments;
 	private ArrayList<String> userNamedArguments;
-  private Argument argument;
-  private int helpMessage;
-  private int missingArgumentHeightMessage;
-  private int missingArgumentWidthAndHeightMessage;
-  private int unrecognizedArgumentsMessage;
-  private int incorrectTypeMessage;
-  private String name;
+	private Argument argument;
+	private int helpMessage;
+	private int missingArgumentHeightMessage;
+	private int missingArgumentWidthAndHeightMessage;
+	private int unrecognizedArgumentsMessage;
+	private int incorrectTypeMessage;
+	private String name;
 
 	public ArgumentParser(){
 		namedArguments=new LinkedHashMap<String,Argument>();
@@ -56,6 +56,7 @@ public class ArgumentParser{
 		temp.setnamedArgumentName(x);
 		namedArguments.put(x,temp);
 	}
+	
 	//this needs to take a boolean and set the flag to true
 	public void addFlag(String flag){
 		addNamedArgument(flag);
@@ -65,11 +66,9 @@ public class ArgumentParser{
 		if(userPositionalArguments.size()==1 && (!userPositionalArguments.contains("--h") && !userPositionalArguments.contains("-h"))){
 				throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
 		}
-
 		else if(userPositionalArguments.size()==2){
 			throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
 		}
-
 		else if(userPositionalArguments.size()>positionalArguments.size()){
 				for(int m=3; m < userPositionalArguments.size(); m++){
 					Argument temp= new Argument();
@@ -86,9 +85,7 @@ public class ArgumentParser{
 				String box="Box";
 				temp.setNamedArgumentValue(box);
 				namedArguments.put(s,temp);
-
 			}
-
 			else if(temp.getnamedArgumentName()=="Digits" && !userNamedArguments.contains("d")){
 				String digit="4";
 				temp.setNamedArgumentValue(digit);
@@ -126,7 +123,6 @@ public class ArgumentParser{
 					}
 					i++;
 				}
-
 				else if(temp.getType()==Argument.Type.FLOAT){
 					temp.setPositionalValue(userPositionalArguments.get(i));
 					try {
@@ -140,7 +136,6 @@ public class ArgumentParser{
 					}
 					i++;
 				}
-
 				else if(temp.getType()==Argument.Type.BOOLEAN){
 					temp.setPositionalValue(userPositionalArguments.get(i));
 					i++;
@@ -164,7 +159,6 @@ public class ArgumentParser{
 				userPositionalArguments.remove("--help");
 				userPositionalArguments.remove("-h");
 		}
-
 		for(int j=0; j < userPositionalArguments.size(); j++){
 			int k=0;
 			while(userPositionalArguments.get(j).charAt(k)=='-'){
@@ -181,7 +175,7 @@ public class ArgumentParser{
 	}
 
 	@SuppressWarnings("unchecked")
-  public <T> T getValue(String name){
+	public <T> T getValue(String name){
 		if(positionalArguments.get(name) != null){
 			Argument temp=new Argument();
 			temp= positionalArguments.get(name);
@@ -189,12 +183,10 @@ public class ArgumentParser{
 				int num=Integer.parseInt(temp.getPositionalValue());
 				return (T) new Integer (num);
 			}
-
 			else if(temp.getType()==Argument.Type.FLOAT){
 				float num=Float.parseFloat(temp.getPositionalValue());
 				return (T) new Float (num);
 			}
-
 			else if(temp.getType()==Argument.Type.BOOLEAN){
 				boolean num=Boolean.parseBoolean(temp.getPositionalValue());
 				return (T) Boolean.valueOf(num);
@@ -203,7 +195,6 @@ public class ArgumentParser{
 				return (T) new String(temp.getPositionalValue());
 			}
 		}
-
 		for(int i=0; i < userNamedArguments.size(); i++){
 			if(userNamedArguments.get(i).equals(name.substring(0,1).toLowerCase()) || userNamedArguments.get(i).equals(name.substring(0,1))){
 				return (T) new String(userNamedArguments.get(i+1));
@@ -224,7 +215,6 @@ public class ArgumentParser{
 
  	private String unrecognizedArgumentsMessage(){
  		return "usage: java VolumeCalculator length width height" + "\n" + "VolumeCalcultor.java: error: unrecognized arguments: " + userPositionalArguments.get(3);
-
  	}
 
  	private void setIncorrectTypeMessage(String s){
@@ -243,8 +233,7 @@ public class ArgumentParser{
  		if(helpMessage>0){
  			return true;
  		}
- 		else
- 			return false;
+ 		else return false;
  	}
 
  	private boolean isUnrecognizedArgumentsMessageCalled(){
