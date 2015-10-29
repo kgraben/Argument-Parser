@@ -4,7 +4,7 @@ import edu.jsu.mcis.*;
 
 public class ArgumentParserKeywords {
    private ArgumentParser ap;
- 
+ 	private String output;
 
 	
     
@@ -18,10 +18,17 @@ public class ArgumentParserKeywords {
 		ap.addNamedArgument("Digits");
 		try{
 			ap.parse(args);
+			float width = ap.getValue("width");
+			float height = ap.getValue("height");
+			float length = ap.getValue("length");
+			output = String.valueOf(width * length * height);	
 		}
 		catch(UnknownArgumentException ex){
+			output = ex.getMessage();
 			
-			
+		}
+		catch(IncorrectDataTypeException ex) {
+			output = ex.getMessage();
 		}
 				
     }
@@ -114,6 +121,8 @@ public class ArgumentParserKeywords {
     	
     	
     public String getProgramOutput(){
+    	return output;
+    	/*
     	if(ap.isHelpMessageCalled()){
     		return ap.getHelpMessage();
     	
@@ -139,7 +148,7 @@ public class ArgumentParserKeywords {
     	int k = Integer.parseInt(getHeight());
 		sum=i*z*k;
     	return Integer.toString(sum);
-   		
+   		*/
 
   
   
