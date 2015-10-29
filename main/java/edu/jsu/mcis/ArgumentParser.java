@@ -73,7 +73,7 @@ public class ArgumentParser{
 	}
 
 	//this needs to take a boolean and set the flag to true
-	public void addFlag(String flag){
+	private void addFlag(String flag){
 		addNamedArgument(flag);
 	}
 
@@ -221,23 +221,23 @@ public class ArgumentParser{
 		return (T) temp.getNamedArgumentValue();
 	}
 
- 	public int getSizeOfHashMap(){
+ 	protected int getSizeOfHashMap(){
  		return positionalArguments.size();
  	}
 
-	public String getProgramName(){
+	protected String getProgramName(){
 		return programName;
 	}
 
-	public void assignProgramName(String name){
+	protected void assignProgramName(String name){
 		programName = name;
 	}
 
-	public void assignProgramDescription(String description) {
+	protected void assignProgramDescription(String description) {
 		programDescription = description;
 	}
 
-	public String getProgramDescription() {
+	protected String getProgramDescription() {
 		return programDescription;
 	}
 
@@ -257,7 +257,7 @@ public class ArgumentParser{
  		return name;
  	}
 
- 	private String incorrectTypeMessage(){
+ 	protected String incorrectTypeMessage(){
  		return "usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: argument width: invalid float value: " + getIncorrectTypeMessage();
  	}
 
@@ -273,7 +273,7 @@ public class ArgumentParser{
  		else return false;
  	}
 
- 	public boolean isIncorrectTypeMessageCalled(){
+ 	protected boolean isIncorrectTypeMessageCalled(){
 
  		if(incorrectTypeMessage>0){
  			return true;

@@ -20,8 +20,6 @@ public class ArgumentParserKeywords {
 		}				
     }
     
-  
-    
     public void StartVolumeCalculatorWithUserArguments(String[] args){
     	ap=new ArgumentParser();
     	ap.addPositionalArgument("length");
@@ -47,9 +45,9 @@ public class ArgumentParserKeywords {
 		ap.parse(args);	
 	} 
 	
-   	public void StartProgramWithDataTypeArguments(String[] args) throws IncorrectDataTypeException{
-    	ap=new ArgumentParser();
-    	ap.addPositionalArgument("length",Argument.DATATYPE.FLOAT);
+	public void StartProgramWithDataTypeArguments(String[] args) throws IncorrectDataTypeException{
+		ap=new ArgumentParser();
+		ap.addPositionalArgument("length",Argument.DATATYPE.FLOAT);
 		ap.addPositionalArgument("width", Argument.DATATYPE.FLOAT);
 		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
 		try{
@@ -57,9 +55,8 @@ public class ArgumentParserKeywords {
 		}
 		catch(IncorrectDataTypeException ex){
 		
-		
 		}	
-    }
+	}
     
     public String getPet(){
     	return ap.getValue("pet");
@@ -95,7 +92,7 @@ public class ArgumentParserKeywords {
     	return ap.getValue("Digits");
     }
     	
-    public String getProgramOutput(){
+	public String getProgramOutput(){
     	if(ap.isHelpMessageCalled()){
     		return ap.getHelpMessage();
     	}
