@@ -10,8 +10,10 @@ public class Argument{
 	private String positionalName;
 	private String namedArgumentValue;
 	private String namedArgumentName;
+	private char shortNamedArgument;
 	private String incorrectArgument="";
 	private String unrecognizedArgument="";
+	private String program;
 	private String type;
 	private String digit;
 	public enum DATATYPE{INT,FLOAT,BOOLEAN,STRING};
@@ -25,6 +27,8 @@ public class Argument{
 		positionalValue="";
 		positionalName="";
 		namedArgumentValue="";
+		program="";
+		shortNamedArgument=0;
 		type="";
 		digit="";
 		data=DATATYPE.STRING;
@@ -79,8 +83,28 @@ public class Argument{
 	}
 	
 	
+	
+	
 	public String getNamedArgumentValue(){
 		return namedArgumentValue;
+	
+	}
+	
+	public void setProgramName(String program){
+		program=this.program;
+	}
+	
+	public String getProgramName(){
+		return program;
+	}
+	
+	
+	public void setShortName(char letter){
+		shortNamedArgument=letter;
+	}
+	
+	public char getShortName(){
+		return shortNamedArgument;
 	
 	}
 	
