@@ -245,7 +245,7 @@ public class ArgumentParser{
  		return "usage: java " + getProgramName() + " length width height" + "\n" + getProgramDescription() + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)";
  	}
 
- 	public String unrecognizedArgumentsMessage(){
+ 	private String unrecognizedArgumentsMessage(){
  		return "usage: java " + getProgramName() + " length width height" + "\n" + "VolumeCalcultor.java: error: unrecognized arguments: " + userPositionalArguments.get(3);
  	}
 
@@ -260,26 +260,4 @@ public class ArgumentParser{
  	public String incorrectTypeMessage(){
  		return "usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: argument width: invalid float value: " + getIncorrectTypeMessage();
  	}
-
- 	public boolean isHelpMessageCalled(){
- 		return helpMessageCalled;
- 	}
-
- 	public boolean isUnrecognizedArgumentsMessageCalled(){
-
- 		if(unrecognizedArgumentsMessage>0){
- 			return true;
- 		}
- 		else return false;
- 	}
-
- 	public boolean isIncorrectTypeMessageCalled(){
-
- 		if(incorrectTypeMessage>0){
- 			return true;
- 		}
- 		else return false;
- 	}
 }
-
-
