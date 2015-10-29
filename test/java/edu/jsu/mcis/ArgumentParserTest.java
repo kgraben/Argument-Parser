@@ -7,8 +7,7 @@ import edu.jsu.mcis.*;
 
 public class ArgumentParserTest {
 
-	private ArgumentParser ap;
-	
+	public ArgumentParser ap;
 
 	@Before
 	public void startUp(){
@@ -16,8 +15,9 @@ public class ArgumentParserTest {
 	}
 
 	@Test
-
 	public void testOnly3numbersEntered(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
@@ -26,102 +26,67 @@ public class ArgumentParserTest {
 		assertEquals(3,ap.getSizeOfHashMap());
 	}
 
-
-
-
-
-
-
 	@Test (expected=MissingArgumentException.class)
-
 	public void testOnly1numberEntered(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
 		String[] data={"7"};
 		ap.parse(data);
-
-
-
-
-
 	}
 
-
-
-
 	@Test (expected=MissingArgumentException.class)
-
 	public void testLessThan3NumbersEntered(){
-		assertEquals(false,ap.isMissingArgumentCalled());
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
 		String[] data= {"7","5"};
 		ap.parse(data);
-		//assertEquals(true,ap.isMissingArgumentCalled());
-
-
 	}
 
 	@Test (expected=UnknownArgumentException.class)
 	public void testMoreThan3NumbersEntered(){
-		//assertEquals(ap.isUnrecognizedArgumentsMessageCalled(),false);
+		assertEquals(ap.isUnrecognizedArgumentsMessageCalled(),false);
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
 		String[] data= {"7","5", "3", "7"};
 		ap.parse(data);
-		//assertEquals(true,ap.isUnrecognizedArgumentsMessageCalled());
-
-
+		assertEquals(true,ap.isUnrecognizedArgumentsMessageCalled());
 	}
 
-
-
-
-
 	@Test
-
 	public void testGetLength(){
-
-
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
 		String[] data= {"7","5", "3"};
 		ap.parse(data);
 		assertEquals(ap.getValue("length"), "7");
-
-
-
-      }
-
-      @Test
-
-	public void testHelpMessageCalled(){
-
-
-		//assertEquals(ap.isHelpMessageCalled(),false);
-		String[] data= {"-h"};
-		ap.parse(data);
-		//assertEquals(true, ap.isHelpMessageCalled());
-
-
-
-      }
-
-
-
-
-
-
+	}
 
 	@Test
+	public void testHelpMessageCalled(){
+		assertEquals(ap.isHelpMessageCalled(),false);
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
+		String[] data= {"-h"};
+		ap.parse(data);
+		assertEquals(true, ap.isHelpMessageCalled());
+	}
 
+	@Test
 	public void testGetDefaultType(){
-
-
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
@@ -129,16 +94,12 @@ public class ArgumentParserTest {
 		String[] data= {"7","5", "3"};
 		ap.parse(data);
 		assertEquals("Box", ap.getValue("Type"));
+	}
 
-      }
-
-
-
-
-    @Test
+	@Test
 	public void testGetType(){
-
-
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
@@ -146,13 +107,12 @@ public class ArgumentParserTest {
 		String[] data= {"7","5", "3", "--Type","circle"};
 		ap.parse(data);
 		assertEquals("circle", ap.getValue("Type"));
+	}
 
-      }
-
-       @Test
-		public void testGetColor(){
-
-
+	@Test
+	public void testGetColor(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
@@ -161,13 +121,12 @@ public class ArgumentParserTest {
 		String[] data= {"7","5", "3", "--Type","circle","--Color","Blue"};
 		ap.parse(data);
 		assertEquals("Blue", ap.getValue("Color"));
+	}
 
-      }
-
-     @Test
-		public void testGetPizza(){
-
-
+	@Test
+	public void testGetPizza(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
@@ -176,13 +135,12 @@ public class ArgumentParserTest {
 		String[] data= {"7","5", "3", "--Pizza","cheese","--Color","Blue"};
 		ap.parse(data);
 		assertEquals("cheese", ap.getValue("Pizza"));
+	}
 
-      }
-
-    	@Test
-		public void testGetDigit(){
-
-
+	@Test
+	public void testGetDigit(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
@@ -191,14 +149,12 @@ public class ArgumentParserTest {
 		String[] data= {"7","5", "3", "--Type","circle","--Digits","1"};
 		ap.parse(data);
 		assertEquals("1", ap.getValue("Digits"));
+	}
 
-      }
-
-
-      @Test
-		public void testGetTypeAnywhere(){
-
-
+	@Test
+	public void testGetTypeAnywhere(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
@@ -207,11 +163,12 @@ public class ArgumentParserTest {
 		String[] data= {"--Type","circle","7","5","--Digits","4","3"};
 		ap.parse(data);
 		assertEquals("circle", ap.getValue("Type"));
+	}
 
-      }
-
-       @Test
-		public void testGetDigitsAnywhere(){
+	@Test
+	public void testGetDigitsAnywhere(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
@@ -220,11 +177,12 @@ public class ArgumentParserTest {
 		String[] data= {"--Type","circle","2","5","--Digits","7","3"};
 		ap.parse(data);
 		assertEquals("7", ap.getValue("Digits"));
+	}
 
-      }
-
-        @Test
-		public void testGetLengthAnywhere(){
+	@Test
+	public void testGetLengthAnywhere(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
@@ -233,17 +191,12 @@ public class ArgumentParserTest {
 		String[] data= {"--Type","circle","2","5","--Digits","7","3"};
 		ap.parse(data);
 		assertEquals("2", ap.getValue("length"));
+	}
 
-      }
-
-
-
-
-    @Test
-
+	@Test
 	public void testGetDigits(){
-
-
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
@@ -251,145 +204,125 @@ public class ArgumentParserTest {
 		String[] data= {"7","5", "3"};
 		ap.parse(data);
 		assertEquals("4", ap.getValue("Digits"));
+	}
 
-      }
-
-
-    @Test
-    public void testDataTypeInt(){
-    	ap.addPositionalArgument("length",Argument.DATATYPE.INT);
-		ap.addPositionalArgument("width",Argument.DATATYPE.INT);
-		ap.addPositionalArgument("height",Argument.DATATYPE.INT);
+	@Test
+	public void testTypeInt(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
+		ap.addPositionalArgument("length",Argument.Type.INT);
+		ap.addPositionalArgument("width",Argument.Type.INT);
+		ap.addPositionalArgument("height",Argument.Type.INT);
 		String[] data= {"7","5", "3"};
 		ap.parse(data);
 		int num=7;
 		assertEquals(ap.getValue("length"), num);
+	}
 
-
-
-    }
-
-
-    @Test
-    public void testDataTypeBoolean(){
-    	ap.addPositionalArgument("length",Argument.DATATYPE.INT);
-		ap.addPositionalArgument("Dog",Argument.DATATYPE.BOOLEAN);
-		ap.addPositionalArgument("height",Argument.DATATYPE.STRING);
+	@Test
+	public void testTypeBoolean(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
+		ap.addPositionalArgument("length",Argument.Type.INT);
+		ap.addPositionalArgument("Dog",Argument.Type.BOOLEAN);
+		ap.addPositionalArgument("height",Argument.Type.STRING);
 		String[] data= {"7","true", "3"};
 		ap.parse(data);
 		boolean value=true;
 		assertEquals(true, ap.getValue("Dog"));
+	}
 
-
-
-    }
-
-
-     @Test
-    public void testDataTypeString(){
-    	ap.addPositionalArgument("length",Argument.DATATYPE.INT);
-		ap.addPositionalArgument("Dog",Argument.DATATYPE.STRING);
-		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
+	@Test
+	public void testTypeString(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
+		ap.addPositionalArgument("length",Argument.Type.INT);
+		ap.addPositionalArgument("Dog",Argument.Type.STRING);
+		ap.addPositionalArgument("height",Argument.Type.FLOAT);
 		String[] data= {"7","true", "4.0"};
 		ap.parse(data);
 		assertEquals(ap.getValue("Dog"), "true");
+	}
 
-
-
-    }
-
-
-    @Test
-    public void testDataTypeFloat(){
-    	ap.addPositionalArgument("length",Argument.DATATYPE.INT);
-		ap.addPositionalArgument("Dog",Argument.DATATYPE.FLOAT);
-		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
+	@Test
+	public void testTypeFloat(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
+		ap.addPositionalArgument("length",Argument.Type.INT);
+		ap.addPositionalArgument("Dog",Argument.Type.FLOAT);
+		ap.addPositionalArgument("height",Argument.Type.FLOAT);
 		String[] data= {"7","8", "4"};
 		ap.parse(data);
 		float number=8.0f;
 		assertEquals(ap.getValue("Dog"), number);
+	}
 
-
-
-    }
-
-     @Test (expected=IncorrectDataTypeException.class)
-    public void testInvalidDataTypeFloat(){
-    	//assertEquals(false,ap.isIncorrectDataTypeMessageCalled());
-    	ap.addPositionalArgument("length",Argument.DATATYPE.FLOAT);
-		ap.addPositionalArgument("width",Argument.DATATYPE.FLOAT);
-		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
+	@Test (expected=IncorrectDataTypeException.class)
+	public void testInvalidTypeFloat(){
+		assertEquals(false,ap.isIncorrectTypeMessageCalled());
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
+		ap.addPositionalArgument("length",Argument.Type.FLOAT);
+		ap.addPositionalArgument("width",Argument.Type.FLOAT);
+		ap.addPositionalArgument("height",Argument.Type.FLOAT);
 		String[] data= {"7","something", "4"};
 		ap.parse(data);
-		//assertEquals(true,ap.isIncorrectDataTypeMessageCalled());
+		assertEquals(true,ap.isIncorrectTypeMessageCalled());
+	}
 
-
-    }
-
-    @Test (expected=IncorrectDataTypeException.class)
-    public void testInvalidDataTypeInteger(){
-    	ap.addPositionalArgument("length",Argument.DATATYPE.FLOAT);
-		ap.addPositionalArgument("width",Argument.DATATYPE.INT);
-		ap.addPositionalArgument("height",Argument.DATATYPE.FLOAT);
+	@Test (expected=IncorrectDataTypeException.class)
+	public void testInvalidTypeInteger(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
+		ap.addPositionalArgument("length",Argument.Type.FLOAT);
+		ap.addPositionalArgument("width",Argument.Type.INT);
+		ap.addPositionalArgument("height",Argument.Type.FLOAT);
 		String[] data= {"7","something", "4"};
 		ap.parse(data);
+	}
 
-
-
-    }
-
-    @Test
-    public void testGetHelpMessageShortNameAnywhere(){
-    	ap.addPositionalArgument("length");
+	@Test
+	public void testGetHelpMessageShortNameAnywhere(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
+		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
 		String[] data= {"7","5", "--h", "4"};
 		ap.parse(data);
-		//assertEquals(ap.isHelpMessageCalled(),true);
+		assertEquals(ap.isHelpMessageCalled(),true);
+	}
 
-    }
-
-      @Test
-    public void testGetHelpMessageLongNameAnywhere(){
-    	ap.addPositionalArgument("length");
+	@Test
+	public void testGetHelpMessageLongNameAnywhere(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
+		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
 		String[] data= {"7","5", "--help", "4"};
 		ap.parse(data);
-		//assertEquals(ap.isHelpMessageCalled(),true);
+		assertEquals(ap.isHelpMessageCalled(),true);
+	}
 
-    }
-
-     @Test
-    public void testGetHelpMessageAnywhereWithNamedArguments(){
-    	ap.addPositionalArgument("length");
+	@Test
+	public void testGetHelpMessageAnywhereWithNamedArguments(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
+		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
 		ap.addNamedArgument("Type");
 		ap.addNamedArgument("Digits");
 		String[] data= {"7","--Type","circle","5", "--h", "4","--Digits","2"};
 		ap.parse(data);
-		//assertEquals(ap.isHelpMessageCalled(),true);
-
-    }
-
-	@Test
-		public void testFlagIsTrue(){
-		ap.addPositionalArgument("length");
-		ap.addPositionalArgument("width");
-		ap.addPositionalArgument("height");
-		ap.addPositionalArgument("MyArg");
-		String[] data = {"7", "--help", "5", "3"};
-		ap.parse(data);
-		System.out.println(ap.getValue("MyArg").toString());
-		assertEquals(false, ap.getValue("MyArg"));
+		assertEquals(ap.isHelpMessageCalled(),true);
 	}
 
-	
-	
-	
 	@Test
 	public void testShortNamedArgument(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
@@ -398,15 +331,12 @@ public class ArgumentParserTest {
 		String[] data= {"7","-t","circle","5", "4","--Digits","2"};
 		ap.parse(data);
 		assertEquals("circle",ap.getValue("Type"));
-	
-	
-	
 	}
-	
-	
-	
+
 	@Test
 	public void testShortNamedColorArgument(){
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
@@ -415,25 +345,29 @@ public class ArgumentParserTest {
 		String[] data= {"7","-c","red","5", "4","--Digits","2"};
 		ap.parse(data);
 		assertEquals("red",ap.getValue("color"));
-	
-	
-	
 	}
-    
-
-
-
 
 	@Test
-
 	public void testGetHelp(){
-
 		String[] data ={"--h"};
 		ap.parse(data);
-		assertEquals("usage: java VolumeCalculator length width height" + "\n" + "Calcuate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)",ap.getHelpMessage());
-
-
-
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
+		assertEquals("usage: java VolumeCalculator length width height" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)",ap.getHelpMessage());
 	}
 
+	@Test
+	public void testGetProgramName(){
+		ap.assignProgramName("VolumeCalculator");
+		assertEquals (ap.getProgramName(), "VolumeCalculator");
+	}
+
+	@Test
+	public void testAssignProgramDescription(){
+		ap.assignProgramDescription("Calculate the volume of a box");
+		assertEquals (ap.getProgramDescription(), "Calculate the volume of a box");
+	}
 }
+
+  
+
