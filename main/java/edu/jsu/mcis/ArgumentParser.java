@@ -1,4 +1,4 @@
-	/*This is the first file
+/*This is the first file
 By: Christopher Burdette
     Nathan Chaney
     Kurtis Graben
@@ -12,29 +12,34 @@ import java.io.*;
 
 public class ArgumentParser{
 
-	private LinkedHashMap<String,Argument> positionalArguments;
-	private LinkedHashMap<String,Argument> namedArguments;
-	private ArrayList<String> userPositionalArguments;
-	private ArrayList<String> userNamedArguments;
-	private Argument argument;
-	private int helpMessage;
-	private int missingArgumentHeightMessage;
-	private int missingArgumentWidthAndHeightMessage;
-	private int unrecognizedArgumentsMessage;
-	private int incorrectTypeMessage;
-	private String name;
+
+    private Map<String,Argument> positionalArguments;
+    private Map<String,Argument> namedArguments;
+    private List<String> userPositionalArguments;
+    private List<String> userNamedArguments;
+    private Argument argument;
+    private int helpMessage;
+    private int missingArgumentHeightMessage;
+    private int missingArgumentWidthAndHeightMessage;
+    private int unrecognizedArgumentsMessage;
+    private int incorrectTypeMessage;
+    private String name;
+    private String programName;
+    private String programDescription;
+
 
 	public ArgumentParser(){
-		namedArguments=new LinkedHashMap<String,Argument>();
-		positionalArguments=new LinkedHashMap<String,Argument>();
-		userPositionalArguments=new ArrayList<String>(); // stores the pos. Args
-		userNamedArguments=new ArrayList<String>(); // stores the named. Args
-		helpMessage=0;
-		missingArgumentWidthAndHeightMessage=0;
-		missingArgumentHeightMessage=0;
-		unrecognizedArgumentsMessage=0;
-		incorrectTypeMessage=0;
-		name="";
+		this.namedArguments=new LinkedHashMap<String,Argument>();
+		this.positionalArguments=new LinkedHashMap<String,Argument>();
+		this.userPositionalArguments=new ArrayList<String>(); // stores the pos. Args
+		this.userNamedArguments=new ArrayList<String>(); // stores the named. Args
+		this.helpMessage=0;
+		this.missingArgumentWidthAndHeightMessage=0;
+		this.missingArgumentHeightMessage=0;
+		this.unrecognizedArgumentsMessage=0;
+		this.incorrectTypeMessage=0;
+		this.name="";
+
 	}
 
 	public void addPositionalArgument(String x){
@@ -205,16 +210,32 @@ public class ArgumentParser{
 		return (T) temp.getNamedArgumentValue();
 	}
 
- 	private int getSizeOfHashMap(){
+ 	public int getSizeOfHashMap(){
  		return positionalArguments.size();
  	}
 
- 	private String getHelpMessage(){
- 		return "usage: java VolumeCalculator length width height" + "\n" + "Calcuate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)";
+	public String getProgramName(){
+		return programName;
+	}
+
+	public void assignProgramName(String name){
+		programName = name;
+	}
+
+	public void assignProgramDescription(String description) {
+		programDescription = description;
+	}
+
+	public String getProgramDescription() {
+		return programDescription;
+	}
+
+ 	public String getHelpMessage(){
+ 		return "usage: java " + getProgramName() + " length width height" + "\n" + getProgramDescription() + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)";
  	}
 
  	private String unrecognizedArgumentsMessage(){
- 		return "usage: java VolumeCalculator length width height" + "\n" + "VolumeCalcultor.java: error: unrecognized arguments: " + userPositionalArguments.get(3);
+ 		return "usage: java " + getProgramName() + " length width height" + "\n" + "VolumeCalcultor.java: error: unrecognized arguments: " + userPositionalArguments.get(3);
  	}
 
  	private void setIncorrectTypeMessage(String s){
@@ -229,21 +250,24 @@ public class ArgumentParser{
  		return "usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: argument width: invalid float value: " + getIncorrectTypeMessage();
  	}
 
- 	private boolean isHelpMessageCalled(){
+ 	public boolean isHelpMessageCalled(){
+
  		if(helpMessage>0){
  			return true;
  		}
  		else return false;
  	}
 
- 	private boolean isUnrecognizedArgumentsMessageCalled(){
+ 	public boolean isUnrecognizedArgumentsMessageCalled(){
+
  		if(unrecognizedArgumentsMessage>0){
  			return true;
  		}
  		else return false;
  	}
 
- 	private boolean isIncorrectTypeMessageCalled(){
+ 	public boolean isIncorrectTypeMessageCalled(){
+
  		if(incorrectTypeMessage>0){
  			return true;
  		}

@@ -311,6 +311,20 @@ public class ArgumentParserTest {
 	public void testGetHelp(){
 		String[] data ={"--h"};
 		ap.parse(data);
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box");
 		assertEquals("usage: java VolumeCalculator length width height" + "\n" + "Calcuate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)",ap.getHelpMessage());
+	}
+
+	@Test
+	public void testGetProgramName(){
+		ap.assignProgramName("VolumeCalculator");
+		assertEquals (ap.getProgramName(), "VolumeCalculator");
+	}
+
+	@Test
+	public void testAssignProgramDescription(){
+		ap.assignProgramDescription("Calculate the volume of a box");
+		assertEquals (ap.getProgramDescription(), "Calculate the volume of a box");
 	}
 }
