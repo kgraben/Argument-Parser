@@ -34,6 +34,7 @@ public class ArgumentParser{
     private String name;
     private String programName;
     private String programDescription;
+		private Boolean helpMessageCalled;
 
 
 	public ArgumentParser(){
@@ -47,6 +48,7 @@ public class ArgumentParser{
 		this.unrecognizedArgumentsMessage=0;
 		this.incorrectTypeMessage=0;
 		this.name="";
+		this.helpMessageCalled = false;
 
 	}
 
@@ -171,6 +173,7 @@ public class ArgumentParser{
 				userPositionalArguments.remove("--h");
 				userPositionalArguments.remove("--help");
 				userPositionalArguments.remove("-h");
+				helpMessageCalled = true;
 		}
 		for(int j=0; j < userPositionalArguments.size(); j++){
 			int k=0;
@@ -259,11 +262,7 @@ public class ArgumentParser{
  	}
 
  	public boolean isHelpMessageCalled(){
-
- 		if(helpMessage>0){
- 			return true;
- 		}
- 		else return false;
+ 		return helpMessageCalled;
  	}
 
  	public boolean isUnrecognizedArgumentsMessageCalled(){
