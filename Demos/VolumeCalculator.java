@@ -8,9 +8,9 @@ import java.util.*;
    		public static void main(String[] args){
    		
    			ArgumentParser Ap= new ArgumentParser();
-   			Ap.addPositionalArgument("length",Argument.DATATYPE.INT);
-			Ap.addPositionalArgument("width",Argument.DATATYPE.INT);
-			Ap.addPositionalArgument("height",Argument.DATATYPE.INT);
+   			Ap.addPositionalArgument("length",Argument.Type.INT);
+			Ap.addPositionalArgument("width",Argument.Type.INT);
+			Ap.addPositionalArgument("height",Argument.Type.INT);
 			Ap.addNamedArgument("Type");
 			Ap.addNamedArgument("Color");
 		
