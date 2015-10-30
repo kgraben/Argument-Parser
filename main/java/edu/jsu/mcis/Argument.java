@@ -3,7 +3,6 @@ package edu.jsu.mcis;
 import java.util.*;
 import java.io.*;
 
-
 public class Argument{
 
 	private String positionalValue;
@@ -16,7 +15,7 @@ public class Argument{
 	private String digit;
 	private Type data;
 	public enum Type{INT,FLOAT,BOOLEAN,STRING};
-  
+
 	public Argument(){
 		positionalValue="";
 		positionalName="";

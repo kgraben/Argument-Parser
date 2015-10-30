@@ -50,7 +50,6 @@ public class ArgumentParserTest {
 
 	@Test (expected=UnknownArgumentException.class)
 	public void testMoreThan3NumbersEntered(){
-		assertEquals(ap.isUnrecognizedArgumentsMessageCalled(),false);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
@@ -58,7 +57,6 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height");
 		String[] data= {"7","5", "3", "7"};
 		ap.parse(data);
-		assertEquals(true,ap.isUnrecognizedArgumentsMessageCalled());
 	}
 
 	@Test
@@ -75,12 +73,11 @@ public class ArgumentParserTest {
 
 	@Test
 	public void testHelpMessageCalled(){
-		assertEquals(ap.isHelpMessageCalled(),false);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		String[] data= {"-h"};
 		ap.parse(data);
-		assertEquals(true, ap.isHelpMessageCalled());
+		assertTrue(ap.isHelpMessageCalled());
 	}
 
 	@Test
@@ -259,7 +256,6 @@ public class ArgumentParserTest {
 
 	@Test (expected=IncorrectDataTypeException.class)
 	public void testInvalidTypeFloat(){
-		assertEquals(false,ap.isIncorrectTypeMessageCalled());
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length",Argument.Type.FLOAT);
@@ -267,7 +263,6 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height",Argument.Type.FLOAT);
 		String[] data= {"7","something", "4"};
 		ap.parse(data);
-		assertEquals(true,ap.isIncorrectTypeMessageCalled());
 	}
 
 	@Test (expected=IncorrectDataTypeException.class)
@@ -290,7 +285,7 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height");
 		String[] data= {"7","5", "--h", "4"};
 		ap.parse(data);
-		assertEquals(ap.isHelpMessageCalled(),true);
+		assertEquals("usage: java VolumeCalculator length width height" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)",ap.getHelpMessage());
 	}
 
 	@Test
@@ -302,7 +297,7 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height");
 		String[] data= {"7","5", "--help", "4"};
 		ap.parse(data);
-		assertEquals(ap.isHelpMessageCalled(),true);
+		assertEquals("usage: java VolumeCalculator length width height" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)",ap.getHelpMessage());
 	}
 
 	@Test
@@ -316,7 +311,7 @@ public class ArgumentParserTest {
 		ap.addNamedArgument("Digits");
 		String[] data= {"7","--Type","circle","5", "--h", "4","--Digits","2"};
 		ap.parse(data);
-		assertEquals(ap.isHelpMessageCalled(),true);
+		assertEquals("usage: java VolumeCalculator length width height" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)",ap.getHelpMessage());
 	}
 
 	@Test
@@ -368,6 +363,3 @@ public class ArgumentParserTest {
 		assertEquals (ap.getProgramDescription(), "Calculate the volume of a box");
 	}
 }
-
-  
-
