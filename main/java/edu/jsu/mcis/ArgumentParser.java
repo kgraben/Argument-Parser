@@ -1,3 +1,4 @@
+
 /*This is the first file
 By: Christopher Burdette
     Nathan Chaney
@@ -12,33 +13,30 @@ import java.io.*;
 
 public class ArgumentParser{
 
-  private Map<String,Argument> positionalArguments;
-  private Map<String,Argument> namedArguments;
-  private List<String> userPositionalArguments;
-  private List<String> userNamedArguments;
-  private Argument argument;
-  private int helpMessage;
-  private int missingArgumentHeightMessage;
-  private int missingArgumentWidthAndHeightMessage;
-  private int unrecognizedArgumentsMessage;
-  private int incorrectTypeMessage;
-  private String name;
-  private String programName;
-  private String programDescription;
-  private Boolean helpMessageCalled;
+	/*We have it to where programName and programDescription are saved
+	and work. We now need a for loop to get it to print the missing arguments.
+	we also need boolean values instead of int values for the is helpmessage called,
+	etc.
+	*/
+
+
+    private Map<String,Argument> positionalArguments;
+    private Map<String,Argument> namedArguments;
+    private List<String> userPositionalArguments;
+    private List<String> userNamedArguments;
+    private String name;
+    private String programName;
+    private String programDescription;
+	private Boolean helpMessageCalled;
+
 
 	public ArgumentParser(){
 		this.namedArguments=new LinkedHashMap<String,Argument>();
 		this.positionalArguments=new LinkedHashMap<String,Argument>();
 		this.userPositionalArguments=new ArrayList<String>(); // stores the pos. Args
 		this.userNamedArguments=new ArrayList<String>(); // stores the named. Args
-		this.helpMessage=0;
-		this.missingArgumentWidthAndHeightMessage=0;
-		this.missingArgumentHeightMessage=0;
-		this.unrecognizedArgumentsMessage=0;
-		this.incorrectTypeMessage=0;
-		this.name="";
 		this.helpMessageCalled = false;
+
 	}
 
 	public void addPositionalArgument(String x){
@@ -69,7 +67,6 @@ public class ArgumentParser{
 			throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
 		}
 		else if(userPositionalArguments.size()>positionalArguments.size()){
-			unrecognizedArgumentsMessage++;
 				for(int m=3; m < userPositionalArguments.size(); m++){
 					Argument temp= new Argument();
 					temp.setUnrecognizedArgument(userPositionalArguments.get(m));
@@ -98,6 +95,7 @@ public class ArgumentParser{
 			if((i % 2==0) && (j % 2==1)){
 				temp2.setnamedArgumentName(userNamedArguments.get(i));
 				temp2.setNamedArgumentValue(userNamedArguments.get(j));
+				System.out.println(userNamedArguments.get(i));
 				namedArguments.put(userNamedArguments.get(i),temp2);
 				j+=2;
 			}
@@ -117,8 +115,7 @@ public class ArgumentParser{
 					}
 					catch(NumberFormatException ex) {
 						temp.setIncorrectType(temp.getPositionalValue());
-						setIncorrectTypeMessage(temp.getIncorrectType());
-						throw new IncorrectDataTypeException("usage: java "+ getProgramName() + " length width height\nVolumeCalcultor.java: error: argument width: invalid Integer value: " + temp.getIncorrectType());
+						throw new IncorrectDataTypeException("usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: argument width: invalid Integer value: " + temp.getIncorrectType());
 					}
 					i++;
 				}
@@ -128,10 +125,8 @@ public class ArgumentParser{
 						Float.parseFloat(temp.getPositionalValue());
 					}
 					catch(NumberFormatException ex){
-						incorrectTypeMessage++;
 						temp.setIncorrectType(temp.getPositionalValue());
-						setIncorrectTypeMessage(temp.getIncorrectType());
-						throw new IncorrectDataTypeException("usage: java "+ getProgramName() + " length width height\nVolumeCalcultor.java: error: argument width: invalid float value: " + temp.getIncorrectType());
+						throw new IncorrectDataTypeException("usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: argument width: invalid float value: " + temp.getIncorrectType());
 					}
 					i++;
 				}
@@ -153,6 +148,7 @@ public class ArgumentParser{
 			userPositionalArguments.add(args[i]);
 		}
 		if(userPositionalArguments.contains("--h") ||userPositionalArguments.contains("-h") || userPositionalArguments.contains("--help") ){
+				System.out.println(getHelpMessage());
 				userPositionalArguments.remove("--h");
 				userPositionalArguments.remove("--help");
 				userPositionalArguments.remove("-h");
@@ -228,11 +224,11 @@ public class ArgumentParser{
  		return "usage: java " + getProgramName() + " length width height" + "\n" + getProgramDescription() + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)";
  	}
 
- 	private void setIncorrectTypeMessage(String s){
- 		name=s;
- 	}
-
-  public boolean isHelpMessageCalled(){
+ 	public boolean isHelpMessageCalled(){
  		return helpMessageCalled;
  	}
+
+ 
 }
+
+
