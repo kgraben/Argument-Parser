@@ -13,22 +13,14 @@ import java.io.*;
 
 public class ArgumentParser{
 
-	/*We have it to where programName and programDescription are saved
-	and work. We now need a for loop to get it to print the missing arguments.
-	we also need boolean values instead of int values for the is helpmessage called,
-	etc.
-	*/
-
-
-    private Map<String,Argument> positionalArguments;
-    private Map<String,Argument> namedArguments;
-    private List<String> userPositionalArguments;
-    private List<String> userNamedArguments;
-    private String name;
-    private String programName;
-    private String programDescription;
+  private Map<String,Argument> positionalArguments;
+  private Map<String,Argument> namedArguments;
+  private List<String> userPositionalArguments;
+  private List<String> userNamedArguments;
+  private String name;
+  private String programName;
+  private String programDescription;
 	private Boolean helpMessageCalled;
-
 
 	public ArgumentParser(){
 		this.namedArguments=new LinkedHashMap<String,Argument>();
@@ -95,7 +87,6 @@ public class ArgumentParser{
 			if((i % 2==0) && (j % 2==1)){
 				temp2.setnamedArgumentName(userNamedArguments.get(i));
 				temp2.setNamedArgumentValue(userNamedArguments.get(j));
-				System.out.println(userNamedArguments.get(i));
 				namedArguments.put(userNamedArguments.get(i),temp2);
 				j+=2;
 			}
@@ -115,7 +106,7 @@ public class ArgumentParser{
 					}
 					catch(NumberFormatException ex) {
 						temp.setIncorrectType(temp.getPositionalValue());
-						throw new IncorrectDataTypeException("usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: argument width: invalid Integer value: " + temp.getIncorrectType());
+						throw new IncorrectDataTypeException("usage: java "+ getProgramName() +  " length width height\nVolumeCalcultor.java: error: argument width: invalid Integer value: " + temp.getIncorrectType());
 					}
 					i++;
 				}
@@ -126,7 +117,7 @@ public class ArgumentParser{
 					}
 					catch(NumberFormatException ex){
 						temp.setIncorrectType(temp.getPositionalValue());
-						throw new IncorrectDataTypeException("usage: java VolumeCalculator length width height\nVolumeCalcultor.java: error: argument width: invalid float value: " + temp.getIncorrectType());
+						throw new IncorrectDataTypeException("usage: java "+ getProgramName() +  " length width height\nVolumeCalcultor.java: error: argument width: invalid float value: " + temp.getIncorrectType());
 					}
 					i++;
 				}
@@ -148,7 +139,6 @@ public class ArgumentParser{
 			userPositionalArguments.add(args[i]);
 		}
 		if(userPositionalArguments.contains("--h") ||userPositionalArguments.contains("-h") || userPositionalArguments.contains("--help") ){
-				System.out.println(getHelpMessage());
 				userPositionalArguments.remove("--h");
 				userPositionalArguments.remove("--help");
 				userPositionalArguments.remove("-h");
@@ -227,8 +217,4 @@ public class ArgumentParser{
  	public boolean isHelpMessageCalled(){
  		return helpMessageCalled;
  	}
-
- 
 }
-
-
