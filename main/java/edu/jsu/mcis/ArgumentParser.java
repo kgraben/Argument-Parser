@@ -1,4 +1,3 @@
-
 /*This is the first file
 By: Christopher Burdette
     Nathan Chaney
@@ -19,22 +18,25 @@ public class ArgumentParser{
   private List<String> userNamedArguments;
   private String name;
   private String programName;
+  private String output="";
+  private String helpMessageArguments="";
+  private String[] helpMessageArgumentsArray;
   private String programDescription;
 	private Boolean helpMessageCalled;
 
 	public ArgumentParser(){
 		this.namedArguments=new LinkedHashMap<String,Argument>();
 		this.positionalArguments=new LinkedHashMap<String,Argument>();
-		this.userPositionalArguments=new ArrayList<String>(); // stores the pos. Args
-		this.userNamedArguments=new ArrayList<String>(); // stores the named. Args
+		this.userPositionalArguments=new ArrayList<String>();
+		this.userNamedArguments=new ArrayList<String>();
 		this.helpMessageCalled = false;
-
 	}
 
 	public void addPositionalArgument(String x){
 		Argument temp = new Argument();
 		temp.setType(Argument.Type.STRING);
 		temp.setPositionalName(x);
+    helpMessageArguments = helpMessageArguments + " [" + x + "]";
 		positionalArguments.put(temp.getPositionalName(),temp);
 	}
 
@@ -68,19 +70,6 @@ public class ArgumentParser{
 	}
 
 	private void matchNamedArguments(){
-		for(String s: namedArguments.keySet()){
-			Argument temp=namedArguments.get(s);
-			if(temp.getnamedArgumentName()=="Type"  && !userNamedArguments.contains("t")){
-				String box="Box";
-				temp.setNamedArgumentValue(box);
-				namedArguments.put(s,temp);
-			}
-			else if(temp.getnamedArgumentName()=="Digits" && !userNamedArguments.contains("d")){
-				String digit="4";
-				temp.setNamedArgumentValue(digit);
-				namedArguments.put(s,temp);
-			}
-		}
 		int j=1;
 		for(int i=0; i < userNamedArguments.size(); i+=2){
 			Argument temp2=new Argument();
@@ -104,9 +93,11 @@ public class ArgumentParser{
 					try {
 						Integer.parseInt(temp.getPositionalValue());
 					}
+
+          //used a for loop decreasing checking for the last going to the first
 					catch(NumberFormatException ex) {
 						temp.setIncorrectType(temp.getPositionalValue());
-						throw new IncorrectDataTypeException("usage: java "+ getProgramName() +  " length width height\nVolumeCalcultor.java: error: argument width: invalid Integer value: " + temp.getIncorrectType());
+						throw new IncorrectDataTypeException("usage: java "+ getProgramName() + helpMessageArguments + "\nVolumeCalcultor.java: error: argument width: invalid Integer value: " + temp.getIncorrectType());
 					}
 					i++;
 				}
@@ -117,7 +108,7 @@ public class ArgumentParser{
 					}
 					catch(NumberFormatException ex){
 						temp.setIncorrectType(temp.getPositionalValue());
-						throw new IncorrectDataTypeException("usage: java "+ getProgramName() +  " length width height\nVolumeCalcultor.java: error: argument width: invalid float value: " + temp.getIncorrectType());
+						throw new IncorrectDataTypeException("usage: java "+ getProgramName() + helpMessageArguments + "\nVolumeCalcultor.java: error: argument width: invalid float value: " + temp.getIncorrectType());
 					}
 					i++;
 				}
@@ -142,7 +133,7 @@ public class ArgumentParser{
 				userPositionalArguments.remove("--h");
 				userPositionalArguments.remove("--help");
 				userPositionalArguments.remove("-h");
-				helpMessageCalled = true;
+				throw new HelpMessageException("usage: java " + getProgramName() + helpMessageArguments + "\n" + getProgramDescription() + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)");
 		}
 		for(int j=0; j < userPositionalArguments.size(); j++){
 			int k=0;
@@ -180,14 +171,13 @@ public class ArgumentParser{
 				return (T) new String(temp.getPositionalValue());
 			}
 		}
+
 		for(int i=0; i < userNamedArguments.size(); i++){
-			if(userNamedArguments.get(i).equals(name.substring(0,1).toLowerCase()) || userNamedArguments.get(i).equals(name.substring(0,1))){
-				return (T) new String(userNamedArguments.get(i+1));
+			if(userNamedArguments.get(i).equals(name.substring(0,1).toLowerCase()) || userNamedArguments.get(i).equals(name.substring(0,1)) || userNamedArguments.get(i).equals(name)){
+        output=userNamedArguments.get(i+1);
 			}
 		}
-		Argument temp= new Argument();
-		temp=namedArguments.get(name);
-		return (T) temp.getNamedArgumentValue();
+    return (T) new String(output);
 	}
 
  	protected int getSizeOfHashMap(){
@@ -210,8 +200,14 @@ public class ArgumentParser{
 		return programDescription;
 	}
 
+  public String returnMissingArguments() {
+    this.helpMessageArgumentsArray = helpMessageArguments.split("\\s+");
+    return Arrays.toString(helpMessageArgumentsArray);
+  }
+
  	public String getHelpMessage(){
- 		return "usage: java " + getProgramName() + " length width height" + "\n" + getProgramDescription() + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)";
+    //"("+ argumentType.toString() + ").";
+ 		return "usage: java " + getProgramName() + helpMessageArguments + "\n" + getProgramDescription() + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)";
  	}
 
  	public boolean isHelpMessageCalled(){
