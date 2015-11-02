@@ -378,12 +378,12 @@ public class ArgumentParserTest {
 		expectedEx.expect(HelpMessageException.class);
 			expectedEx.expectMessage("usage: java VolumeCalculator [length] [width] [height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)");
 		String[] data ={"--h"};
-		ap.parse(data);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
+		ap.parse(data);
 	}
 
 	@Test
@@ -396,5 +396,10 @@ public class ArgumentParserTest {
 	public void testAssignProgramDescription(){
 		ap.assignProgramDescription("Calculate the volume of a box");
 		assertEquals (ap.getProgramDescription(), "Calculate the volume of a box");
+	}
+
+	@Test
+	public void testForLoopReturnsCorrectMissingArguments(){
+		//nothing at the moment
 	}
 }
