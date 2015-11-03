@@ -78,12 +78,12 @@ public class ArgumentParserTest {
 
 	@Test
 	public void testHelpMessageCalled(){
-		assertEquals(ap.isHelpMessageCalled(),false);
+		expectedEx.expect(HelpMessageException.class);
+			expectedEx.expectMessage("usage: java VolumeCalculator [length] [width] [height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)");
+		String[] data ={"-h"};
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
-		String[] data= {"-h"};
 		ap.parse(data);
-		assertEquals(true, ap.isHelpMessageCalled());
 	}
 /*
 	@Test
@@ -309,6 +309,8 @@ public class ArgumentParserTest {
 	//Exception class written, need to get it working.
 	@Test
 	public void testGetHelpMessageShortNameAnywhere(){
+		expectedEx.expect(HelpMessageException.class);
+			expectedEx.expectMessage("usage: java VolumeCalculator [length] [width] [height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)");
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
@@ -316,11 +318,12 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height");
 		String[] data= {"7","5", "--h", "4"};
 		ap.parse(data);
-		assertEquals(ap.isHelpMessageCalled(),true);
 	}
 
 	@Test
 	public void testGetHelpMessageLongNameAnywhere(){
+		expectedEx.expect(HelpMessageException.class);
+			expectedEx.expectMessage("usage: java VolumeCalculator [length] [width] [height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)");
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
@@ -328,11 +331,12 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height");
 		String[] data= {"7","5", "--help", "4"};
 		ap.parse(data);
-		assertEquals(ap.isHelpMessageCalled(),true);
 	}
 
 	@Test
 	public void testGetHelpMessageAnywhereWithNamedArguments(){
+		expectedEx.expect(HelpMessageException.class);
+			expectedEx.expectMessage("usage: java VolumeCalculator [length] [width] [height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)");
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
@@ -342,7 +346,6 @@ public class ArgumentParserTest {
 		ap.addNamedArgument("Digits");
 		String[] data= {"7","--Type","circle","5", "--h", "4","--Digits","2"};
 		ap.parse(data);
-		assertEquals(ap.isHelpMessageCalled(),true);
 	}
 
 	@Test
