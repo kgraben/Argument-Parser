@@ -43,9 +43,11 @@ public class ArgumentParserKeywords {
   	ap.addPositionalArgument("length");
     ap.addPositionalArgument("width");
     ap.addPositionalArgument("height");
-  	ap.parse(args);
-    if(ap.isHelpMessageCalled()){
-      output=ap.getHelpMessage();
+    try {
+    	ap.parse(args);
+    }
+    catch(HelpMessageException ex){
+      output = ex.getMessage();
     }
   }
 

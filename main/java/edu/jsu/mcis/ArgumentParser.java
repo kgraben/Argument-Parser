@@ -44,6 +44,7 @@ public class ArgumentParser{
 		Argument temp = new Argument();
 		temp.setType(t);
 		temp.setPositionalName(x);
+    helpMessageArguments = helpMessageArguments + " [" + x + "]";
 		positionalArguments.put(temp.getPositionalName(),temp);
 	}
 
@@ -97,7 +98,7 @@ public class ArgumentParser{
           //used a for loop decreasing checking for the last going to the first
 					catch(NumberFormatException ex) {
 						temp.setIncorrectType(temp.getPositionalValue());
-						throw new IncorrectDataTypeException("usage: java "+ getProgramName() + helpMessageArguments + "\nVolumeCalcultor.java: error: argument width: invalid Integer value: " + temp.getIncorrectType());
+						throw new IncorrectDataTypeException("usage: java "+ getProgramName() + buildMissingArguments() + "\n" + getProgramName() + ": error: argument width: invalid Integer value: " + temp.getIncorrectType());
 					}
 					i++;
 				}
@@ -108,7 +109,7 @@ public class ArgumentParser{
 					}
 					catch(NumberFormatException ex){
 						temp.setIncorrectType(temp.getPositionalValue());
-						throw new IncorrectDataTypeException("usage: java "+ getProgramName() + helpMessageArguments + "\nVolumeCalcultor.java: error: argument width: invalid float value: " + temp.getIncorrectType());
+						throw new IncorrectDataTypeException("usage: java "+ getProgramName() +" "+ buildMissingArguments() + "\n" + getProgramName() + ".java: error: argument width: invalid float value: " + temp.getIncorrectType());
 					}
 					i++;
 				}
@@ -209,13 +210,13 @@ public class ArgumentParser{
     return missingArguments;
   }
 
-  public String getMissingArguments() {
+  protected String getMissingArguments() {
     return buildMissingArguments();
   }
 
  	public String getHelpMessage(){
     //"("+ argumentType.toString() + ").";
- 		return "usage: java " + getProgramName() + helpMessageArguments + "\n" + getProgramDescription() + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)";
+ 		return "usage: java " + getProgramName() +" " + buildMissingArguments() + "\n"  + getProgramDescription() + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" + "width the width of the box(float)" + "\n" + "height the height of the box(float)";
  	}
 
  	public boolean isHelpMessageCalled(){
