@@ -80,9 +80,12 @@ public class ArgumentParserTest {
 	public void testHelpMessageCalled(){
 		expectedEx.expect(HelpMessageException.class);
 			expectedEx.expectMessage("usage: java VolumeCalculator [length] [width] [height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)");
-		String[] data ={"-h"};
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
+		ap.addPositionalArgument("length");
+		ap.addPositionalArgument("width");
+		ap.addPositionalArgument("height");
+		String[] data ={"-h"};
 		ap.parse(data);
 	}
 /*
@@ -291,7 +294,7 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-		assertEquals("[lenth] [width] [height]", ap.returnMissingArguments());
+		assertEquals("[length][width][height]", ap.getMissingArguments());
 	}
 
 	@Test (expected=IncorrectDataTypeException.class)

@@ -133,7 +133,7 @@ public class ArgumentParser{
 				userPositionalArguments.remove("--h");
 				userPositionalArguments.remove("--help");
 				userPositionalArguments.remove("-h");
-				throw new HelpMessageException("usage: java " + getProgramName() + helpMessageArguments + "\n" + getProgramDescription() + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)");
+				throw new HelpMessageException(getHelpMessage());
 		}
 		for(int j=0; j < userPositionalArguments.size(); j++){
 			int k=0;
@@ -200,9 +200,17 @@ public class ArgumentParser{
 		return programDescription;
 	}
 
-  public String returnMissingArguments() {
+  private String buildMissingArguments() {
     this.helpMessageArgumentsArray = helpMessageArguments.split("\\s+");
-    return Arrays.toString(helpMessageArgumentsArray);
+    String missingArguments = "";
+    for (int i = 0; i < helpMessageArgumentsArray.length; i++){
+      missingArguments = missingArguments + helpMessageArgumentsArray[i].toString();
+    }
+    return missingArguments;
+  }
+
+  public String getMissingArguments() {
+    return buildMissingArguments();
   }
 
  	public String getHelpMessage(){
