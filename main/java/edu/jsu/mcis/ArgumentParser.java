@@ -32,9 +32,10 @@ public class ArgumentParser{
 
   public void addPositionalArgument(String name, Argument.Type type, String description) {
     Argument temp = new Argument();
+    PositionalArgument positionalTemp = new PositionalArgument();
     temp.setType(type);
     temp.setName(name);
-    temp.setDescription(description);
+    positionalTemp.setDescription(description);
     arguments.put(name, temp);
   }
 
@@ -108,17 +109,18 @@ public class ArgumentParser{
 	}
 
 	private void checkUserInputSize() {
-		if(userPositionalArguments.size()==1 && (!userPositionalArguments.contains("--h") && !userPositionalArguments.contains("-h"))){
+		if(arguments.size()==1 && (!positionalList.contains("--h") && !positionalList.contains("-h"))){
 				throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
 		}
-		else if(userPositionalArguments.size()==2){
+		else if(arguments.size()==2){
 			throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
 		}
-		else if(userPositionalArguments.size()>positionalArguments.size()){
-				for(int m=3; m < userPositionalArguments.size(); m++){
-					Argument temp= new Argument();
-					temp.setUnrecognizedArgument(userPositionalArguments.get(m));
-					throw new UnknownArgumentException("usage: java VolumeCalculator length width height" + "\n" + "VolumeCalcultor.java: error: unrecognized arguments: " + temp.getUnrecognizedArgument());
+		else if(arguments.size()>positionalList.size()){
+				for(int m=3; m < arguments.size(); m++){
+					List<String> unrecognizedArguments = new ArrayList<String>();
+					throw new UnknownArgumentException("usage: java "+ programName +
+                    buildArgumentUsage() + "\n" + programName +
+                    ".java: error: unrecognized arguments: "); //+ unrecognized args );
 				}
 		 }
 	}
@@ -139,50 +141,46 @@ public class ArgumentParser{
 	private void matchPositionalArguments(){
 		int i=0;
 
-	 	if(userPositionalArguments.size()==positionalArguments.size()){
-			for(String s: positionalArguments.keySet()){
-				Argument temp=positionalArguments.get(s);
+	 	if(arguments.size() == arguments.size()){
+			for(String s: arguments.keySet()){
+				Argument temp = arguments.get(s);
 				if(temp.getType()==Argument.Type.INT){
-					temp.setPositionalValue(userPositionalArguments.get(i));
+					temp.setValue(arguments.get(i));
 					try {
-						Integer.parseInt(temp.getPositionalValue());
+						Integer.parseInt(temp.getValue());
 					}
 
           //others used a for loop (decreasing) checking for the last going to the first
 					catch(NumberFormatException ex) {
-						temp.setIncorrectType(temp.getPositionalValue());
-						throw new IncorrectDataTypeException("usage: java "+ getProgramName() + buildMissingArguments() + "\n" + getProgramName() + ": error: argument width: invalid Integer value: " + temp.getIncorrectType());
+            List<String> incorrectType = new ArrayList<String>();
+            incorrectType.add(temp.getValue());
+						throw new IncorrectDataTypeException("usage: java "+ getProgramName() + buildArgumentUsage() + "\n" + getProgramName() + ": error: argument width: invalid "+ temp.getType() + " value: " + incorrectType.toString());
 					}
 					i++;
 				}
 				else if(temp.getType()==Argument.Type.FLOAT){
-					temp.setPositionalValue(userPositionalArguments.get(i));
+					temp.setValue(arguments.get(i));
 					try {
-						Float.parseFloat(temp.getPositionalValue());
+						Float.parseFloat(temp.getValue());
 					}
 					catch(NumberFormatException ex){
 						temp.setIncorrectType(temp.getPositionalValue());
-						throw new IncorrectDataTypeException("usage: java "+ getProgramName() +" "+ buildMissingArguments() + "\n" + getProgramName() + ".java: error: argument width: invalid float value: " + temp.getIncorrectType());
+						throw new IncorrectDataTypeException("usage: java "+ getProgramName() +" "+ buildArgumentUsage() + "\n" + getProgramName() + ".java: error: argument width: invalid float value: " + temp.getIncorrectType());
 					}
 					i++;
 				}
 				else if(temp.getType()==Argument.Type.BOOLEAN){
-					temp.setPositionalValue(userPositionalArguments.get(i));
+					temp.setValue(arguments.get(i));
 					i++;
 				}
 
 				else{
-					temp.setPositionalValue(userPositionalArguments.get(i));
+					temp.setValue(arguments.get(i));
 					i++;
 				}
 			}
 		}
 	}
-
-
- 	protected int getSizeOfHashMap(){
- 		return positionalArguments.size();
- 	}
 
 	protected String getProgramName(){
 		return programName;
@@ -191,22 +189,4 @@ public class ArgumentParser{
 	public void assignProgramName(String name){
 		programName = name;
 	}
-
-  private String buildMissingArguments() {
-    helpMessageArgumentsArray = helpMessageArguments.split("\\s+");
-    String missingArguments = "";
-    for (int i = 0; i < helpMessageArgumentsArray.length; i++){
-      missingArguments = missingArguments + helpMessageArgumentsArray[i].toString();
-    }
-    return missingArguments;
-  }
-
-  protected String getMissingArguments() {
-    return buildMissingArguments();
-  }
-
-
- 	public boolean isHelpMessageCalled(){
- 		return helpMessageCalled;
- 	}
 }
