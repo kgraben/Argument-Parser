@@ -48,9 +48,11 @@ public class ArgumentParser{
 		positionalArguments.put(temp.getPositionalName(),temp);
 	}
 
-	public void addNamedArgument(String x){
+	public void addNamedArgument(String x, Argument.Type t, String value){
 		Argument temp = new Argument();
 		temp.setnamedArgumentName(x);
+		temp.setType(t);
+		temp.setNamedArgumentValue(value);
 		namedArguments.put(x,temp);
 	}
 
@@ -71,12 +73,25 @@ public class ArgumentParser{
 	}
 
 	private void matchNamedArguments(){
+	
+		for(String s: namedArguments.keySet()){
+            Argument temp=namedArguments.get(s);
+            for(int i=0; i < userNamedArguments.size(); i++){
+           		if(temp.getnamedArgumentName()==userNamedArguments.get(i)){
+                	temp.setNamedArgumentValue(userNamedArguments.get(i+1));
+                	namedArguments.put(s,temp);
+            	}
+            }
+        }
+            
+            
 		int j=1;
 		for(int i=0; i < userNamedArguments.size(); i+=2){
 			Argument temp2=new Argument();
 			if((i % 2==0) && (j % 2==1)){
 				temp2.setnamedArgumentName(userNamedArguments.get(i));
 				temp2.setNamedArgumentValue(userNamedArguments.get(j));
+				temp2.setDefaultValue(userNamedArguments.get(j));
 				namedArguments.put(userNamedArguments.get(i),temp2);
 				j+=2;
 			}
@@ -172,13 +187,38 @@ public class ArgumentParser{
 				return (T) new String(temp.getPositionalValue());
 			}
 		}
-
-		for(int i=0; i < userNamedArguments.size(); i++){
-			if(userNamedArguments.get(i).equals(name.substring(0,1).toLowerCase()) || userNamedArguments.get(i).equals(name.substring(0,1)) || userNamedArguments.get(i).equals(name)){
-        output=userNamedArguments.get(i+1);
+		/*
+		 if(namedArguments.get(name) != null){
+			Argument temp=new Argument();
+			temp= namedArguments.get(name);
+			if(temp.getType()==Argument.Type.INT){
+				int num=Integer.parseInt(temp.getNamedArgumentValue());
+				return (T) new Integer (num);
 			}
-		}
-    return (T) new String(output);
+			else if(temp.getType()==Argument.Type.FLOAT){
+				float num=Float.parseFloat(temp.getNamedArgumentValue());
+				return (T) new Float (num);
+			}
+			else if(temp.getType()==Argument.Type.BOOLEAN){
+				boolean num=Boolean.parseBoolean(temp.getNamedArgumentValue());
+				return (T) Boolean.valueOf(num);
+			}
+			else{
+				return (T) new String(temp.getNamedArgumentValue());
+			}
+		  }
+		  
+		  */
+		
+		
+		
+			
+			for(int i=0; i < userNamedArguments.size(); i++){
+				if(userNamedArguments.get(i).equals(name.substring(0,1).toLowerCase()) || userNamedArguments.get(i).equals(name.substring(0,1)) || userNamedArguments.get(i).equals(name)){
+        			output=userNamedArguments.get(i+1);
+				}
+			}
+    	return (T) new String(output);
 	}
 
  	protected int getSizeOfHashMap(){
