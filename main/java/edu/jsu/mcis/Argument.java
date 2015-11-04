@@ -1,84 +1,37 @@
 package edu.jsu.mcis;
 
-import java.util.*;
-import java.io.*;
-
-
 public class Argument{
 
-	private String positionalValue;
-	private String positionalName;
-	private String namedArgumentValue;
-	private String namedArgumentName;
-	private String incorrectArgument="";
-	private String unrecognizedArgument="";
-	private String type;
-	private String digit;
-	private Type data;
-	public enum Type{INT,FLOAT,BOOLEAN,STRING};
-  
+	public enum Type {INT, FLOAT, BOOLEAN, STRING};
+	private String value;
+	private Type type;
+
 	public Argument(){
-		positionalValue="";
-		positionalName="";
-		namedArgumentValue="";
-		type="";
-		digit="";
-		data=Type.STRING;
+		value = "";
+		type = Type.STRING;
 	}
 
-	public void setPositionalValue(String s){
-		positionalValue=s;
+	public void setValue(String s){
+		value = s;
 	}
 
-	public String getPositionalValue(){
-		return positionalValue;
+	public String getValue(){
+		return value;
 	}
 
-	public void setType(Type T){
-		data=T;
+	public void setType(Type t){
+		type = t;
 	}
 
 	public Type getType(){
-		return data;
+		return type;
 	}
 
-	public void setPositionalName(String s){
-		positionalName=s;
+	public void setName(String s){
+		name = s;
 	}
 
-	public String getPositionalName(){
-		return positionalName;
-	}
-
-	public void setnamedArgumentName(String s){
-		namedArgumentName=s;
-	}
-
-	public String getnamedArgumentName(){
-		return namedArgumentName;
-	}
-
-	public void setNamedArgumentValue(String s){
-		namedArgumentValue=s;
-	}
-
-	public String getNamedArgumentValue(){
-		return namedArgumentValue;
-	}
-
-	public void setIncorrectType(String name){
-		incorrectArgument=name;
-	}
-
-	public String getIncorrectType(){
-		return incorrectArgument;
-	}
-
-	public void setUnrecognizedArgument(String name){
-		unrecognizedArgument=name;
-	}
-
-	public String getUnrecognizedArgument(){
-		return unrecognizedArgument;
+	public String getName(){
+		return value;
 	}
 }
