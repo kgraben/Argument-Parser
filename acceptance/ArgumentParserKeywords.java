@@ -10,15 +10,15 @@ public class ArgumentParserKeywords {
   	ap.assignProgramName("VolumeCalculator");
   	ap.assignProgramDescription("Calcuate the volume of a box.");
   	ap.addPositionalArgument("length");
-		ap.addPositionalArgument("width");
-		ap.addPositionalArgument("height");
-		ap.addNamedArgument("Type");
-		ap.addNamedArgument("Digits");
+	ap.addPositionalArgument("width");
+	ap.addPositionalArgument("height");
+	ap.addNamedArgument("Type");
+	ap.addNamedArgument("Digits");
 		try{
 			ap.parse(args);
-			int width = Integer.parseInt(ap.getValue("width"));
-			int height = Integer.parseInt(ap.getValue("height"));
-			int length = Integer.parseInt(ap.getValue("length"));
+			int width = Integer.parseInt(getWidth());
+			int height = Integer.parseInt(getHeight());
+			int length = Integer.parseInt(getLength());
 			output = String.valueOf(width * length * height);
 		}
 		catch(UnknownArgumentException ex){
