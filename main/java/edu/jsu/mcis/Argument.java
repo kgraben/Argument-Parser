@@ -14,6 +14,7 @@ public class Argument{
 	private String unrecognizedArgument="";
 	private String type;
 	private String digit;
+	private String namedDefaultValue;
 	private Type data;
 	public enum Type{INT,FLOAT,BOOLEAN,STRING};
   
@@ -23,6 +24,7 @@ public class Argument{
 		namedArgumentValue="";
 		type="";
 		digit="";
+		namedDefaultValue="";
 		data=Type.STRING;
 	}
 
@@ -65,6 +67,20 @@ public class Argument{
 	public String getNamedArgumentValue(){
 		return namedArgumentValue;
 	}
+	
+	public void setDefaultValue(String value){
+		
+		namedDefaultValue=value;
+	
+	
+	}
+	
+	public String getDefaultValue(){
+	
+		return namedDefaultValue;
+	}
+	
+	
 
 	public void setIncorrectType(String name){
 		incorrectArgument=name;
