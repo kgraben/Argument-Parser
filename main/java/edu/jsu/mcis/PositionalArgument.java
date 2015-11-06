@@ -1,5 +1,6 @@
 package edu.jsu.mcis;
 
+
 public class PositionalArgument extends Argument{
 
 
@@ -32,4 +33,4 @@ public class PositionalArgument extends Argument{
 
 
 
-}
+

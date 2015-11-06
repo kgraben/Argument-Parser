@@ -146,6 +146,7 @@ public class ArgumentParser{
     }
 	}
 
+
 	private void checkUserInputSize(List<String> list) {
 		if(list.size()==1 && (!list.contains("--h") && !list.contains("-h"))){
 				throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
@@ -156,74 +157,16 @@ public class ArgumentParser{
 		else if(list.size()>arguments.size()){
 				for(int m=3; m < list.size(); m++){
 					throw new UnknownArgumentException("usage: java VolumeCalculator length width height" + "\n" + "VolumeCalcultor.java: error: unrecognized arguments: " );
-				}
-		 }
-	}
-	/*
-	private void matchNamedArguments(){
-		int j=1;
-		for(int i=0; i < userNamedArguments.size(); i+=2){
-			Argument temp2=new Argument();
-			if((i % 2==0) && (j % 2==1)){
-				temp2.setnamedArgumentName(positionalList.get(i));
-				temp2.setNamedArgumentValue(positionalList.get(j));
-				namedArguments.put(positionalList.get(i),temp2);
-				j+=2;
-			}
-		}
-	}
-	*/
-	/*
-	private void matchPositionalArguments(List<String> list){
-		
-		
-		System.out.println(arguments);
-	 	for(int i=0; i < list.size(); i++){
-			for(String s: arguments.keySet()){
-				Argument temp=arguments.get(s);
-				if(temp.getType()==Argument.Type.INT){
-					temp.setValue(list.get(i));
-					try {
-						Integer.parseInt(temp.getValue());
-					}
 
-          //others used a for loop (decreasing) checking for the last going to the first
-					catch(NumberFormatException ex) {
-						//temp.setIncorrectType(temp.getPositionalValue());
-						throw new IncorrectDataTypeException("usage: java "+ getProgramName() + buildMissingArguments() + "\n" + getProgramName() + ": error: argument width: invalid Integer value: ");
-					}
-					//i++;
-				}
-				else if(temp.getType()==Argument.Type.FLOAT){
-					temp.setValue(list.get(i));
-					try {
-						Float.parseFloat(temp.getValue());
-					}
-					catch(NumberFormatException ex){
-						//temp.setIncorrectType(temp.getPositionalValue());
-						throw new IncorrectDataTypeException("usage: java "+ getProgramName() +" "+ buildMissingArguments() + "\n" + getProgramName() + ".java: error: argument width: invalid float value: ");
-					}
-					//i++;
-				}
-				else if(temp.getType()==Argument.Type.BOOLEAN){
-					temp.setValue(list.get(i));
-					//i++;
-				}
-
-				else{
-					temp.setValue(list.get(i));
-					//i++;
-				}
-			}
-		}
-		
 	}
-	*/
+	
+
 
 
  	protected int getSizeOfHashMap(){
  		return arguments.size();
  	}
+
 
 	protected String getProgramName(){
 		return programName;
@@ -232,6 +175,7 @@ public class ArgumentParser{
 	public void assignProgramName(String name){
 		programName = name;
 	}
+
 	
 	public void assignProgramDescription(String description){
 		programDescription = description;
@@ -259,5 +203,5 @@ public class ArgumentParser{
   }
 
 
- 	
+
 }
