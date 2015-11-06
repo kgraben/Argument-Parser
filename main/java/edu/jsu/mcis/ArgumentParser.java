@@ -141,9 +141,9 @@ public class ArgumentParser{
 				return (T) new String(val);
 			}
 		}
-    else {
-      throw new UnknownArgumentException(name);
-    }
+    	else {
+      		throw new UnknownArgumentException(name);
+    	}
 	}
 
 
@@ -157,6 +157,8 @@ public class ArgumentParser{
 		else if(list.size()>arguments.size()){
 				for(int m=3; m < list.size(); m++){
 					throw new UnknownArgumentException("usage: java VolumeCalculator length width height" + "\n" + "VolumeCalcultor.java: error: unrecognized arguments: " );
+					}
+		}
 
 	}
 	
@@ -187,21 +189,20 @@ public class ArgumentParser{
 	}
 
 
-  private String buildMissingArguments() {
-  	 String helpMessageArguments="";
-    String[] helpMessageArgumentsArray;
-    helpMessageArgumentsArray = helpMessageArguments.split("\\s+");
-    String missingArguments = "";
-    for (int i = 0; i < helpMessageArgumentsArray.length; i++){
-      missingArguments = missingArguments + helpMessageArgumentsArray[i].toString();
-    }
-    return missingArguments;
-  }
+  	private String buildMissingArguments() {
+  	 	String helpMessageArguments="";
+    	String[] helpMessageArgumentsArray;
+    	helpMessageArgumentsArray = helpMessageArguments.split("\\s+");
+    	String missingArguments = "";
+    	for (int i = 0; i < helpMessageArgumentsArray.length; i++){
+      		missingArguments = missingArguments + helpMessageArgumentsArray[i].toString();
+    	}
+    	return missingArguments;
+  	}
 
-  protected String getMissingArguments() {
-    return buildMissingArguments();
-  }
-
+  	protected String getMissingArguments() {
+    	return buildMissingArguments();
+  	}
 
 
 }
