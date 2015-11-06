@@ -313,14 +313,22 @@ public class ArgumentParserTest {
 	@Test
 	public void testGetHelpMessageShortNameAnywhere(){
 		expectedEx.expect(HelpMessageException.class);
-			expectedEx.expectMessage("usage: java VolumeCalculator [length][width][height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)");
+		String message = "usage: java VolumeCalculator [length][width][height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)";
+			expectedEx.expectMessage(message);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
-		ap.addPositionalArgument("length");
-		ap.addPositionalArgument("width");
-		ap.addPositionalArgument("height");
-		String[] data= {"7","5", "--h", "4"};
-		ap.parse(data);
+		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
+		ap.addPositionalArgument("width", Argument.Type.FLOAT, "the width of the box");
+		ap.addPositionalArgument("height", Argument.Type.FLOAT, "the height of the box");
+		String[] data= {"7","5", "-h", "4"};
+
+		//System.out.println("|" + message + "|");
+		//try {
+			ap.parse(data);
+		//}
+		//catch(Exception e) {
+		//	System.out.println("|" + e.getMessage() + "|");
+		//}
 	}
 
 	@Test

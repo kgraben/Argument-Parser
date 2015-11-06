@@ -58,13 +58,12 @@ public class ArgumentParser{
 				userArgs.remove("-h");
         //System.out.println(getHelpMessage());
         //System.exit(0);
-				//throw new HelpMessageException(getHelpMessage());
+				throw new HelpMessageException(getHelpMessage());
 		}
-		System.out.println(userArgs);
+		//System.out.println(userArgs);
 		for(int i = 0; i < userArgs.size(); i++) {
-			
-      		String arg = userArgs.get(i);
-      		if(arg.startsWith("--") || arg.startsWith("-")) {
+			  String arg = userArgs.get(i);
+      	if(arg.startsWith("--") || arg.startsWith("-")) {
       			System.out.println(arg);
         		String name = (arg.startsWith("--"))? arg.substring(2) : arg.substring(1);
         		Argument a = arguments.get(name);
@@ -72,19 +71,17 @@ public class ArgumentParser{
         		a.setValue(userArgs.get(i+1));
         		arguments.put(userArgs.get(i),a);
         		userArgs.set(i, "");
-				userArgs.set(i+1, "");
-				
-        		
-			}
-			
-        }
-        
+				    userArgs.set(i+1, "");
+			  }
+
+    }
+
         for(int k=0; k< userArgs.size(); k++){
 			if(userArgs.get(k)!=""){
 			posArgs.add(userArgs.get(k));
 			}
 		}
-		
+
 			for(int i=0; i < positionalList.size(); i++){
 				for(int j=0; j<posArgs.size(); j++){
 					String name=positionalList.get(i);
@@ -92,17 +89,17 @@ public class ArgumentParser{
 					a.setValue(posArgs.get(i));
 					arguments.put(name,a);
 				}
-		
+
 			}
-		
+
 		System.out.println(userArgs);
 		System.out.println(posArgs);
 		checkUserInputSize(posArgs);
 		//matchPositionalArguments(posArgs);
-		
-		
-		
-		
+
+
+
+
 		//matchNamedArguments();
 	}
 
@@ -113,11 +110,20 @@ public class ArgumentParser{
  	}
 
   private String buildArgumentUsage() {
-    return "";
+    String s = "";
+    for(String name : arguments.keySet()) {
+      s += "[" + name + "]";
+    }
+    return s;
   }
 
   private String buildPositionalArguments() {
-    return "";
+    String s = "";
+    for(String name : arguments.keySet()) {
+      Argument a = arguments.get(name);
+      s += a.getName() + " " + a.getDescription() + " (" + a.getType() + ")\n";
+    }
+    return s.substring(0, s.length()-1);
   }
 
 	@SuppressWarnings("unchecked")
@@ -161,7 +167,7 @@ public class ArgumentParser{
 		}
 
 	}
-	
+
 
 
 
@@ -178,14 +184,14 @@ public class ArgumentParser{
 		programName = name;
 	}
 
-	
+
 	public void assignProgramDescription(String description){
 		programDescription = description;
 	}
-	
+
 	protected String getProgramDescription(){
 		return programDescription;
-	
+
 	}
 
 

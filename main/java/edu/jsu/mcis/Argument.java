@@ -6,11 +6,13 @@ public class Argument{
 	private String value;
 	private String name;
 	private Type type;
+	private String description;
 
 	public Argument(){
 		value = "0";
 		name = "";
 		type = Type.STRING;
+		description = "";
 	}
 
 	public void setValue(String s){
@@ -34,6 +36,14 @@ public class Argument{
 	}
 
 	public String getName(){
-		return value;
+		return name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String desc) {
+		description = desc;
 	}
 }
