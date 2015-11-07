@@ -56,8 +56,8 @@ public class ArgumentParser{
 		if(userArgs.contains("-h") || userArgs.contains("--help") ){
 				userArgs.remove("--help");
 				userArgs.remove("-h");
-        //System.out.println(getHelpMessage());
-        //System.exit(0);
+        		System.out.println(getHelpMessage());
+       		 	System.exit(0);
 				//throw new HelpMessageException(getHelpMessage());
 		}
 		System.out.println(userArgs);
