@@ -79,12 +79,13 @@ public class ArgumentParserTest {
 	@Test
 	public void testHelpMessageCalled(){
 		expectedEx.expect(HelpMessageException.class);
-			expectedEx.expectMessage("usage: java VolumeCalculator [length][width][height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)");
+		String message = "usage: java VolumeCalculator [length][width][height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)";
+			expectedEx.expectMessage(message);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
-		ap.addPositionalArgument("length");
-		ap.addPositionalArgument("width");
-		ap.addPositionalArgument("height");
+		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
+		ap.addPositionalArgument("width", Argument.Type.FLOAT, "the width of the box");
+		ap.addPositionalArgument("height", Argument.Type.FLOAT, "the height of the box");
 		String[] data ={"-h"};
 		ap.parse(data);
 	}
@@ -289,14 +290,6 @@ public class ArgumentParserTest {
 		ap.parse(data);
 	}
 
-	@Test
-	public void testHelpMessageStringBuilder() {
-		ap.addPositionalArgument("length");
-		ap.addPositionalArgument("width");
-		ap.addPositionalArgument("height");
-		assertEquals("[length][width][height]", ap.getMissingArguments());
-	}
-
 	@Test (expected=IncorrectDataTypeException.class)
 	public void testInvalidTypeInteger(){
 		ap.assignProgramName("VolumeCalculator");
@@ -334,12 +327,13 @@ public class ArgumentParserTest {
 	@Test
 	public void testGetHelpMessageLongNameAnywhere(){
 		expectedEx.expect(HelpMessageException.class);
-			expectedEx.expectMessage("usage: java VolumeCalculator [length][width][height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)");
+		String message = "usage: java VolumeCalculator [length][width][height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)";
+			expectedEx.expectMessage(message);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
-		ap.addPositionalArgument("length");
-		ap.addPositionalArgument("width");
-		ap.addPositionalArgument("height");
+		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
+		ap.addPositionalArgument("width", Argument.Type.FLOAT, "the width of the box");
+		ap.addPositionalArgument("height", Argument.Type.FLOAT, "the height of the box");
 		String[] data= {"7","5", "--help", "4"};
 		ap.parse(data);
 	}
@@ -347,12 +341,13 @@ public class ArgumentParserTest {
 	@Test
 	public void testGetHelpMessageAnywhereWithNamedArguments(){
 		expectedEx.expect(HelpMessageException.class);
-			expectedEx.expectMessage("usage: java VolumeCalculator [length][width][height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)");
+		String message = "usage: java VolumeCalculator [length][width][height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)";
+			expectedEx.expectMessage(message);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
-		ap.addPositionalArgument("length");
-		ap.addPositionalArgument("width");
-		ap.addPositionalArgument("height");
+		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
+		ap.addPositionalArgument("width", Argument.Type.FLOAT, "the width of the box");
+		ap.addPositionalArgument("height", Argument.Type.FLOAT, "the height of the box");
 		ap.addNamedArgument("Type", Argument.Type.STRING, "Box");
 		ap.addNamedArgument("Digits", Argument.Type.INT, "4");
 		String[] data= {"7","--Type","circle","5", "--h", "4","--Digits","2"};
@@ -390,13 +385,14 @@ public class ArgumentParserTest {
 	@Test
 	public void testGetHelp(){
 		expectedEx.expect(HelpMessageException.class);
-			expectedEx.expectMessage("usage: java VolumeCalculator [length][width][height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (float)"  + "\n" +   "width the width of the box(float)" + "\n" + "height the height of the box(float)");
-		String[] data ={"--h"};
+		String message = "usage: java VolumeCalculator [length][width][height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)";
+			expectedEx.expectMessage(message);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
-		ap.addPositionalArgument("length");
-		ap.addPositionalArgument("width");
-		ap.addPositionalArgument("height");
+		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
+		ap.addPositionalArgument("width", Argument.Type.FLOAT, "the width of the box");
+		ap.addPositionalArgument("height", Argument.Type.FLOAT, "the height of the box");
+		String[] data = {"--help"};
 		ap.parse(data);
 	}
 
