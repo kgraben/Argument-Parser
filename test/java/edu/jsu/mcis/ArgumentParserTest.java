@@ -97,7 +97,7 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-		ap.addNamedArgument("Type", Argument.Type.STRING, "Box");
+		ap.addNamedArgument("Type", "t", Argument.Type.STRING, "Box");
 		String[] data = {"7","5", "3"};
 		ap.parse(data);
 		assertEquals("Box", ap.getValue("Type"));
@@ -111,7 +111,7 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-		ap.addNamedArgument("Type",Argument.Type.STRING, "Box");
+		ap.addNamedArgument("Type", "t" , Argument.Type.STRING, "Box");
 		String[] data = {"7","5", "3", "--Type","circle"};
 		ap.parse(data);
 		assertEquals("circle", ap.getValue("Type"));
@@ -124,8 +124,8 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-		ap.addNamedArgument("Type", Argument.Type.STRING, "Box");
-		ap.addNamedArgument("Color", Argument.Type.STRING, "Red");
+		ap.addNamedArgument("Type", "t",Argument.Type.STRING, "Box");
+		ap.addNamedArgument("Color", "c", Argument.Type.STRING, "Red");
 		String[] data = {"7","5", "3", "--Type","circle","--Color","Blue"};
 		ap.parse(data);
 		assertEquals("Blue", ap.getValue("Color"));
@@ -138,8 +138,8 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-		ap.addNamedArgument("Pizza", Argument.Type.STRING, "pepperoni");
-		ap.addNamedArgument("Color", Argument.Type.STRING, "Red");
+		ap.addNamedArgument("Pizza", "p", Argument.Type.STRING, "pepperoni");
+		ap.addNamedArgument("Color", "c", Argument.Type.STRING, "Red");
 		String[] data = {"7","5", "3", "--Pizza","cheese","--Color","Blue"};
 		ap.parse(data);
 		assertEquals("cheese", ap.getValue("Pizza"));
@@ -152,8 +152,8 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-		ap.addNamedArgument("Type", Argument.Type.STRING, "Box");
-		ap.addNamedArgument("Digits", Argument.Type.INT, "4");
+		ap.addNamedArgument("Type", "t",Argument.Type.STRING, "Box");
+		ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
 		String[] data = {"7","5", "3", "--Type","circle","--Digits","1"};
 		ap.parse(data);
 		assertEquals(1, ap.getValue("Digits"));
@@ -166,8 +166,8 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-		ap.addNamedArgument("Type", Argument.Type.STRING, "Box");
-		ap.addNamedArgument("Digits", Argument.Type.INT, "4");
+		ap.addNamedArgument("Type", "t", Argument.Type.STRING, "Box");
+		ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
 		String[] data = {"--Type","circle","7","5","--Digits","8","3"};
 		ap.parse(data);
 		assertEquals("circle", ap.getValue("Type"));
@@ -180,8 +180,8 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-		ap.addNamedArgument("Type", Argument.Type.STRING, "Box");
-		ap.addNamedArgument("Digits", Argument.Type.INT, "4");
+		ap.addNamedArgument("Type", "t", Argument.Type.STRING, "Box");
+		ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
 		String[] data = {"--Type","circle","2","5","--Digits","7","3"};
 		ap.parse(data);
 		assertEquals(7, ap.getValue("Digits"));
@@ -194,8 +194,8 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-		ap.addNamedArgument("Type", Argument.Type.STRING, "Box");
-		ap.addNamedArgument("Digits", Argument.Type.INT, "4");
+		ap.addNamedArgument("Type", "t", Argument.Type.STRING, "Box");
+		ap.addNamedArgument("Digits","d", Argument.Type.INT, "4");
 		String[] data = {"--Type","circle","2","5","--Digits","7","3"};
 		ap.parse(data);
 		assertEquals("2", ap.getValue("length"));
@@ -208,7 +208,7 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-		ap.addNamedArgument("Digits", Argument.Type.INT, "4");
+		ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
 		String[] data = {"7","5", "3"};
 		ap.parse(data);
 		assertEquals(4, ap.getValue("Digits"));
@@ -296,7 +296,7 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-		assertEquals("[length][width][height]", ap.getMissingArguments());
+		assertEquals("[length][width][height]", ap.getMissingArguments() );
 	}
 	
 
@@ -359,8 +359,8 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
 		ap.addPositionalArgument("width", Argument.Type.FLOAT, "the width of the box");
 		ap.addPositionalArgument("height", Argument.Type.FLOAT, "the height of the box");
-		ap.addNamedArgument("Type", Argument.Type.STRING, "Box");
-		ap.addNamedArgument("Digits", Argument.Type.INT, "4");
+		ap.addNamedArgument("Type", "t", Argument.Type.STRING, "Box");
+		ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
 		String[] data = {"7","--Type","circle","5", "--h", "4","--Digits","2"};
 		ap.parse(data);
 	}
@@ -372,8 +372,8 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-		ap.addNamedArgument("Type", Argument.Type.STRING, "Box");
-		ap.addNamedArgument("Digits", Argument.Type.INT, "4");
+		ap.addNamedArgument("Type", "t", Argument.Type.STRING, "Box");
+		ap.addNamedArgument("Digits","d", Argument.Type.INT, "4");
 		String[] data = {"7","-t","circle","5", "4","--Digits","2"};
 		ap.parse(data);
 		assertEquals("circle",ap.getValue("Type"));
@@ -389,8 +389,8 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-		ap.addNamedArgument("color", Argument.Type.STRING, "Blue");
-		ap.addNamedArgument("Digits", Argument.Type.INT, "4");
+		ap.addNamedArgument("color", "c", Argument.Type.STRING, "Blue");
+		ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
 		String[] data = {"7","-c","red","5", "4","--Digits","2"};
 		ap.parse(data);
 		assertEquals("red",ap.getValue("color"));
