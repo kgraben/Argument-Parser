@@ -218,14 +218,6 @@ public class ArgumentParser{
 	
 	}
 
-
-
-
- 	protected int getSizeOfHashMap(){
- 		return arguments.size();
- 	}
-
-
 	protected String getProgramName(){
 		return programName;
 	}
@@ -233,7 +225,6 @@ public class ArgumentParser{
 	public void assignProgramName(String name){
 		programName = name;
 	}
-
 
 	public void assignProgramDescription(String description){
 		programDescription = description;
@@ -243,6 +234,7 @@ public class ArgumentParser{
 		return programDescription;
 
 	}
+<<<<<<< HEAD
 
 
   	private String buildMissingArguments() {
@@ -261,4 +253,6 @@ public class ArgumentParser{
   	}
 
 
+=======
+>>>>>>> d9627642401516667a300570dee958bf05e97a2e
 }
