@@ -5,7 +5,7 @@ public class PositionalArgument extends Argument{
 
 
 	private String description = "";
-	
+
 	
 	
 	public void setDescription(String description){
@@ -20,17 +20,6 @@ public class PositionalArgument extends Argument{
 	
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

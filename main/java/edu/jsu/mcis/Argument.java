@@ -5,12 +5,16 @@ public class Argument{
 	public enum Type {INT, FLOAT, BOOLEAN, STRING};
 	private String value;
 	private String name;
+	private char shortName;
 	private Type type;
+	private String description;
 
 	public Argument(){
 		value = "0";
 		name = "";
+		shortName = 'x';
 		type = Type.STRING;
+		description = "";
 	}
 
 	public void setValue(String s){
@@ -34,6 +38,23 @@ public class Argument{
 	}
 
 	public String getName(){
-		return value;
+		return name;
+	}
+	
+	public void setShortName(char n){
+		shortName = n;
+	
+	}
+	
+	public char getShortName(){
+		return shortName;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String desc) {
+		description = desc;
 	}
 }
