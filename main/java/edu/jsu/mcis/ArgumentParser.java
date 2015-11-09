@@ -94,7 +94,7 @@ public class ArgumentParser{
 		System.out.println(posArgs);
 		checkUserDataType(posArgs);
 		checkUserInputSize(posArgs);
-	
+
 	}
 
   public String getHelpMessage() {
@@ -148,21 +148,21 @@ public class ArgumentParser{
 
 
 	private void checkUserInputSize(List<String> list) {
-		
+
 		if(list.size()==1){
 				throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
 		}
 		else if(list.size()==2){
 			throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
 		}
-		
-		
+
+
 
 	}
-	
-	
+
+
 	private void checkUserDataType(List<String> list){
-	
+
 		for(int i=0; i < list.size(); i++){
 				try{
 					String positional = positionalList.get(i);
@@ -187,7 +187,7 @@ public class ArgumentParser{
 								catch(NumberFormatException e){
 									throw new IncorrectDataTypeException("Incorrect DataType " + list.get(i));
 								}
-								
+
 							}
 							else if(a.getType()==Argument.Type.BOOLEAN){
 								try{
@@ -196,26 +196,16 @@ public class ArgumentParser{
 								}
 								catch(NumberFormatException e){
 									throw new IncorrectDataTypeException("Incorrect DataType " + list.get(i));
-								
+
 								}
 							}
-						}	
+						}
 					}
 				}
 				catch(IndexOutOfBoundsException e){
 					throw new UnknownArgumentException("UnknownArgument : " + list.get(i));
 				}
-							
-				
-
-			}
-
-	
-	
-	
-	
-	
-	
+		}
 	}
 
 	protected String getProgramName(){
@@ -234,25 +224,4 @@ public class ArgumentParser{
 		return programDescription;
 
 	}
-<<<<<<< HEAD
-
-
-  	private String buildMissingArguments() {
-  	 	String helpMessageArguments = "";
-    	String[] helpMessageArgumentsArray;
-    	helpMessageArgumentsArray = helpMessageArguments.split("\\s+");
-    	String missingArguments = "";
-    	for (int i = 0; i < helpMessageArgumentsArray.length; i++){
-      		missingArguments = missingArguments + helpMessageArgumentsArray[i].toString();
-    	}
-    	return missingArguments;
-  	}
-
-  	protected String getMissingArguments() {
-    	return buildArgumentUsage();
-  	}
-
-
-=======
->>>>>>> d9627642401516667a300570dee958bf05e97a2e
 }
