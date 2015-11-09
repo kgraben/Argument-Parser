@@ -215,14 +215,6 @@ public class ArgumentParser{
 	
 	}
 
-
-
-
- 	protected int getSizeOfHashMap(){
- 		return arguments.size();
- 	}
-
-
 	protected String getProgramName(){
 		return programName;
 	}
@@ -230,7 +222,6 @@ public class ArgumentParser{
 	public void assignProgramName(String name){
 		programName = name;
 	}
-
 
 	public void assignProgramDescription(String description){
 		programDescription = description;
@@ -240,22 +231,4 @@ public class ArgumentParser{
 		return programDescription;
 
 	}
-
-
-  	private String buildMissingArguments() {
-  	 	String helpMessageArguments = "";
-    	String[] helpMessageArgumentsArray;
-    	helpMessageArgumentsArray = helpMessageArguments.split("\\s+");
-    	String missingArguments = "";
-    	for (int i = 0; i < helpMessageArgumentsArray.length; i++){
-      		missingArguments = missingArguments + helpMessageArgumentsArray[i].toString();
-    	}
-    	return missingArguments;
-  	}
-
-  	protected String getMissingArguments() {
-    	return buildMissingArguments();
-  	}
-
-
 }
