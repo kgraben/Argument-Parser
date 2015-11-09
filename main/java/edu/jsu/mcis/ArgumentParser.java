@@ -39,13 +39,14 @@ public class ArgumentParser{
     	arguments.put(name, temp);
   	}
 
-	public void addNamedArgument(String name,Argument.Type type, String defaultValue) {
+	public void addNamedArgument(String name, String shortName, Argument.Type type, String defaultValue) {
 		Argument temp = new Argument();
 		temp.setName(name);
-		temp.setShortName(name.charAt(0));
+		temp.setShortName(shortName);
 		temp.setType(type);
 		temp.setValue(defaultValue);
 		arguments.put(name, temp);
+		arguments.put(shortName,temp);
 	}
 
   	public void parse(String[] args) {
@@ -70,8 +71,10 @@ public class ArgumentParser{
       		if(arg.startsWith("--") || arg.startsWith("-")) {
       			System.out.println(arg);
         		String name = (arg.startsWith("--"))? arg.substring(2) : arg.substring(1);
+        		System.out.println(name);
         		Argument a = arguments.get(name);
         		// If boolean argument, then don't get the next value
+        		System.out.println(a);
         		System.out.println(userArgs.get(i+1));
         		a.setValue(userArgs.get(i+1));
         		arguments.put(userArgs.get(i),a);
@@ -254,7 +257,7 @@ public class ArgumentParser{
   	}
 
   	protected String getMissingArguments() {
-    	return buildMissingArguments();
+    	return buildArgumentUsage();
   	}
 
 
