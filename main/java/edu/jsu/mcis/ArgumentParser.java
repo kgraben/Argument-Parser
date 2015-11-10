@@ -115,6 +115,10 @@ public class ArgumentParser{
     }
     return s;
   }
+  
+  protected String getMissingArguments() {
+    	return buildArgumentUsage();
+  }
 
   private String buildPositionalArguments() {
     String s = "";
@@ -229,27 +233,4 @@ public class ArgumentParser{
 		return programDescription;
 
 	}
-<<<<<<< HEAD
-
-
-
-  	private String buildMissingArguments() {
-  	 	String helpMessageArguments = "";
-    	String[] helpMessageArgumentsArray;
-    	helpMessageArgumentsArray = helpMessageArguments.split("\\s+");
-    	String missingArguments = "";
-    	for (int i = 0; i < helpMessageArgumentsArray.length; i++){
-      		missingArguments = missingArguments + helpMessageArgumentsArray[i].toString();
-    	}
-    	return missingArguments;
-  	}
-
-  	protected String getMissingArguments() {
-    	return buildArgumentUsage();
-  	}
-
-
-
-=======
->>>>>>> f684c2039babd2d4a1c28b0471fcec95d5d9ee84
 }
