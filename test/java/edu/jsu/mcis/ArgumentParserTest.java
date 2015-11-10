@@ -278,7 +278,6 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height",Argument.Type.FLOAT);
 		String[] data = {"7","something", "4"};
 		ap.parse(data);
-<<<<<<< HEAD
 	}
 
 	
@@ -290,9 +289,8 @@ public class ArgumentParserTest {
 		assertEquals("[length][width][height]", ap.getMissingArguments() );
 	}
 	
-=======
-	}	
->>>>>>> d9627642401516667a300570dee958bf05e97a2e
+
+
 
 
 	@Test (expected=IncorrectDataTypeException.class)
@@ -353,15 +351,11 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
 		ap.addPositionalArgument("width", Argument.Type.FLOAT, "the width of the box");
 		ap.addPositionalArgument("height", Argument.Type.FLOAT, "the height of the box");
-<<<<<<< HEAD
+
 		ap.addNamedArgument("Type", "t", Argument.Type.STRING, "Box");
 		ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
 		String[] data = {"7","--Type","circle","5", "--h", "4","--Digits","2"};
-=======
-		ap.addNamedArgument("Type", Argument.Type.STRING, "Box");
-		ap.addNamedArgument("Digits", Argument.Type.INT, "4");
-		String[] data = {"7","--Type","circle","5", "-h", "4","--Digits","2"};
->>>>>>> d9627642401516667a300570dee958bf05e97a2e
+
 		ap.parse(data);
 	}
 
