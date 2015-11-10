@@ -8,12 +8,12 @@ public class ArgumentParserKeywords {
   public void StartVolumeCalculatorWithArguments(String[] args) throws UnknownArgumentException{
   	ap=new ArgumentParser();
   	ap.assignProgramName("VolumeCalculator");
-  	ap.assignProgramDescription("Calcuate the volume of a box.");
+  	ap.assignProgramDescription("Calculate the volume of a box.");
   	ap.addPositionalArgument("length");
 	ap.addPositionalArgument("width");
 	ap.addPositionalArgument("height");
-	ap.addNamedArgument("Type");
-	ap.addNamedArgument("Digits");
+	ap.addNamedArgument("Type", "t", Argument.Type.STRING, "Box");
+	ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
 		try{
 			ap.parse(args);
 			int width = Integer.parseInt(getWidth());
@@ -29,17 +29,17 @@ public class ArgumentParserKeywords {
   public void StartVolumeCalculatorWithUserArguments(String[] args){
   	ap=new ArgumentParser();
   	ap.assignProgramName("VolumeCalculator");
-  	ap.assignProgramDescription("Calcuate the volume of a box.");
+  	ap.assignProgramDescription("Calculate the volume of a box.");
   	ap.addPositionalArgument("length");
-		ap.addPositionalArgument("width");
-		ap.addPositionalArgument("height");
-		ap.parse(args);
+	ap.addPositionalArgument("width");
+	ap.addPositionalArgument("height");
+	ap.parse(args);
   }
 
   public void StartProgramWithArguments(String[] args){
   	ap=new ArgumentParser();
   	ap.assignProgramName("VolumeCalculator");
-  	ap.assignProgramDescription("Calcuate the volume of a box.");
+  	ap.assignProgramDescription("Calculate the volume of a box.");
   	ap.addPositionalArgument("length");
     ap.addPositionalArgument("width");
     ap.addPositionalArgument("height");
@@ -64,7 +64,7 @@ public class ArgumentParserKeywords {
 	public void StartProgramWithDataTypeArguments(String[] args) throws IncorrectDataTypeException{
 		ap=new ArgumentParser();
 		ap.assignProgramName("VolumeCalculator");
-		ap.assignProgramDescription("Calcuate the volume of a box.");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length",Argument.Type.FLOAT);
 		ap.addPositionalArgument("width", Argument.Type.FLOAT);
 		ap.addPositionalArgument("height",Argument.Type.FLOAT);
@@ -72,7 +72,7 @@ public class ArgumentParserKeywords {
 			ap.parse(args);
 		}
 		catch(IncorrectDataTypeException ex){
-        output = ex.getMessage();
+        	output = ex.getMessage();
 		}
 	}
 
@@ -103,11 +103,11 @@ public class ArgumentParserKeywords {
   }
 
   public String getType(){
-  	return ap.getValue("Type");
+  	return ap.getValue("Type") + "";
   }
 
   public String getDigits(){
-  	return ap.getValue("Digits");
+  	return ap.getValue("Digits") + "";
   }
 
   public String getProgramOutput(){
