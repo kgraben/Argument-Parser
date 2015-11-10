@@ -355,19 +355,14 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
 		ap.addPositionalArgument("width", Argument.Type.FLOAT, "the width of the box");
 		ap.addPositionalArgument("height", Argument.Type.FLOAT, "the height of the box");
-<<<<<<< HEAD
+
 
 		ap.addNamedArgument("Type", "t", Argument.Type.STRING, "Box");
 		ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
 		String[] data = {"7","--Type","circle","5", "--h", "4","--Digits","2"};
 
 		ap.parse(data);
-=======
-		ap.addNamedArgument("Type", "t", Argument.Type.STRING, "Box");
-		ap.addNamedArgument("Digits","d", Argument.Type.INT, "4");
-		String[] data = {"7","--Type","circle","5", "-h", "4","--Digits","2"};
-			ap.parse(data);
->>>>>>> f684c2039babd2d4a1c28b0471fcec95d5d9ee84
+
 	}
 
 	@Test
