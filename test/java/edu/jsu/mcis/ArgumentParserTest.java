@@ -266,7 +266,11 @@ public class ArgumentParserTest {
 		String[] data = {"7","something", "4"};
 		ap.parse(data);
 	}
-
+	/*
+		return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
+         programDescription + "\n Incorrect DataType: " + incorrectType;
+	
+	*/
 	@Test
 	public void testIncorrectDataTypeExceptionMessageCorrect() {
 		expectedEx.expect(IncorrectDataTypeException.class);
