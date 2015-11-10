@@ -266,11 +266,7 @@ public class ArgumentParserTest {
 		String[] data = {"7","something", "4"};
 		ap.parse(data);
 	}
-	/*
-		return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
-         programDescription + "\n Incorrect DataType: " + incorrectType;
 
-	*/
 	@Test
 	public void testIncorrectDataTypeExceptionMessageCorrect() {
 		expectedEx.expect(IncorrectDataTypeException.class);
@@ -349,7 +345,7 @@ public class ArgumentParserTest {
 	@Test
 	public void testGetHelpMessageAnywhereWithNamedArguments(){
 		expectedEx.expect(HelpMessageException.class);
-		String message = "usage: java VolumeCalculator [length][width][height][Type][t][Digits][d]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)\n" + "Type  (STRING)\n" + "Type  (STRING)\n" + "Digits  (INT)\n" + "Digits  (INT)";
+		String message = "usage: java VolumeCalculator [length][width][height][Type][t][Digits][d][--Type]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)\n" + "Type  (STRING)\n" + "Type  (STRING)\n" + "Digits  (INT)\n" + "Digits  (INT)";
 			expectedEx.expectMessage(message);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
@@ -362,7 +358,13 @@ public class ArgumentParserTest {
 		ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
 		String[] data = {"7","--Type","circle","5", "--h", "4","--Digits","2"};
 
-		ap.parse(data);
+		//System.out.println("|" + message + "|");
+		//try {
+			ap.parse(data);
+	//	}
+		//catch(Exception e) {
+		//	System.out.println("|" + e.getMessage() + "|");
+		//}
 
 	}
 
