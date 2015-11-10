@@ -75,7 +75,7 @@ public class ArgumentParser{
         		if(name.equals("h")){
         			userArgs.remove("h");
         			throw new HelpMessageException(getHelpMessage());
-        		
+
         		}
         		Argument a = arguments.get(name);
         		// If boolean argument, then don't get the next value
@@ -115,7 +115,7 @@ public class ArgumentParser{
     }
     return s;
   }
-  
+
   protected String getMissingArguments() {
     	return buildArgumentUsage();
   }
@@ -164,9 +164,6 @@ public class ArgumentParser{
 		else if(list.size()==2){
 			throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
 		}
-
-
-
 	}
 
 
@@ -194,7 +191,11 @@ public class ArgumentParser{
 									arguments.put(name,a);
 								}
 								catch(NumberFormatException e){
+<<<<<<< HEAD
 									throw new IncorrectDataTypeException("usage: java VolumeCalculator [length][width][height]" + "\n" + "VolumeCalculator.java: error: argument width: invalid float value: " + list.get(i));
+=======
+									throw new IncorrectDataTypeException(" " + list.get(i));
+>>>>>>> 8a20792525d61013f52d2f5510a3c0513f179dfe
 								}
 
 							}
@@ -204,7 +205,11 @@ public class ArgumentParser{
 									arguments.put(name,a);
 								}
 								catch(NumberFormatException e){
+<<<<<<< HEAD
 									throw new IncorrectDataTypeException("usage: java VolumeCalculator [length][width][height]" + "\n" + "VolumeCalculator.java: error: argument width: invalid float value: " + list.get(i));
+=======
+									throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(list.get(i)));
+>>>>>>> 8a20792525d61013f52d2f5510a3c0513f179dfe
 
 								}
 							}
@@ -216,6 +221,11 @@ public class ArgumentParser{
 				}
 		}
 	}
+
+  private String getIncorrectDataTypeMessage(String incorrectType) {
+    return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
+            programDescription + "\n Incorrect DataType: " + incorrectType;
+  }
 
 	protected String getProgramName(){
 		return programName;
@@ -231,6 +241,5 @@ public class ArgumentParser{
 
 	protected String getProgramDescription(){
 		return programDescription;
-
 	}
 }
