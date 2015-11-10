@@ -185,7 +185,7 @@ public class ArgumentParser{
      					 			arguments.put(name,a);
      					 		}
      					 		catch(NumberFormatException e){
-     					 			throw new IncorrectDataTypeException("Incorrect DataType " + list.get(i));
+     					 			throw new IncorrectDataTypeException("usage: java VolumeCalculator [length][width][height]" + "\n" + "VolumeCalculator.java: error: argument width: invalid float value:" + list.get(i));
      					 		}
      					 	}
 							else if(a.getType()==Argument.Type.FLOAT){
@@ -194,7 +194,7 @@ public class ArgumentParser{
 									arguments.put(name,a);
 								}
 								catch(NumberFormatException e){
-									throw new IncorrectDataTypeException("Incorrect DataType " + list.get(i));
+									throw new IncorrectDataTypeException("usage: java VolumeCalculator [length][width][height]" + "\n" + "VolumeCalculator.java: error: argument width: invalid float value: " + list.get(i));
 								}
 
 							}
@@ -204,7 +204,7 @@ public class ArgumentParser{
 									arguments.put(name,a);
 								}
 								catch(NumberFormatException e){
-									throw new IncorrectDataTypeException("Incorrect DataType " + list.get(i));
+									throw new IncorrectDataTypeException("usage: java VolumeCalculator [length][width][height]" + "\n" + "VolumeCalculator.java: error: argument width: invalid float value: " + list.get(i));
 
 								}
 							}
@@ -212,7 +212,7 @@ public class ArgumentParser{
 					}
 				}
 				catch(IndexOutOfBoundsException e){
-					throw new UnknownArgumentException("UnknownArgument : " + list.get(i));
+					throw new UnknownArgumentException("usage: java VolumeCalculator [length][width][height]\nVolumeCalculator.java: error: unrecognized arguments: " + list.get(i));
 				}
 		}
 	}
