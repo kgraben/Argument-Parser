@@ -12,7 +12,11 @@ public class Argument{
 	public Argument(){
 		value = "0";
 		name = "";
+<<<<<<< HEAD
 		shortName = "";
+=======
+		shortName = "x";
+>>>>>>> f684c2039babd2d4a1c28b0471fcec95d5d9ee84
 		type = Type.STRING;
 		description = "";
 	}
@@ -40,12 +44,20 @@ public class Argument{
 	public String getName(){
 		return name;
 	}
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> f684c2039babd2d4a1c28b0471fcec95d5d9ee84
 	public void setShortName(String n){
 		shortName = n;
-	
+
 	}
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> f684c2039babd2d4a1c28b0471fcec95d5d9ee84
 	public String getShortName(){
 		return shortName;
 	}
