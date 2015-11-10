@@ -10,10 +10,10 @@ public class ArgumentParserKeywords {
   	ap.assignProgramName("VolumeCalculator");
   	ap.assignProgramDescription("Calcuate the volume of a box.");
   	ap.addPositionalArgument("length");
-	ap.addPositionalArgument("width");
-	ap.addPositionalArgument("height");
-	ap.addNamedArgument("Type");
-	ap.addNamedArgument("Digits");
+  	ap.addPositionalArgument("width");
+  	ap.addPositionalArgument("height");
+    ap.addNamedArgument("Type", "t",Argument.Type.STRING, "Box");
+		ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
 		try{
 			ap.parse(args);
 			int width = Integer.parseInt(getWidth());
@@ -40,9 +40,9 @@ public class ArgumentParserKeywords {
   	ap=new ArgumentParser();
   	ap.assignProgramName("VolumeCalculator");
   	ap.assignProgramDescription("Calcuate the volume of a box.");
-  	ap.addPositionalArgument("length");
-    ap.addPositionalArgument("width");
-    ap.addPositionalArgument("height");
+  	ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
+    ap.addPositionalArgument("width", Argument.Type.FLOAT, "the width of the box");
+    ap.addPositionalArgument("height", Argument.Type.FLOAT, "the height of the box");
     try {
     	ap.parse(args);
     }
