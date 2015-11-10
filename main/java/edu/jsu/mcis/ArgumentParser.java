@@ -12,10 +12,10 @@ import java.io.*;
 
 public class ArgumentParser{
 
-  private Map<String, Argument> arguments;
-  private List<String> positionalList;
-  private String programName;
-  private String programDescription;
+  	private Map<String, Argument> arguments;
+  	private List<String> positionalList;
+  	private String programName;
+  	private String programDescription;
 
 	public ArgumentParser(){
 		arguments = new LinkedHashMap<String,Argument>();
@@ -102,13 +102,13 @@ public class ArgumentParser{
 
 	}
 
-  public String getHelpMessage() {
+  	public String getHelpMessage() {
  		return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
             programDescription + "\n" + "positional arguments:\n" +
             buildPositionalArguments();
  	}
 
-  private String buildArgumentUsage() {
+  	private String buildArgumentUsage() {
     String s = "";
     for(String name : arguments.keySet()) {
       s += "[" + name + "]";
@@ -116,11 +116,11 @@ public class ArgumentParser{
     return s;
   }
 
-  protected String getMissingArguments() {
+  	protected String getMissingArguments() {
     	return buildArgumentUsage();
   }
 
-  private String buildPositionalArguments() {
+  	private String buildPositionalArguments() {
     String s = "";
     for(String name : arguments.keySet()) {
       Argument a = arguments.get(name);
@@ -182,7 +182,8 @@ public class ArgumentParser{
      					 			arguments.put(name,a);
      					 		}
      					 		catch(NumberFormatException e){
-     					 			throw new IncorrectDataTypeException("usage: java VolumeCalculator [length][width][height]" + "\n" + "VolumeCalculator.java: error: argument width: invalid float value:" + list.get(i));
+     					 			throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(list.get(i)));
+
      					 		}
      					 	}
 							else if(a.getType()==Argument.Type.FLOAT){
@@ -191,11 +192,7 @@ public class ArgumentParser{
 									arguments.put(name,a);
 								}
 								catch(NumberFormatException e){
-<<<<<<< HEAD
-									throw new IncorrectDataTypeException("usage: java VolumeCalculator [length][width][height]" + "\n" + "VolumeCalculator.java: error: argument width: invalid float value: " + list.get(i));
-=======
-									throw new IncorrectDataTypeException(" " + list.get(i));
->>>>>>> 8a20792525d61013f52d2f5510a3c0513f179dfe
+									throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(list.get(i)));
 								}
 
 							}
@@ -205,15 +202,11 @@ public class ArgumentParser{
 									arguments.put(name,a);
 								}
 								catch(NumberFormatException e){
-<<<<<<< HEAD
-									throw new IncorrectDataTypeException("usage: java VolumeCalculator [length][width][height]" + "\n" + "VolumeCalculator.java: error: argument width: invalid float value: " + list.get(i));
-=======
 									throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(list.get(i)));
->>>>>>> 8a20792525d61013f52d2f5510a3c0513f179dfe
-
 								}
 							}
 						}
+						
 					}
 				}
 				catch(IndexOutOfBoundsException e){
@@ -221,11 +214,12 @@ public class ArgumentParser{
 				}
 		}
 	}
+	
 
-  private String getIncorrectDataTypeMessage(String incorrectType) {
-    return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
-            programDescription + "\n Incorrect DataType: " + incorrectType;
-  }
+ 	private String getIncorrectDataTypeMessage(String incorrectType) {
+    	return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
+         programName + ".java" + incorrectType;
+ 	}
 
 	protected String getProgramName(){
 		return programName;
@@ -242,4 +236,13 @@ public class ArgumentParser{
 	protected String getProgramDescription(){
 		return programDescription;
 	}
+	
+	
+	
+	
 }
+
+
+
+
+
