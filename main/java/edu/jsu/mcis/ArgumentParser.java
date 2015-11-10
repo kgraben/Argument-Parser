@@ -72,6 +72,11 @@ public class ArgumentParser{
       			System.out.println(arg);
         		String name = (arg.startsWith("--"))? arg.substring(2) : arg.substring(1);
         		System.out.println(name);
+        		if(name.equals("h")){
+        			userArgs.remove("h");
+        			throw new HelpMessageException(getHelpMessage());
+        		
+        		}
         		Argument a = arguments.get(name);
         		// If boolean argument, then don't get the next value
         		System.out.println(a);
@@ -234,7 +239,7 @@ public class ArgumentParser{
 		return programDescription;
 
 	}
-<<<<<<< HEAD
+
 
 
   	private String buildMissingArguments() {
@@ -253,6 +258,5 @@ public class ArgumentParser{
   	}
 
 
-=======
->>>>>>> d9627642401516667a300570dee958bf05e97a2e
+
 }
