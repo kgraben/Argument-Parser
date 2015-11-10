@@ -270,7 +270,7 @@ public class ArgumentParserTest {
 	@Test
 	public void testIncorrectDataTypeExceptionMessageCorrect() {
 		expectedEx.expect(IncorrectDataTypeException.class);
-			expectedEx.expectMessage("Incorrect DataType something");
+			expectedEx.expectMessage("usage: java VolumeCalculator [length][width][height]" + "\n" + "VolumeCalculator.java: error: argument width: invalid float value: something");
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length",Argument.Type.FLOAT);
