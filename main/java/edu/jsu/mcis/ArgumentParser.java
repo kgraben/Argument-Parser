@@ -182,7 +182,7 @@ public class ArgumentParser{
      					 			arguments.put(name,a);
      					 		}
      					 		catch(NumberFormatException e){
-     					 			throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(list.get(i)));
+     					 			throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(name, list.get(i), a.getType().toString()));
 
      					 		}
      					 	}
@@ -192,7 +192,7 @@ public class ArgumentParser{
 									arguments.put(name,a);
 								}
 								catch(NumberFormatException e){
-									throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(list.get(i)));
+									throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(name, list.get(i), a.getType().toString()));
 								}
 
 							}
@@ -202,11 +202,11 @@ public class ArgumentParser{
 									arguments.put(name,a);
 								}
 								catch(NumberFormatException e){
-									throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(list.get(i)));
+									throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(name, list.get(i), a.getType().toString()));
 								}
 							}
 						}
-						
+
 					}
 				}
 				catch(IndexOutOfBoundsException e){
@@ -214,11 +214,12 @@ public class ArgumentParser{
 				}
 		}
 	}
-	
 
- 	private String getIncorrectDataTypeMessage(String incorrectType) {
+
+ 	private String getIncorrectDataTypeMessage(String argName, String incorrectValue, String type) {
     	return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
-         programName + ".java" + incorrectType;
+         programName + ".java: error: argument " + argName + ": invalid " + type
+         + " value: " + incorrectValue;
  	}
 
 	protected String getProgramName(){
@@ -236,13 +237,8 @@ public class ArgumentParser{
 	protected String getProgramDescription(){
 		return programDescription;
 	}
-	
-	
-	
-	
+
+
+
+
 }
-
-
-
-
-

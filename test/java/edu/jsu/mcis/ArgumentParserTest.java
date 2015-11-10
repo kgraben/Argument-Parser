@@ -269,12 +269,13 @@ public class ArgumentParserTest {
 	/*
 		return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
          programDescription + "\n Incorrect DataType: " + incorrectType;
-	
+
 	*/
 	@Test
 	public void testIncorrectDataTypeExceptionMessageCorrect() {
 		expectedEx.expect(IncorrectDataTypeException.class);
-			expectedEx.expectMessage("usage: java VolumeCalculator [length][width][height]" + "\n" + "VolumeCalculator.java: error: argument width: invalid float value: something");
+		String message = "usage: java VolumeCalculator [length][width][height]" + "\n" + "VolumeCalculator.java: error: argument width: invalid FLOAT value: something";
+		expectedEx.expectMessage(message);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length",Argument.Type.FLOAT);
@@ -282,10 +283,9 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height",Argument.Type.FLOAT);
 		String[] data = {"7","something", "4"};
 		ap.parse(data);
-
 	}
 
-	
+
 	@Test
 	public void testHelpMessageStringBuilder() {
 		ap.addPositionalArgument("length");
@@ -293,7 +293,7 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height");
 		assertEquals("[length][width][height]", ap.getMissingArguments() );
 	}
-	
+
 
 
 
