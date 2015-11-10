@@ -75,7 +75,7 @@ public class ArgumentParser{
         		if(name.equals("h")){
         			userArgs.remove("h");
         			throw new HelpMessageException(getHelpMessage());
-        		
+
         		}
         		Argument a = arguments.get(name);
         		// If boolean argument, then don't get the next value
@@ -115,7 +115,7 @@ public class ArgumentParser{
     }
     return s;
   }
-  
+
   protected String getMissingArguments() {
     	return buildArgumentUsage();
   }
@@ -164,9 +164,6 @@ public class ArgumentParser{
 		else if(list.size()==2){
 			throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
 		}
-
-
-
 	}
 
 
@@ -194,7 +191,7 @@ public class ArgumentParser{
 									arguments.put(name,a);
 								}
 								catch(NumberFormatException e){
-									throw new IncorrectDataTypeException("Incorrect DataType " + list.get(i));
+									throw new IncorrectDataTypeException(" " + list.get(i));
 								}
 
 							}
@@ -204,7 +201,7 @@ public class ArgumentParser{
 									arguments.put(name,a);
 								}
 								catch(NumberFormatException e){
-									throw new IncorrectDataTypeException("Incorrect DataType " + list.get(i));
+									throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(list.get(i)));
 
 								}
 							}
@@ -216,6 +213,11 @@ public class ArgumentParser{
 				}
 		}
 	}
+
+  private String getIncorrectDataTypeMessage(String incorrectType) {
+    return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
+            programDescription + "\n Incorrect DataType: " + incorrectType;
+  }
 
 	protected String getProgramName(){
 		return programName;
@@ -231,6 +233,5 @@ public class ArgumentParser{
 
 	protected String getProgramDescription(){
 		return programDescription;
-
 	}
 }
