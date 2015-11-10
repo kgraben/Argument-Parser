@@ -278,7 +278,7 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height",Argument.Type.FLOAT);
 		String[] data = {"7","something", "4"};
 		ap.parse(data);
-<<<<<<< HEAD
+
 	}
 
 	
@@ -293,9 +293,6 @@ public class ArgumentParserTest {
 
 
 
-=======
-	}
->>>>>>> f684c2039babd2d4a1c28b0471fcec95d5d9ee84
 
 	@Test (expected=IncorrectDataTypeException.class)
 	public void testInvalidTypeInteger(){
