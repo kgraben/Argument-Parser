@@ -62,29 +62,7 @@ public class ArgumentParser{
 		}
 		for(int i = 0; i < userArgs.size(); i++) {
 			String arg = userArgs.get(i);
-<<<<<<< HEAD
-      		if(arg.startsWith("--") || arg.startsWith("-")) {
-      			System.out.println(arg);
-        		String name = (arg.startsWith("--"))? arg.substring(2) : arg.substring(1);
-        		System.out.println(name);
-        		
-        		if(name.equals("h")){
-        			userArgs.remove("h");
-        			throw new HelpMessageException(getHelpMessage());
 
-        		}
-        		
-        		Argument a = arguments.get(name);
-        		// If boolean argument, then don't get the next value
-        		System.out.println(a);
-        		System.out.println(userArgs.get(i+1));
-        		a.setValue(userArgs.get(i+1));
-        		arguments.put(userArgs.get(i),a);
-        		userArgs.set(i, "");
-				userArgs.set(i+1, "");
-				System.out.println(userArgs);
-				
-=======
   		if(arg.startsWith("--") || arg.startsWith("-")) {
     		String name = (arg.startsWith("--"))? arg.substring(2) : arg.substring(1);
     		if(name.equals("h")){
@@ -96,9 +74,7 @@ public class ArgumentParser{
     		arguments.put(userArgs.get(i),a);
     		userArgs.set(i, "");
         userArgs.set(i+1, "");
->>>>>>> dacb214bdb228df85ce5ffe9e031e3fe9f9006ad
 			}
-
    		}
     	List<String> posArgs = new ArrayList<String>();
     	for(int k = 0; k< userArgs.size(); k++){
@@ -216,16 +192,10 @@ public class ArgumentParser{
     }
   }
 
-
-<<<<<<< HEAD
- 	private String getIncorrectDataTypeMessage(String incorrectType ) {
-    	return "usage: java " + programName + " " + buildArgumentUsage() + "\n" + programName + ".java" + incorrectType;
-=======
  	private String getIncorrectDataTypeMessage(String argName, String incorrectValue, String type) {
     return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
     programName + ".java: error: argument " + argName + ": invalid " + type
     + " value: " + incorrectValue;
->>>>>>> dacb214bdb228df85ce5ffe9e031e3fe9f9006ad
  	}
 
 	protected String getProgramName(){
@@ -243,14 +213,4 @@ public class ArgumentParser{
 	protected String getProgramDescription(){
 		return programDescription;
 	}
-
-  private String fileName;
-
-  public void setFileName(String fileName){
-    this.fileName = fileName;
-  }
-
-  protected String getFileName(){
-    return fileName;
-  }
 }

@@ -1,3 +1,5 @@
+package edu.jsu.mcis;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
@@ -8,41 +10,38 @@ import java.io.File;
 
 public class LoadXML {
 
-  public static void main(String argv[]) {
+    private String fileName;
+
+    public void setFileName(String fileName){
+      this.fileName = fileName;
+    }
+
+    protected String getFileName(){
+      return fileName;
+    }
+
+  public void loadXML() {
 
     try {
 
-    File fXmlFile = new File("arguments.xml");
+    File xmlFile = new File(getFileName());
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-    Document doc = dBuilder.parse(fXmlFile);
-
-    //optional, but recommended
-    //read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
+    Document doc = dBuilder.parse(xmlFile);
     doc.getDocumentElement().normalize();
-
     System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-
     NodeList nList = doc.getElementsByTagName("positional");
-
     System.out.println("----------------------------");
-
     for (int temp = 0; temp < nList.getLength(); temp++) {
-
         Node nNode = nList.item(temp);
-
         System.out.println("\nCurrent Element :" + nNode.getNodeName());
-
         if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
             Element eElement = (Element) nNode;
-
             System.out.println("positional : " + eElement.getAttribute("id"));
             System.out.println("name : " + eElement.getElementsByTagName("name").item(0).getTextContent());
             System.out.println("type : " + eElement.getElementsByTagName("type").item(0).getTextContent());
             System.out.println("description : " + eElement.getElementsByTagName("description").item(0).getTextContent());
             System.out.println("position : " + eElement.getElementsByTagName("position").item(0).getTextContent());
-
         }
     }
     } catch (Exception e) {
