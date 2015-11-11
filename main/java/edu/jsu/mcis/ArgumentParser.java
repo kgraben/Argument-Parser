@@ -72,11 +72,13 @@ public class ArgumentParser{
       			System.out.println(arg);
         		String name = (arg.startsWith("--"))? arg.substring(2) : arg.substring(1);
         		System.out.println(name);
+        		
         		if(name.equals("h")){
         			userArgs.remove("h");
         			throw new HelpMessageException(getHelpMessage());
 
         		}
+        		
         		Argument a = arguments.get(name);
         		// If boolean argument, then don't get the next value
         		System.out.println(a);
@@ -86,6 +88,7 @@ public class ArgumentParser{
         		userArgs.set(i, "");
 				userArgs.set(i+1, "");
 				System.out.println(userArgs);
+				
 			}
 
    		}
@@ -216,9 +219,8 @@ public class ArgumentParser{
 	}
 	
 
- 	private String getIncorrectDataTypeMessage(String incorrectType) {
-    	return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
-         programName + ".java" + incorrectType;
+ 	private String getIncorrectDataTypeMessage(String incorrectType ) {
+    	return "usage: java " + programName + " " + buildArgumentUsage() + "\n" + programName + ".java" + incorrectType;
  	}
 
 	protected String getProgramName(){
