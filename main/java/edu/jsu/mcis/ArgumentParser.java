@@ -15,6 +15,7 @@ public class ArgumentParser{
   	private List<String> positionalList;
   	private String programName;
   	private String programDescription;
+    private String fileName;
 
 	public ArgumentParser(){
 		arguments = new LinkedHashMap<String,Argument>();
@@ -242,4 +243,14 @@ public class ArgumentParser{
 	protected String getProgramDescription(){
 		return programDescription;
 	}
+
+  private String fileName;
+
+  public void setFileName(String fileName){
+    this.fileName = fileName;
+  }
+
+  protected String getFileName(){
+    return fileName;
+  }
 }

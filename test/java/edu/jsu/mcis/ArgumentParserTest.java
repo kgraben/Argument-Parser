@@ -2,17 +2,18 @@ package edu.jsu.mcis;
 
 import org.junit.*;
 import static org.junit.Assert.*;
-import java.util.*;
 import edu.jsu.mcis.*;
 import org.junit.rules.ExpectedException;
 
 public class ArgumentParserTest {
 
 	public ArgumentParser ap;
+	public LoadXML loadxml;
 
 	@Before
 	public void startUp(){
 		ap = new ArgumentParser();
+		loadxml = new LoadXML();
 	}
 
 	@Rule
@@ -328,10 +329,7 @@ public class ArgumentParserTest {
 		String[] data = {"7","5", "--help", "4"};
 		ap.parse(data);
 	}
-
-<<<<<<< HEAD
-
-=======
+    
 	@Test
 	public void testGetHelpMessageAnywhereWithNamedArguments(){
 		expectedEx.expect(HelpMessageException.class);
@@ -347,7 +345,6 @@ public class ArgumentParserTest {
 		String[] data = {"7","--Type","circle","5", "--h", "4","--Digits","2"};
 		ap.parse(data);
 	}
->>>>>>> dacb214bdb228df85ce5ffe9e031e3fe9f9006ad
 
 	@Test
 	public void testShortNamedArgument(){
@@ -402,25 +399,22 @@ public class ArgumentParserTest {
 		ap.assignProgramDescription("Calculate the volume of a box");
 		assertEquals (ap.getProgramDescription(), "Calculate the volume of a box");
 	}
-	
-	
+
 	@Test
-	public void testGetHelpMessageAnywhereWithNamedArguments(){
-		expectedEx.expect(HelpMessageException.class);
-		String message = "usage: java VolumeCalculator [length][width][height][Type][t][Digits][d]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)\n" + "Type  (STRING)\n" + "Type  (STRING)\n" + "Digits  (INT)\n" + "Digits  (INT)";
-			expectedEx.expectMessage(message);
-		ap.assignProgramName("VolumeCalculator");
-		ap.assignProgramDescription("Calculate the volume of a box.");
-		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
-		ap.addPositionalArgument("width", Argument.Type.FLOAT, "the width of the box");
-		ap.addPositionalArgument("height", Argument.Type.FLOAT, "the height of the box");
+	public void testXmlFileIsRead(){
+		loadxml.setFileName("Argument.xml");
+		assertEquals("Argument.xml", loadxml.getFileName());
+	}
 
+	@Test
+	public void testLoadsPositionalArguments(){
+		loadxml.setFileName("Argument.xml");
+		assertEquals("Argument.xml", loadxml.getFileName());
+		assertTrue(true);
+	}
 
-		ap.addNamedArgument("Type", "t", Argument.Type.STRING, "Box");
-		ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
-		String[] data = {"7","--Type","circle","5", "--h", "4","--Digits","2"};
-
-		ap.parse(data);
-
+	@Test
+	public void testXmlGetProgramName(){
+			assertTrue(true);
 	}
 }
