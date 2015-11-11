@@ -18,8 +18,6 @@ public class ArgumentParserTest {
 	@Rule
 		public ExpectedException expectedEx = ExpectedException.none();
 
-
-
 	@Test (expected=MissingArgumentException.class)
 	public void testOnly1numberEntered(){
 		ap.assignProgramName("VolumeCalculator");
@@ -51,7 +49,6 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height");
 		String[] data = {"7","5", "3", "7"};
 		ap.parse(data);
-
 	}
 
 	@Test
@@ -92,7 +89,6 @@ public class ArgumentParserTest {
 		ap.parse(data);
 		assertEquals("Box", ap.getValue("Type"));
 	}
-
 
 	@Test
 	public void testGetType(){
@@ -204,7 +200,6 @@ public class ArgumentParserTest {
 		assertEquals(4, ap.getValue("Digits"));
 	}
 
-
 	@Test
 	public void testTypeInt(){
 		ap.assignProgramName("VolumeCalculator");
@@ -266,15 +261,12 @@ public class ArgumentParserTest {
 		String[] data = {"7","something", "4"};
 		ap.parse(data);
 	}
-	/*
-		return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
-         programDescription + "\n Incorrect DataType: " + incorrectType;
-	
-	*/
+
 	@Test
 	public void testIncorrectDataTypeExceptionMessageCorrect() {
 		expectedEx.expect(IncorrectDataTypeException.class);
-			expectedEx.expectMessage("usage: java VolumeCalculator [length][width][height]" + "\n" + "VolumeCalculator.java: error: argument width: invalid float value: something");
+		String message = "usage: java VolumeCalculator [length][width][height]" + "\n" + "VolumeCalculator.java: error: argument width: invalid FLOAT value: something";
+		expectedEx.expectMessage(message);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length",Argument.Type.FLOAT);
@@ -282,10 +274,8 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height",Argument.Type.FLOAT);
 		String[] data = {"7","something", "4"};
 		ap.parse(data);
-
 	}
 
-	
 	@Test
 	public void testHelpMessageStringBuilder() {
 		ap.addPositionalArgument("length");
@@ -293,10 +283,6 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height");
 		assertEquals("[length][width][height]", ap.getMissingArguments() );
 	}
-	
-
-
-
 
 	@Test (expected=IncorrectDataTypeException.class)
 	public void testInvalidTypeInteger(){
@@ -309,8 +295,6 @@ public class ArgumentParserTest {
 		ap.parse(data);
 	}
 
-	//Need a help message exception class.
-	//Exception class written, need to get it working.
 	@Test
 	public void testGetHelpMessageShortNameAnywhere(){
 		expectedEx.expect(HelpMessageException.class);
@@ -322,7 +306,6 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("width", Argument.Type.FLOAT, "the width of the box");
 		ap.addPositionalArgument("height", Argument.Type.FLOAT, "the height of the box");
 		String[] data = {"7","5", "-h", "4"};
-
 		//System.out.println("|" + message + "|");
 		//try {
 			ap.parse(data);
@@ -346,7 +329,25 @@ public class ArgumentParserTest {
 		ap.parse(data);
 	}
 
+<<<<<<< HEAD
 
+=======
+	@Test
+	public void testGetHelpMessageAnywhereWithNamedArguments(){
+		expectedEx.expect(HelpMessageException.class);
+		String message = "usage: java VolumeCalculator [length][width][height][Type][t][Digits][d][--Type]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)\n" + "Type  (STRING)\n" + "Type  (STRING)\n" + "Digits  (INT)\n" + "Digits  (INT)";
+			expectedEx.expectMessage(message);
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
+		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
+		ap.addPositionalArgument("width", Argument.Type.FLOAT, "the width of the box");
+		ap.addPositionalArgument("height", Argument.Type.FLOAT, "the height of the box");
+		ap.addNamedArgument("Type", "t", Argument.Type.STRING, "Box");
+		ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
+		String[] data = {"7","--Type","circle","5", "--h", "4","--Digits","2"};
+		ap.parse(data);
+	}
+>>>>>>> dacb214bdb228df85ce5ffe9e031e3fe9f9006ad
 
 	@Test
 	public void testShortNamedArgument(){
@@ -361,9 +362,6 @@ public class ArgumentParserTest {
 		ap.parse(data);
 		assertEquals("circle",ap.getValue("Type"));
 	}
-
-
-
 
 	@Test
 	public void testShortNamedColorArgument(){
@@ -392,7 +390,6 @@ public class ArgumentParserTest {
 		String[] data = {"--help"};
 		ap.parse(data);
 	}
-
 
 	@Test
 	public void testGetProgramName(){
