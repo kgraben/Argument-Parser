@@ -346,25 +346,7 @@ public class ArgumentParserTest {
 		ap.parse(data);
 	}
 
-	@Test
-	public void testGetHelpMessageAnywhereWithNamedArguments(){
-		expectedEx.expect(HelpMessageException.class);
-		String message = "usage: java VolumeCalculator [length][width][height][Type][t][Digits][d]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)\n" + "Type  (STRING)\n" + "Type  (STRING)\n" + "Digits  (INT)\n" + "Digits  (INT)";
-			expectedEx.expectMessage(message);
-		ap.assignProgramName("VolumeCalculator");
-		ap.assignProgramDescription("Calculate the volume of a box.");
-		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
-		ap.addPositionalArgument("width", Argument.Type.FLOAT, "the width of the box");
-		ap.addPositionalArgument("height", Argument.Type.FLOAT, "the height of the box");
 
-
-		ap.addNamedArgument("Type", "t", Argument.Type.STRING, "Box");
-		ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
-		String[] data = {"7","--Type","circle","5", "--h", "4","--Digits","2"};
-
-		ap.parse(data);
-
-	}
 
 	@Test
 	public void testShortNamedArgument(){
@@ -422,5 +404,26 @@ public class ArgumentParserTest {
 	public void testAssignProgramDescription(){
 		ap.assignProgramDescription("Calculate the volume of a box");
 		assertEquals (ap.getProgramDescription(), "Calculate the volume of a box");
+	}
+	
+	
+	@Test
+	public void testGetHelpMessageAnywhereWithNamedArguments(){
+		expectedEx.expect(HelpMessageException.class);
+		String message = "usage: java VolumeCalculator [length][width][height][Type][t][Digits][d]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)\n" + "Type  (STRING)\n" + "Type  (STRING)\n" + "Digits  (INT)\n" + "Digits  (INT)";
+			expectedEx.expectMessage(message);
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
+		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
+		ap.addPositionalArgument("width", Argument.Type.FLOAT, "the width of the box");
+		ap.addPositionalArgument("height", Argument.Type.FLOAT, "the height of the box");
+
+
+		ap.addNamedArgument("Type", "t", Argument.Type.STRING, "Box");
+		ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
+		String[] data = {"7","--Type","circle","5", "--h", "4","--Digits","2"};
+
+		ap.parse(data);
+
 	}
 }
