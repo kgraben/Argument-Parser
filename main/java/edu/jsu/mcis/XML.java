@@ -48,6 +48,17 @@ public class XML {
           "\nvalue : " + eElement.getElementsByTagName("position").item(0).getTextContent() + "||\n");
         }
       }
+      NodeList list = doc.getElementsByTagName("named");
+      for (int temp = 0; temp < list.getLength(); temp++){
+        Node nNode = list.item(temp);
+        if(nNode.getNodeType() == Node.ELEMENT_NODE) {
+          Element eElement = (Element) nNode;
+          output = output + ("\n||" + "Type : " + eElement.getElementsByTagName("name").item(0).getTextContent() +
+          "\nshortname : " + eElement.getElementsByTagName("shortname").item(0).getTextContent() +
+          "\ndata type : " + eElement.getElementsByTagName("type").item(0).getTextContent() +
+          "\ndefault : " + eElement.getElementsByTagName("default").item(0).getTextContent() + "||\n");
+        }
+      }
     }
     catch (Exception e) {
       throw new FileErrorException("Not Found: " + getFileName());
