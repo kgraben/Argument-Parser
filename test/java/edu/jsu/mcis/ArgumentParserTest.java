@@ -329,7 +329,7 @@ public class ArgumentParserTest {
 		String[] data = {"7","5", "--help", "4"};
 		ap.parse(data);
 	}
-    
+
 	@Test
 	public void testGetHelpMessageAnywhereWithNamedArguments(){
 		expectedEx.expect(HelpMessageException.class);
@@ -402,19 +402,21 @@ public class ArgumentParserTest {
 
 	@Test
 	public void testXmlFileIsRead(){
-		loadxml.setFileName("Argument.xml");
-		assertEquals("Argument.xml", loadxml.getFileName());
+		loadxml.setFileName("arguments.xml");
+		assertEquals("arguments.xml", loadxml.getFileName());
 	}
 
 	@Test
 	public void testLoadsPositionalArguments(){
-		loadxml.setFileName("Argument.xml");
-		assertEquals("Argument.xml", loadxml.getFileName());
-		assertTrue(true);
+		loadxml.setFileName("arguments.xml");
+		assertEquals("arguments.xml", loadxml.getFileName());
+		assertEquals("Something", loadxml.returnLoad());
 	}
 
 	@Test
 	public void testXmlGetProgramName(){
-			assertTrue(true);
+		loadxml.setFileName("arguments.xml");
+		assertEquals("arguments.xml", loadxml.getFileName());
+		assertTrue(true);
 	}
 }
