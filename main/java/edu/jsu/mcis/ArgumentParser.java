@@ -31,11 +31,11 @@ public class ArgumentParser{
 
 	public void addPositionalArgument(String name, Argument.Type type, String description) {
 		positionalList.add(name);
-  	PositionalArgument temp = new PositionalArgument();
-  	temp.setType(type);
-  	temp.setName(name);
-  	temp.setDescription(description);
-  	arguments.put(name, temp);
+  		PositionalArgument temp = new PositionalArgument();
+  		temp.setType(type);
+  		temp.setName(name);
+  		temp.setDescription(description);
+  		arguments.put(name, temp);
 	}
 
 	public void addNamedArgument(String name, String shortName, Argument.Type type, String defaultValue) {
@@ -50,9 +50,9 @@ public class ArgumentParser{
 
 	public void parse(String[] args) {
 		List<String> userArgs = new ArrayList<String>();
-  	for(int i=0; i<args.length; i++){
-  		userArgs.add(args[i]);
-  	}
+  		for(int i=0; i<args.length; i++){
+  			userArgs.add(args[i]);
+  		}
 		if(userArgs.contains("-h") || userArgs.contains("--help") ){
 			userArgs.remove("--help");
 			userArgs.remove("-h");
@@ -61,41 +61,19 @@ public class ArgumentParser{
 		}
 		for(int i = 0; i < userArgs.size(); i++) {
 			String arg = userArgs.get(i);
-<<<<<<< HEAD
-      		if(arg.startsWith("--") || arg.startsWith("-")) {
-      			System.out.println(arg);
-        		String name = (arg.startsWith("--"))? arg.substring(2) : arg.substring(1);
-        		System.out.println(name);
-        		
-        		if(name.equals("h")){
-        			userArgs.remove("h");
-        			throw new HelpMessageException(getHelpMessage());
 
-        		}
-        		
-        		Argument a = arguments.get(name);
-        		// If boolean argument, then don't get the next value
-        		System.out.println(a);
-        		System.out.println(userArgs.get(i+1));
-        		a.setValue(userArgs.get(i+1));
-        		arguments.put(userArgs.get(i),a);
-        		userArgs.set(i, "");
-				userArgs.set(i+1, "");
-				System.out.println(userArgs);
-				
-=======
-  		if(arg.startsWith("--") || arg.startsWith("-")) {
-    		String name = (arg.startsWith("--"))? arg.substring(2) : arg.substring(1);
-    		if(name.equals("h")){
-    			userArgs.remove("h");
-    			throw new HelpMessageException(getHelpMessage());
-    		}
-    		Argument a = arguments.get(name);
-    		a.setValue(userArgs.get(i+1));
-    		arguments.put(userArgs.get(i),a);
-    		userArgs.set(i, "");
-        userArgs.set(i+1, "");
->>>>>>> dacb214bdb228df85ce5ffe9e031e3fe9f9006ad
+  			if(arg.startsWith("--") || arg.startsWith("-")) {
+    			String name = (arg.startsWith("--"))? arg.substring(2) : arg.substring(1);
+    			if(name.equals("h")){
+    				userArgs.remove("h");
+    				throw new HelpMessageException(getHelpMessage());
+    			}
+    			Argument a = arguments.get(name);
+    			a.setValue(userArgs.get(i+1));
+    			arguments.put(userArgs.get(i),a);
+    			userArgs.set(i, "");
+        		userArgs.set(i+1, "");
+
 			}
 
    		}
@@ -108,24 +86,27 @@ public class ArgumentParser{
 		checkUserDataType(posArgs);
 		checkUserInputSize(posArgs);
 	}
+	
+	
+	
 
-  	public String getHelpMessage() {
- 		return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
-            programDescription + "\n" + "positional arguments:\n" +
-            buildPositionalArguments();
+	public String getHelpMessage() {
+		return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
+		programDescription + "\n" + "positional arguments:\n" +
+        buildPositionalArguments();
  	}
 
-  private String buildArgumentUsage() {
-    String s = "";
-    for(String name : arguments.keySet()) {
-      s += "[" + name + "]";
-    }
-    return s;
-  }
+	private String buildArgumentUsage() {
+    	String s = "";
+    	for(String name : arguments.keySet()) {
+      	s += "[" + name + "]";
+    	}
+    	return s;
+  	}
 
 	protected String getMissingArguments() {
 	   return buildArgumentUsage();
-  }
+	}
 
 	private String buildPositionalArguments() {
     String s = "";
@@ -159,7 +140,7 @@ public class ArgumentParser{
 		}
   	else {
     		throw new UnknownArgumentException(name);
-  	}
+  		}
 	}
 
 	private void checkUserInputSize(List<String> list) {
@@ -178,36 +159,36 @@ public class ArgumentParser{
   			for(String name : arguments.keySet()) {
    				Argument a = arguments.get(name);
    				if(positional == a.getName()) {
-            a.setValue(list.get(i));
-            if(a.getType() == Argument.Type.INT){
-              try {
-                int num = Integer.parseInt(a.getValue());
-                arguments.put(name,a);
-              }
-              catch(NumberFormatException e) {
-                throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(name, list.get(i), a.getType().toString()));
-              }
-            }
-            else if(a.getType()==Argument.Type.FLOAT){
-              try {
-                float num = Float.parseFloat(a.getValue());
-                arguments.put(name,a);
-              }
-              catch(NumberFormatException e){
-                throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(name, list.get(i), a.getType().toString()));
-              }
-            }
-            else if(a.getType()==Argument.Type.BOOLEAN){
-              try{
-                boolean num = Boolean.parseBoolean(a.getValue());
-                arguments.put(name,a);
-              }
-              catch(NumberFormatException e){
-                throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(name, list.get(i), a.getType().toString()));
-              }
-            }
-          }
-        }
+            		a.setValue(list.get(i));
+            		if(a.getType() == Argument.Type.INT){
+              			try {
+                			int num = Integer.parseInt(a.getValue());
+                			arguments.put(name,a);
+              			}
+              			catch(NumberFormatException e) {
+                			throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(name, list.get(i), a.getType().toString()));
+              			}
+            		}
+            		else if(a.getType()==Argument.Type.FLOAT){
+              			try {
+                			float num = Float.parseFloat(a.getValue());
+                			arguments.put(name,a);
+              			}
+              			catch(NumberFormatException e){
+                			throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(name, list.get(i), a.getType().toString()));
+              			}
+            		}
+           	 		else if(a.getType()==Argument.Type.BOOLEAN){
+              			try{
+                			boolean num = Boolean.parseBoolean(a.getValue());
+                			arguments.put(name,a);
+              			}
+              			catch(NumberFormatException e){
+                			throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(name, list.get(i), a.getType().toString()));
+              			}
+            		}
+          		}
+        	}
       }
       catch(IndexOutOfBoundsException e){
         throw new UnknownArgumentException("usage: java VolumeCalculator [length][width][height]\nVolumeCalculator.java: error: unrecognized arguments: " + list.get(i));
@@ -216,15 +197,12 @@ public class ArgumentParser{
   }
 
 
-<<<<<<< HEAD
- 	private String getIncorrectDataTypeMessage(String incorrectType ) {
-    	return "usage: java " + programName + " " + buildArgumentUsage() + "\n" + programName + ".java" + incorrectType;
-=======
- 	private String getIncorrectDataTypeMessage(String argName, String incorrectValue, String type) {
-    return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
-    programName + ".java: error: argument " + argName + ": invalid " + type
-    + " value: " + incorrectValue;
->>>>>>> dacb214bdb228df85ce5ffe9e031e3fe9f9006ad
+
+	private String getIncorrectDataTypeMessage(String argName, String incorrectValue, String type) {
+    	return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
+    	programName + ".java: error: argument " + argName + ": invalid " + type
+    	+ " value: " + incorrectValue;
+
  	}
 
 	protected String getProgramName(){
