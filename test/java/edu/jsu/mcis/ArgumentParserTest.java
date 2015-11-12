@@ -8,12 +8,12 @@ import org.junit.rules.ExpectedException;
 public class ArgumentParserTest {
 
 	public ArgumentParser ap;
-	public LoadXML loadxml;
+	public XML xml;
 
 	@Before
 	public void startUp(){
 		ap = new ArgumentParser();
-		loadxml = new LoadXML();
+		xml = new XML();
 	}
 
 	@Rule
@@ -402,21 +402,36 @@ public class ArgumentParserTest {
 
 	@Test
 	public void testXmlFileIsRead(){
-		loadxml.setFileName("arguments.xml");
-		assertEquals("arguments.xml", loadxml.getFileName());
+		xml.setFileName("arguments.xml");
+		assertEquals("arguments.xml", xml.getFileName());
+	}
+
+	@Test
+	public void testXmlFileIsNotRead(){
+		expectedEx.expect(FileErrorException.class);
+		String message = "Not Found: fakeFile.xml";
+			expectedEx.expectMessage(message);
+				xml.setFileName("fakeFile.xml");
 	}
 
 	@Test
 	public void testLoadsPositionalArguments(){
-		loadxml.setFileName("arguments.xml");
-		assertEquals("arguments.xml", loadxml.getFileName());
-		assertEquals("Something", loadxml.returnLoad());
+		xml.setFileName("arguments.xml");
+		assertEquals("arguments.xml", xml.getFileName());
+		assertEquals("Something", xml.returnLoad());
+	}
+
+	@Test
+	public void testWeCanParseXML(){
+		xml.setFileName("arguments.xml");
+		assertEquals("arguments.xml", xml.getFileName());
+		assertEquals("", "");
 	}
 
 	@Test
 	public void testXmlGetProgramName(){
-		loadxml.setFileName("arguments.xml");
-		assertEquals("arguments.xml", loadxml.getFileName());
+		xml.setFileName("arguments.xml");
+		assertEquals("arguments.xml", xml.getFileName());
 		assertTrue(true);
 	}
 }

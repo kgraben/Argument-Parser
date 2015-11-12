@@ -8,13 +8,22 @@ import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
 
-public class LoadXML {
+public class XML {
 
   private String fileName;
   public String output = "";
 
   public void setFileName(String fileName){
     this.fileName = fileName;
+    try{
+      File file = new File(fileName);
+      DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+      Document doc = dBuilder.parse(file);
+    }
+    catch (Exception e){
+      throw new FileErrorException("Not Found: " + fileName);
+    }
   }
 
   protected String getFileName(){
@@ -41,7 +50,7 @@ public class LoadXML {
       }
     }
     catch (Exception e) {
-      output = output + "NOTHING HERE!" + e;
+      throw new FileErrorException("Not Found: " + getFileName());
     }
     return output;
   }
