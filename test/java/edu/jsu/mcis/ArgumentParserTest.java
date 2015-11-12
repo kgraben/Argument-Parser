@@ -2,17 +2,18 @@ package edu.jsu.mcis;
 
 import org.junit.*;
 import static org.junit.Assert.*;
-import java.util.*;
 import edu.jsu.mcis.*;
 import org.junit.rules.ExpectedException;
 
 public class ArgumentParserTest {
 
 	public ArgumentParser ap;
+	public XML xml;
 
 	@Before
 	public void startUp(){
 		ap = new ArgumentParser();
+		xml = new XML();
 	}
 
 	@Rule
@@ -329,7 +330,10 @@ public class ArgumentParserTest {
 		ap.parse(data);
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> beec930d168207d3363d926ff8e5d3e76bf5828f
 	@Test
 	public void testGetHelpMessageAnywhereWithNamedArguments(){
 		expectedEx.expect(HelpMessageException.class);
@@ -345,7 +349,10 @@ public class ArgumentParserTest {
 		String[] data = {"7","--Type","circle","5", "--h", "4","--Digits","2"};
 		ap.parse(data);
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> beec930d168207d3363d926ff8e5d3e76bf5828f
 
 	@Test
 	public void testShortNamedArgument(){
@@ -400,6 +407,44 @@ public class ArgumentParserTest {
 		ap.assignProgramDescription("Calculate the volume of a box");
 		assertEquals (ap.getProgramDescription(), "Calculate the volume of a box");
 	}
+<<<<<<< HEAD
 	
 
+=======
+
+	@Test
+	public void testXmlFileIsRead(){
+		xml.setFileName("arguments.xml");
+		assertEquals("arguments.xml", xml.getFileName());
+	}
+
+	@Test
+	public void testXmlFileIsNotRead(){
+		expectedEx.expect(FileErrorException.class);
+		String message = "Not Found: fakeFile.xml";
+			expectedEx.expectMessage(message);
+				xml.setFileName("fakeFile.xml");
+	}
+
+	@Test
+	public void testLoadsPositionalArguments(){
+		xml.setFileName("arguments.xml");
+		assertEquals("arguments.xml", xml.getFileName());
+		assertEquals("Something", xml.returnLoad());
+	}
+
+	@Test
+	public void testWeCanParseXML(){
+		xml.setFileName("arguments.xml");
+		assertEquals("arguments.xml", xml.getFileName());
+		assertEquals("", "");
+	}
+
+	@Test
+	public void testXmlGetProgramName(){
+		xml.setFileName("arguments.xml");
+		assertEquals("arguments.xml", xml.getFileName());
+		assertTrue(true);
+	}
+>>>>>>> beec930d168207d3363d926ff8e5d3e76bf5828f
 }
