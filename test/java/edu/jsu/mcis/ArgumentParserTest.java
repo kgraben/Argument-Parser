@@ -330,10 +330,6 @@ public class ArgumentParserTest {
 		ap.parse(data);
 	}
 
-<<<<<<< HEAD
-
-=======
->>>>>>> beec930d168207d3363d926ff8e5d3e76bf5828f
 	@Test
 	public void testGetHelpMessageAnywhereWithNamedArguments(){
 		expectedEx.expect(HelpMessageException.class);
@@ -349,10 +345,7 @@ public class ArgumentParserTest {
 		String[] data = {"7","--Type","circle","5", "--h", "4","--Digits","2"};
 		ap.parse(data);
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> beec930d168207d3363d926ff8e5d3e76bf5828f
 
 	@Test
 	public void testShortNamedArgument(){
@@ -407,10 +400,7 @@ public class ArgumentParserTest {
 		ap.assignProgramDescription("Calculate the volume of a box");
 		assertEquals (ap.getProgramDescription(), "Calculate the volume of a box");
 	}
-<<<<<<< HEAD
-	
 
-=======
 
 	@Test
 	public void testXmlFileIsRead(){
@@ -430,7 +420,7 @@ public class ArgumentParserTest {
 	public void testLoadsPositionalArguments(){
 		xml.setFileName("arguments.xml");
 		assertEquals("arguments.xml", xml.getFileName());
-		assertEquals("Something", xml.returnLoad());
+		//assertEquals("Something", xml.returnLoad());
 	}
 
 	@Test
@@ -446,5 +436,17 @@ public class ArgumentParserTest {
 		assertEquals("arguments.xml", xml.getFileName());
 		assertTrue(true);
 	}
->>>>>>> beec930d168207d3363d926ff8e5d3e76bf5828f
+	
+	
+	 @Test
+    public void testLoadXMLGetPositionalArgumentValue() {
+        xml.setFileName("arguments.xml");
+        xml.loadXML();
+        String[] inp = {"6","7", "8"};
+        ap.parse(inp);
+        assertEquals(6, ap.getValue("Length"));
+        assertEquals(7, ap.getValue("Width"));
+        assertEquals(8, ap.getValue("Height"));
+    }
+
 }
