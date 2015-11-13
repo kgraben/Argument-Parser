@@ -4,7 +4,7 @@ Library           ArgumentParserKeywords
 
 
 | *Variable*  | *Value*                                                                                                   |
-| ${expected} | usage: java VolumeCalculator [length][width][height]\nVolumeCalculator.java: error: unrecognized arguments: 43 |
+| ${expected} | usage: java VolumeCalculator [length][width][height][Type][t][Digits][d]\nVolumeCalculator.java: error: unrecognized arguments: 43 |
 | ${expectedHelp} | usage: java VolumeCalculator [length][width][height]\nCalcuate the volume of a box.\npositional arguments:\nlength the length of the box (FLOAT)\nwidth the width of the box (FLOAT)\nheight the height of the box (FLOAT) |
 | ${expectedInvalid} | usage: java VolumeCalculator [length][width][height]\nVolumeCalculator.java: error: argument width: invalid FLOAT value: something |
 

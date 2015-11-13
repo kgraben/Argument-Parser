@@ -91,4 +91,8 @@ public class XML {
       throw new FileErrorException("Not Found: " + getFileName());
     }
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 8c5a7896b68b7b88fcc73b6796d8f85b7d53da1f
