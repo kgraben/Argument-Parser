@@ -140,12 +140,24 @@ public class ArgumentParser{
 
 	private void checkUserInputSize(List<String> list) {
 		if(list.size()==1){
-			throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
+			throw new MissingArgumentException(getMissingArgumentsMessage(list));
 		}
 		else if(list.size()==2){
-			throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
+			throw new MissingArgumentException(getMissingArgumentsMessage(list));
 		}
 	}
+
+  private String getMissingArgumentsMessage(List<String> list){
+    String missingArguments = "";
+    for (int i = 0; i < list.size(); i++){
+      missingArguments = missingArguments + list.get(i).toString();
+    }
+    return "usage: java " + programName + " " + buildArgumentUsage() +
+    programName + ".java error: The following arguments are required" +
+    missingArguments;
+  }
+
+
 
 	private void checkUserDataType(List<String> list){
 		for(int i = 0; i < list.size(); i++) {
@@ -186,9 +198,14 @@ public class ArgumentParser{
                 }
             }
             catch(IndexOutOfBoundsException e){
-                throw new UnknownArgumentException("usage: java VolumeCalculator [length][width][height]\nVolumeCalculator.java: error: unrecognized arguments: " + list.get(i));
+                throw new UnknownArgumentException(getUnknownArgumentsMessage(list.get(i)).toString());
             }
         }
+    }
+
+    private String getUnknownArgumentsMessage(String unknownArgument){
+      return "usage: java " + programName + " " + buildArgumentUsage() +
+      "\n" + programName + ".java: error: unrecognized arguments: " + unknownArgument;
     }
 
  	private String getIncorrectDataTypeMessage(String argName, String incorrectValue, String type) {
