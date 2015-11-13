@@ -31,12 +31,21 @@ public class ArgumentParser{
 	}
 
 	public void addPositionalArgument(String name, Argument.Type type, String description) {
+<<<<<<< HEAD
 		positionalList.add(name);
   		PositionalArgument temp = new PositionalArgument();
   		temp.setType(type);
   		temp.setName(name);
   		temp.setDescription(description);
   		arguments.put(name, temp);
+=======
+        positionalList.add(name);
+        PositionalArgument temp = new PositionalArgument();
+        temp.setType(type);
+        temp.setName(name);
+        temp.setDescription(description);
+        arguments.put(name, temp);
+>>>>>>> 0e7ec821212a4b85dcf837313a7c539e7bbf35ab
 	}
 
 	public void addNamedArgument(String name, String shortName, Argument.Type type, String defaultValue) {
@@ -51,9 +60,15 @@ public class ArgumentParser{
 
 	public void parse(String[] args) {
 		List<String> userArgs = new ArrayList<String>();
+<<<<<<< HEAD
   		for(int i=0; i<args.length; i++){
   			userArgs.add(args[i]);
   		}
+=======
+        for(int i=0; i<args.length; i++){
+            userArgs.add(args[i]);
+        }
+>>>>>>> 0e7ec821212a4b85dcf837313a7c539e7bbf35ab
 		if(userArgs.contains("-h") || userArgs.contains("--help") ){
 			userArgs.remove("--help");
 			userArgs.remove("-h");
@@ -62,6 +77,7 @@ public class ArgumentParser{
 		}
 		for(int i = 0; i < userArgs.size(); i++) {
 			String arg = userArgs.get(i);
+<<<<<<< HEAD
 
   			if(arg.startsWith("--") || arg.startsWith("-")) {
     			String name = (arg.startsWith("--"))? arg.substring(2) : arg.substring(1);
@@ -76,6 +92,19 @@ public class ArgumentParser{
         		userArgs.set(i+1, "");
 
 
+=======
+            if(arg.startsWith("--") || arg.startsWith("-")) {
+                String name = (arg.startsWith("--"))? arg.substring(2) : arg.substring(1);
+                if(name.equals("h")){
+                    userArgs.remove("h");
+                    throw new HelpMessageException(getHelpMessage());
+                }
+                Argument a = arguments.get(name);
+                a.setValue(userArgs.get(i+1));
+                arguments.put(userArgs.get(i),a);
+                userArgs.set(i, "");
+                userArgs.set(i+1, "");
+>>>>>>> 0e7ec821212a4b85dcf837313a7c539e7bbf35ab
 			}
    		}
     	List<String> posArgs = new ArrayList<String>();
@@ -97,6 +126,7 @@ public class ArgumentParser{
         buildPositionalArguments();
  	}
 
+<<<<<<< HEAD
 	private String buildArgumentUsage() {
     	String s = "";
     	for(String name : arguments.keySet()) {
@@ -108,21 +138,34 @@ public class ArgumentParser{
 	protected String getMissingArguments() {
 	   return buildArgumentUsage();
 	}
+=======
+    private String buildArgumentUsage() {
+        String s = "";
+        for(String name : arguments.keySet()) {
+            s += "[" + name + "]";
+        }
+        return s;
+    }
+
+	protected String getMissingArguments() {
+	   return buildArgumentUsage();
+    }
+>>>>>>> 0e7ec821212a4b85dcf837313a7c539e7bbf35ab
 
 	private String buildPositionalArguments() {
-    String s = "";
-    for(String name : arguments.keySet()) {
-      Argument a = arguments.get(name);
-      s += a.getName() + " " + a.getDescription() + " (" + a.getType() + ")\n";
+        String s = "";
+        for(String name : arguments.keySet()) {
+            Argument a = arguments.get(name);
+            s += a.getName() + " " + a.getDescription() + " (" + a.getType() + ")\n";
+        }
+        return s.substring(0, s.length()-1);
     }
-    return s.substring(0, s.length()-1);
-  }
 
 	@SuppressWarnings("unchecked")
 	public <T> T getValue(String name){
-    Argument arg = arguments.get(name);
+        Argument arg = arguments.get(name);
 		if(arg != null) {
-      	String val = arg.getValue();
+            String val = arg.getValue();
 			if(arg.getType()==Argument.Type.INT){
 				int num = Integer.parseInt(val);
 				return (T) new Integer (num);
@@ -139,14 +182,18 @@ public class ArgumentParser{
 				return (T) new String(val);
 			}
 		}
-  	else {
+        else {
     		throw new UnknownArgumentException(name);
+<<<<<<< HEAD
   		}
+=======
+        }
+>>>>>>> 0e7ec821212a4b85dcf837313a7c539e7bbf35ab
 	}
 
 	private void checkUserInputSize(List<String> list) {
 		if(list.size()==1){
-				throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
+			throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
 		}
 		else if(list.size()==2){
 			throw new MissingArgumentException("usage: java VolumeCalculator length width heigh. VolumeCalculator.java: error: the following arguments are required: width height");
@@ -155,6 +202,7 @@ public class ArgumentParser{
 
 	private void checkUserDataType(List<String> list){
 		for(int i = 0; i < list.size(); i++) {
+<<<<<<< HEAD
   		try {
   			String positional = positionalList.get(i);
   			for(String name : arguments.keySet()) {
@@ -194,9 +242,51 @@ public class ArgumentParser{
       catch(IndexOutOfBoundsException e){
         throw new UnknownArgumentException("usage: java VolumeCalculator [length][width][height]\nVolumeCalculator.java: error: unrecognized arguments: " + list.get(i));
       }
+=======
+            try {
+                String positional = positionalList.get(i);
+                for(String name : arguments.keySet()) {
+                    Argument a = arguments.get(name);
+                    if(positional == a.getName()) {
+                        a.setValue(list.get(i));
+                        if(a.getType() == Argument.Type.INT){
+                            try {
+                                int num = Integer.parseInt(a.getValue());
+                                arguments.put(name,a);
+                            }
+                            catch(NumberFormatException e) {
+                                throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(name, list.get(i), a.getType().toString()));
+                            }
+                        }
+                        else if(a.getType()==Argument.Type.FLOAT){
+                            try {
+                                float num = Float.parseFloat(a.getValue());
+                                arguments.put(name,a);
+                            }
+                            catch(NumberFormatException e){
+                                throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(name, list.get(i), a.getType().toString()));
+                            }
+                        }
+                        else if(a.getType()==Argument.Type.BOOLEAN){
+                            try{
+                                boolean num = Boolean.parseBoolean(a.getValue());
+                                arguments.put(name,a);
+                            }
+                            catch(NumberFormatException e){
+                                throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(name, list.get(i), a.getType().toString()));
+                            }
+                        }
+                    }
+                }
+            }
+            catch(IndexOutOfBoundsException e){
+                throw new UnknownArgumentException("usage: java VolumeCalculator [length][width][height]\nVolumeCalculator.java: error: unrecognized arguments: " + list.get(i));
+            }
+        }
+>>>>>>> 0e7ec821212a4b85dcf837313a7c539e7bbf35ab
     }
-  }
 
+<<<<<<< HEAD
 
 
 
@@ -206,6 +296,12 @@ public class ArgumentParser{
     	+ " value: " + incorrectValue;
 
 
+=======
+ 	private String getIncorrectDataTypeMessage(String argName, String incorrectValue, String type) {
+        return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
+        programName + ".java: error: argument " + argName + ": invalid " + type
+        + " value: " + incorrectValue;
+>>>>>>> 0e7ec821212a4b85dcf837313a7c539e7bbf35ab
  	}
 
 	protected String getProgramName(){

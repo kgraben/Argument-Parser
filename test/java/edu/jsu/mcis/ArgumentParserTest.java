@@ -17,7 +17,7 @@ public class ArgumentParserTest {
 	}
 
 	@Rule
-		public ExpectedException expectedEx = ExpectedException.none();
+	public ExpectedException expectedEx = ExpectedException.none();
 
 	@Test (expected=MissingArgumentException.class)
 	public void testOnly1numberEntered(){
@@ -68,7 +68,7 @@ public class ArgumentParserTest {
 	public void testHelpMessageCalled(){
 		expectedEx.expect(HelpMessageException.class);
 		String message = "usage: java VolumeCalculator [length][width][height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)";
-			expectedEx.expectMessage(message);
+		expectedEx.expectMessage(message);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
@@ -300,7 +300,7 @@ public class ArgumentParserTest {
 	public void testGetHelpMessageShortNameAnywhere(){
 		expectedEx.expect(HelpMessageException.class);
 		String message = "usage: java VolumeCalculator [length][width][height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)";
-			expectedEx.expectMessage(message);
+		expectedEx.expectMessage(message);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
@@ -320,7 +320,7 @@ public class ArgumentParserTest {
 	public void testGetHelpMessageLongNameAnywhere(){
 		expectedEx.expect(HelpMessageException.class);
 		String message = "usage: java VolumeCalculator [length][width][height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)";
-			expectedEx.expectMessage(message);
+		expectedEx.expectMessage(message);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
@@ -334,7 +334,7 @@ public class ArgumentParserTest {
 	public void testGetHelpMessageAnywhereWithNamedArguments(){
 		expectedEx.expect(HelpMessageException.class);
 		String message = "usage: java VolumeCalculator [length][width][height][Type][t][Digits][d][--Type]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)\n" + "Type  (STRING)\n" + "Type  (STRING)\n" + "Digits  (INT)\n" + "Digits  (INT)";
-			expectedEx.expectMessage(message);
+		expectedEx.expectMessage(message);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
@@ -379,7 +379,7 @@ public class ArgumentParserTest {
 	public void testGetHelp(){
 		expectedEx.expect(HelpMessageException.class);
 		String message = "usage: java VolumeCalculator [length][width][height]" + "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" + "\n" +   "length the length of the box (FLOAT)"  + "\n" +   "width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)";
-			expectedEx.expectMessage(message);
+		expectedEx.expectMessage(message);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length", Argument.Type.FLOAT, "the length of the box");
@@ -412,8 +412,8 @@ public class ArgumentParserTest {
 	public void testXmlFileIsNotRead(){
 		expectedEx.expect(FileErrorException.class);
 		String message = "Not Found: fakeFile.xml";
-			expectedEx.expectMessage(message);
-				xml.setFileName("fakeFile.xml");
+		expectedEx.expectMessage(message);
+		xml.setFileName("fakeFile.xml");
 	}
 
 	@Test
