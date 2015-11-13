@@ -12,6 +12,7 @@ public class XML {
 
     private String fileName;
     public String output = "";
+    public ArgumentParser ap = new ArgumentParser();
 
     public void setFileName(String fileName){
         this.fileName = fileName;
@@ -41,11 +42,19 @@ public class XML {
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-                    output = output + ("\n||" + "Arguments : " + eElement.getElementsByTagName("name").item(0).getTextContent() +
-                    "\ntype : " + eElement.getElementsByTagName("type").item(0).getTextContent() +
-                    "\ndescription : " + eElement.getElementsByTagName("description").item(0).getTextContent() +
-                    "\nvalue : " + eElement.getElementsByTagName("position").item(0).getTextContent() + "||\n");
+                  Element eElement = (Element) nNode;
+                  if (eElement.getElementsByTagName("type").item(0).getTextContent() == "float"){
+                    ap.addPositionalArgument(eElement.getElementsByTagName("name").item(0).getTextContent(), Argument.Type.FLOAT, eElement.getElementsByTagName("description").item(0).getTextContent());
+                  }
+                  else if (eElement.getElementsByTagName("type").item(0).getTextContent() == "integer"){
+                    ap.addPositionalArgument(eElement.getElementsByTagName("name").item(0).getTextContent(), Argument.Type.INT, eElement.getElementsByTagName("description").item(0).getTextContent());
+                  }
+                  else if (eElement.getElementsByTagName("type").item(0).getTextContent() == "string"){
+                    ap.addPositionalArgument(eElement.getElementsByTagName("name").item(0).getTextContent(), Argument.Type.STRING, eElement.getElementsByTagName("description").item(0).getTextContent());
+                  }
+                  else if (eElement.getElementsByTagName("type").item(0).getTextContent() == "boolean"){
+                    ap.addPositionalArgument(eElement.getElementsByTagName("name").item(0).getTextContent(), Argument.Type.BOOLEAN, eElement.getElementsByTagName("description").item(0).getTextContent());
+                  }
                 }
             }
             NodeList list = doc.getElementsByTagName("named");
