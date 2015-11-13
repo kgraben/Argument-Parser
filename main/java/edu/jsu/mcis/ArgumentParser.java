@@ -63,7 +63,6 @@ public class ArgumentParser{
 		for(int i = 0; i < userArgs.size(); i++) {
 			String arg = userArgs.get(i);
 
-<<<<<<< HEAD
   			if(arg.startsWith("--") || arg.startsWith("-")) {
     			String name = (arg.startsWith("--"))? arg.substring(2) : arg.substring(1);
     			if(name.equals("h")){
@@ -76,19 +75,7 @@ public class ArgumentParser{
     			userArgs.set(i, "");
         		userArgs.set(i+1, "");
 
-=======
-  		if(arg.startsWith("--") || arg.startsWith("-")) {
-    		String name = (arg.startsWith("--"))? arg.substring(2) : arg.substring(1);
-    		if(name.equals("h")){
-    			userArgs.remove("h");
-    			throw new HelpMessageException(getHelpMessage());
-    		}
-    		Argument a = arguments.get(name);
-    		a.setValue(userArgs.get(i+1));
-    		arguments.put(userArgs.get(i),a);
-    		userArgs.set(i, "");
-        userArgs.set(i+1, "");
->>>>>>> beec930d168207d3363d926ff8e5d3e76bf5828f
+
 			}
    		}
     	List<String> posArgs = new ArrayList<String>();
@@ -210,7 +197,7 @@ public class ArgumentParser{
     }
   }
 
-<<<<<<< HEAD
+
 
 
 	private String getIncorrectDataTypeMessage(String argName, String incorrectValue, String type) {
@@ -218,12 +205,7 @@ public class ArgumentParser{
     	programName + ".java: error: argument " + argName + ": invalid " + type
     	+ " value: " + incorrectValue;
 
-=======
- 	private String getIncorrectDataTypeMessage(String argName, String incorrectValue, String type) {
-    return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
-    programName + ".java: error: argument " + argName + ": invalid " + type
-    + " value: " + incorrectValue;
->>>>>>> beec930d168207d3363d926ff8e5d3e76bf5828f
+
  	}
 
 	protected String getProgramName(){
