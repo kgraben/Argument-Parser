@@ -8,11 +8,12 @@ import java.util.*;
    		public static void main(String[] args){
    		
    			ArgumentParser Ap= new ArgumentParser();
+   			Ap.assignProgramName("Volume Calculator");
    			Ap.addPositionalArgument("length",Argument.Type.INT);
 			Ap.addPositionalArgument("width",Argument.Type.INT);
 			Ap.addPositionalArgument("height",Argument.Type.INT);
-			Ap.addNamedArgument("Type");
-			Ap.addNamedArgument("Color");
+			Ap.addNamedArgument("Type", "t",Argument.Type.STRING, "Box");
+			Ap.addNamedArgument("Color", "c",Argument.Type.STRING, "yellow");
 		
 			Ap.parse(args);
 			int length= Ap.getValue("length");
@@ -20,6 +21,7 @@ import java.util.*;
 			int height= Ap.getValue("height");
 			String type=Ap.getValue("Type");
 			String color=Ap.getValue("Color");
+			
 			
 			System.out.println("The length is : " + length);
 			System.out.println("The width is : " + width);
