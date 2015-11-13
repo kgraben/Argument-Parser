@@ -12,7 +12,6 @@ public class XML {
 
     private String fileName;
     public String output = "";
-    public ArgumentParser ap = new ArgumentParser();
 
     public void setFileName(String fileName){
         this.fileName = fileName;
@@ -31,7 +30,8 @@ public class XML {
         return fileName;
     }
 
-    public String loadXML() {
+    public void loadXML() {
+      ArgumentParser ap = new ArgumentParser();
         try {
             File xmlFile = new File(getFileName());
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -43,18 +43,24 @@ public class XML {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                   Element eElement = (Element) nNode;
-                  if (eElement.getElementsByTagName("type").item(0).getTextContent() == "float"){
-                    ap.addPositionalArgument(eElement.getElementsByTagName("name").item(0).getTextContent(), Argument.Type.FLOAT, eElement.getElementsByTagName("description").item(0).getTextContent());
+                  String elementName = eElement.getElementsByTagName("name").item(0).getTextContent();
+                  String elementType = eElement.getElementsByTagName("type").item(0).getTextContent();
+                  String elementDesc = eElement.getElementsByTagName("description").item(0).getTextContent();
+
+                  Argument.Type dataType;
+                  if (elementType.equals("float")){
+                    dataType = Argument.Type.FLOAT;
                   }
-                  else if (eElement.getElementsByTagName("type").item(0).getTextContent() == "integer"){
-                    ap.addPositionalArgument(eElement.getElementsByTagName("name").item(0).getTextContent(), Argument.Type.INT, eElement.getElementsByTagName("description").item(0).getTextContent());
+                  else if (elementType.equals("integer")){
+                    dataType = Argument.Type.INT;
                   }
-                  else if (eElement.getElementsByTagName("type").item(0).getTextContent() == "string"){
-                    ap.addPositionalArgument(eElement.getElementsByTagName("name").item(0).getTextContent(), Argument.Type.STRING, eElement.getElementsByTagName("description").item(0).getTextContent());
+                  else if (elementType.equals("boolean")){
+                    dataType = Argument.Type.BOOLEAN;
                   }
-                  else if (eElement.getElementsByTagName("type").item(0).getTextContent() == "boolean"){
-                    ap.addPositionalArgument(eElement.getElementsByTagName("name").item(0).getTextContent(), Argument.Type.BOOLEAN, eElement.getElementsByTagName("description").item(0).getTextContent());
+                  else {
+                    dataType = Argument.Type.STRING;
                   }
+                  ap.addPositionalArgument(elementName, dataType, elementDesc);
                 }
             }
             NodeList list = doc.getElementsByTagName("named");
@@ -72,11 +78,6 @@ public class XML {
         catch (Exception e) {
             throw new FileErrorException("Not Found: " + getFileName());
         }
-        return output;
-    }
-
-    public String returnLoad(){
-        return loadXML();
     }
 
     public void saveXML() {

@@ -418,7 +418,19 @@ public class ArgumentParserTest {
 	public void testLoadsPositionalArguments(){
 		xml.setFileName("arguments.xml");
 		assertEquals("arguments.xml", xml.getFileName());
-		assertEquals("Something", xml.returnLoad());
+	//	assertEquals("Something", xml.returnLoad());
+	}
+
+	@Test
+	public void testWeGetFloatDataTypeFromArguments(){
+		ap.assignProgramName("VolumeCalculator");
+		xml.setFileName("arguments.xml");
+		xml.loadXML();
+		String[] inp = {"6", "7", "8"};
+		ap.parse(inp);
+		assertEquals(6, ap.getValue("length"));
+		assertEquals(7, ap.getValue("width"));
+		assertEquals(8, ap.getValue("height"));
 	}
 
 	@Test
