@@ -11,6 +11,8 @@ import java.io.File;
 public class XML {
   private String fileName;
 
+  ArgumentParser ap = new ArgumentParser();
+
   public void setFileName(String fileName){
     this.fileName = fileName;
     try{
@@ -29,7 +31,6 @@ public class XML {
   }
 
   public void loadXML() {
-    ArgumentParser ap = new ArgumentParser();
     try {
       File xmlFile = new File(fileName);
       DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -60,7 +61,7 @@ public class XML {
           ap.addPositionalArgument(elementName, dataType, elementDesc);
         }
       }
-//================================Add named Arguments===============================      
+//================================Add named Arguments===============================
       NodeList list = doc.getElementsByTagName("named");
       for (int temp = 0; temp < list.getLength(); temp++){
         Node nNode = list.item(temp);
@@ -90,6 +91,7 @@ public class XML {
     catch (Exception e) {
       throw new FileErrorException("Not Found: " + getFileName());
     }
+    return ap;
   }
 <<<<<<< HEAD
 }
