@@ -30,7 +30,7 @@ public class XML {
     return fileName;
   }
 
-  public void loadXML() {
+  public <T> ArgumentParser loadXML() {
     try {
       File xmlFile = new File(fileName);
       DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -93,8 +93,4 @@ public class XML {
     }
     return ap;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 8c5a7896b68b7b88fcc73b6796d8f85b7d53da1f
