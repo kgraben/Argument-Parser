@@ -9,28 +9,8 @@ import org.w3c.dom.Element;
 import java.io.File;
 
 public class XML {
-  private String fileName;
-
-  ArgumentParser ap = new ArgumentParser();
-
-  public void setFileName(String fileName){
-    this.fileName = fileName;
-    try{
-      File file = new File(fileName);
-      DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-      DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-      Document doc = dBuilder.parse(file);
-    }
-    catch (Exception e){
-      throw new FileErrorException("Not Found: " + fileName);
-    }
-  }
-
-  protected String getFileName() {
-    return fileName;
-  }
-
-  public <T> ArgumentParser loadXML() {
+  public static ArgumentParser loadXML(String fileName) {
+    ArgumentParser ap = new ArgumentParser();
     try {
       File xmlFile = new File(fileName);
       DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -89,7 +69,7 @@ public class XML {
       }
     }
     catch (Exception e) {
-      throw new FileErrorException("Not Found: " + getFileName());
+      throw new FileErrorException("Not Found: " + fileName);
     }
     return ap;
   }

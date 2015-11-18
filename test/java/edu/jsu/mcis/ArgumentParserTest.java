@@ -422,40 +422,24 @@ public class ArgumentParserTest {
 	}
 
 	@Test
-	public void testXmlFileIsRead() {
-		xml.setFileName("arguments.xml");
-		assertEquals("arguments.xml", xml.getFileName());
-	}
-
-	@Test
-	public void testXmlFileIsNotRead() {
-		expectedEx.expect(FileErrorException.class);
-		String message = "Not Found: fakeFile.xml";
-		expectedEx.expectMessage(message);
-		xml.setFileName("fakeFile.xml");
-	}
-
-	@Test
 	public void testWeGetFloatDataTypeFromArguments() {
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box");
-		xml.setFileName("arguments.xml");
-		xml.loadXML();
+		ap = XML.loadXML("arguments.xml");
 		String[] inp = {"6", "7", "8"};
 		ap.parse(inp);
-		assertEquals(6, ap.getValue("length"));
-		assertEquals(7, ap.getValue("width"));
-		assertEquals(8, ap.getValue("height"));
+		assertEquals(6.0f, ap.getValue("length"));
+		assertEquals(7.0f, ap.getValue("width"));
+		assertEquals(8.0f, ap.getValue("height"));
 	}
 
 	 @Test
-    public void testLoadXMLGetPositionalArgumentValue() {
-			xml.setFileName("arguments.xml");
-       	xml.loadXML();
-       	String[] data = {"2","5","3"};
-       	ap.parse(data);
-        assertEquals(6, ap.getValue("Length"));
-        assertEquals(7, ap.getValue("Width"));
-        assertEquals(8, ap.getValue("Height"));
+   public void testLoadXMLGetPositionalArgumentValue() {
+     	ap = XML.loadXML("arguments.xml");
+			String[] inp = {"233.5", "52.9", "88.6"};
+			ap.parse(inp);
+      assertEquals(233.5f, ap.getValue("length"));
+      assertEquals(52.9f, ap.getValue("width"));
+      assertEquals(88.6f, ap.getValue("height"));
     }
 }
