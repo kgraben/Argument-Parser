@@ -1,5 +1,5 @@
 # jsu_software_project
-<h1>Software Engineering project Fall 2015</h1>
+<h1>Argument Parser</h1>
 
 <h2>Contributors</h2>
   <ul>
@@ -10,7 +10,7 @@
   </ul>
 <h2>Requirements</h2>
   <ul>
-    <li>Java SDK</li>
+    <li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Java SDK</a></li>
     <li>JUnit</li>
     <li>RobotFramework</li>
     <li>Gradle</li>
