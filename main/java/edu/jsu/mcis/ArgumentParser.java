@@ -8,17 +8,23 @@ package edu.jsu.mcis;
 
 import java.util.*;
 import java.io.*;
+import java.lang.*;
+
 
 public class ArgumentParser {
 
   private Map<String, Argument> arguments;
+  protected Map<String, NamedArgument> namedArguments;
   private List<String> positionalList;
+  private List<String> nameList;
   private String programName;
   private String programDescription;
   private String fileName;
+ 
 
 	public ArgumentParser() {
     arguments = new LinkedHashMap<String,Argument>();
+    namedArguments = new LinkedHashMap<String,NamedArgument>();
     positionalList = new ArrayList<String>();
   }
 
@@ -29,78 +35,102 @@ public class ArgumentParser {
 	public void addPositionalArgument(String x, Argument.Type t) {
     addPositionalArgument(x, t, "");
 	}
-  public void addPositionalArgument(String name, Argument.Type type, String description) {
-    positionalList.add(name);
-    PositionalArgument temp = new PositionalArgument();
-    temp.setType(type);
-    temp.setName(name);
-    temp.setDescription(description);
-    arguments.put(name, temp);
-  }
+
+	public void addPositionalArgument(String name, Argument.Type type, String description) {
+
+		positionalList.add(name);
+  		Argument temp = new Argument();
+  		temp.setType(type);
+  		temp.setName(name);
+  		temp.setDescription(description);
+  		arguments.put(name, temp);
+
+	}
+
 
 	public void addNamedArgument(String name, String shortName, Argument.Type type, String defaultValue) {
-		Argument temp = new Argument();
-		temp.setName(name);
+		//nameList.add(name);
+		NamedArgument temp = new NamedArgument(name);
 		temp.setShortName(shortName);
 		temp.setType(type);
 		temp.setValue(defaultValue);
 		arguments.put(name, temp);
 		arguments.put(shortName,temp);
+		namedArguments.put(name, temp);
+		
 	}
 
-  public void parse(String[] args) {
-    List<String> userArgs = new ArrayList<String>();
-    for(int i=0; i<args.length; i++){
-      userArgs.add(args[i]);
-    }
-    if(userArgs.contains("-h") || userArgs.contains("--help")) {
-      userArgs.remove("--help");
-      userArgs.remove("-h");
-      System.out.println(getHelpMessage());
-      throw new HelpMessageException(getHelpMessage());
-    }
-    for(int i = 0; i < userArgs.size(); i++) {
-      String arg = userArgs.get(i);
-      if(arg.startsWith("--") || arg.startsWith("-")) {
-        String name = (arg.startsWith("--")) ? arg.substring(2) : arg.substring(1);
-        if(name.equals("h")) {
-          userArgs.remove("h");
-          throw new HelpMessageException(getHelpMessage());
-        }
-        Argument a = arguments.get(name);
-        a.setValue(userArgs.get(i+1));
-        arguments.put(userArgs.get(i),a);
-        userArgs.set(i, "");
-        userArgs.set(i + 1, "");
-      }
-    }
-    List<String> posArgs = new ArrayList<String>();
-    for(int k = 0; k< userArgs.size(); k++) {
-      if(userArgs.get(k) != "") {
-        posArgs.add(userArgs.get(k));
-      }
-    }
-    checkUserDataType(posArgs);
-    checkUserInputSize(posArgs);
-  }
+	public void parse(String[] args) {
+		List<String> userArgs = new ArrayList<String>();
+  		for(int i=0; i<args.length; i++){
+  			userArgs.add(args[i]);
+  		}
 
-  public String getHelpMessage() {
-    return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
-    programDescription + "\n" + "positional arguments:\n" +
-    buildPositionalArguments();
-  }
+		if(userArgs.contains("-h") || userArgs.contains("--help") ){
+			userArgs.remove("--help");
+			userArgs.remove("-h");
+			System.out.println(getHelpMessage());
+			throw new HelpMessageException(getHelpMessage());
+		}
+		for(int i = 0; i < userArgs.size(); i++) {
+			String arg = userArgs.get(i);
 
-  private String buildArgumentUsage() {
-    String s = "";
-    for(String name : arguments.keySet()) {
-      s += "[" + name + "]";
-    }
-    return s;
-  }
 
-  protected String getMissingArguments() {
-    return buildArgumentUsage();
-  }
+  			if(arg.startsWith("--") || arg.startsWith("-")) {
+    			String name = (arg.startsWith("--"))? arg.substring(2) : arg.substring(1);
+    			if(name.equals("h")){
+    				userArgs.remove("h");
+    				throw new HelpMessageException(getHelpMessage());
+    			}
+    			
+    				Argument a = arguments.get(name);
+    			
+    				if(a==null){
+    					throw new UnknownArgumentException(name);
+    				}
+    				
+    				a.setValue(userArgs.get(i+1));
+    				arguments.put(userArgs.get(i),a);
+    				userArgs.set(i, "");
+        			userArgs.set(i+1, "");
+        		
+        		
+
+			}
+   		}
+    	List<String> posArgs = new ArrayList<String>();
+    	for(int k = 0; k< userArgs.size(); k++){
+			if(userArgs.get(k)!= ""){
+				posArgs.add(userArgs.get(k));
+			}
+		}
+		checkUserDataType(posArgs);
+		checkUserInputSize(posArgs);
+	}
+	
+	
+	
+
+	public String getHelpMessage() {
+		return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
+		programDescription + "\n" + "positional arguments:\n" +
+        buildPositionalArguments();
+ 	}
+
+
+	private String buildArgumentUsage() {
+    	String s = "";
+    	for(String name : arguments.keySet()) {
+      	s += "[" + name + "]";
+    	}
+    	return s;
+  	}
+
+	protected String getMissingArguments() {
+	   return buildArgumentUsage();
+	}
+
+
 
   private String buildPositionalArguments() {
     String s = "";
@@ -137,22 +167,24 @@ public class ArgumentParser {
     }
   }
 
+ 	
+
   private void checkUserInputSize(List<String> list) {
     if(list.size() == 1) {
-      throw new MissingArgumentException(getMissingArgumentsMessage(list));
+      throw new MissingArgumentException(getMissingArgumentsMessage(list.size(), positionalList));
     }
     else if(list.size() == 2) {
-      throw new MissingArgumentException(getMissingArgumentsMessage(list));
+      throw new MissingArgumentException(getMissingArgumentsMessage(list.size(), positionalList));
     }
   }
 
-  private String getMissingArgumentsMessage(List<String> list){
+  private String getMissingArgumentsMessage(int size, List<String> list){
     String missingArguments = "";
-    for (int i = 0; i < list.size(); i++){
-      missingArguments = missingArguments + list.get(i).toString();
+    for (int i = size; i < list.size(); i++){
+      missingArguments = missingArguments + " " + list.get(i).toString();
     }
     return "usage: java " + programName + " " + buildArgumentUsage() +
-    programName + ".java error: The following arguments are required" +
+    programName + ".java error: The following arguments are required " +
     missingArguments;
   }
 
@@ -182,15 +214,8 @@ public class ArgumentParser {
                 throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(name, list.get(i), a.getType().toString()));
               }
             }
-            else if(a.getType() == Argument.Type.BOOLEAN) {
-              try {
-                boolean num = Boolean.parseBoolean(a.getValue());
-                arguments.put(name,a);
-              }
-              catch(NumberFormatException e) {
-                throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(name, list.get(i), a.getType().toString()));
-              }
-            }
+          
+            
           }
         }
       }
@@ -210,6 +235,20 @@ public class ArgumentParser {
     programName + ".java: error: argument " + argName + ": invalid " + type
     + " value: " + incorrectValue;
   }
+  
+  
+  protected List<String> getPositionalList(){
+  	return positionalList;
+  }
+  
+  
+  protected Map<String,Argument> getArgument(){
+  	return arguments;
+  }
+  
+   protected Map<String,NamedArgument> getNamedArgument(){
+  	return namedArguments;
+  }
 
   protected String getProgramName() {
     return programName;
@@ -226,4 +265,5 @@ public class ArgumentParser {
   protected String getProgramDescription() {
     return programDescription;
   }
+
 }

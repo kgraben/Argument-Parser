@@ -4,7 +4,7 @@ public class Argument{
 
 	public enum Type {INT, FLOAT, BOOLEAN, STRING};
 	private String value;
-	private String name;
+	protected String name;
 	private String shortName;
 	private Type type;
 	private String description;
