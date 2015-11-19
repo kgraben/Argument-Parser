@@ -23,28 +23,26 @@ public class ArgumentParser {
  
 
 	public ArgumentParser() {
-    arguments = new LinkedHashMap<String,Argument>();
-    namedArguments = new LinkedHashMap<String,NamedArgument>();
-    positionalList = new ArrayList<String>();
-  }
+    	arguments = new LinkedHashMap<String,Argument>();
+   		namedArguments = new LinkedHashMap<String,NamedArgument>();
+    	positionalList = new ArrayList<String>();
+  	}
 
 	public void addPositionalArgument(String x) {
-    addPositionalArgument(x, Argument.Type.STRING, "");
+    	addPositionalArgument(x, Argument.Type.STRING, "");
 	}
 
 	public void addPositionalArgument(String x, Argument.Type t) {
-    addPositionalArgument(x, t, "");
+    	addPositionalArgument(x, t, "");
 	}
 
 	public void addPositionalArgument(String name, Argument.Type type, String description) {
-
 		positionalList.add(name);
   		Argument temp = new Argument();
   		temp.setType(type);
   		temp.setName(name);
   		temp.setDescription(description);
   		arguments.put(name, temp);
-
 	}
 
 
@@ -111,7 +109,7 @@ public class ArgumentParser {
 	
 	
 
-	public String getHelpMessage() {
+	protected String getHelpMessage() {
 		return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
 		programDescription + "\n" + "positional arguments:\n" +
         buildPositionalArguments();
@@ -254,11 +252,11 @@ public class ArgumentParser {
     return programName;
   }
 
-  public void assignProgramName(String name) {
+  protected void assignProgramName(String name) {
     programName = name;
   }
 
-  public void assignProgramDescription(String description) {
+  protected void assignProgramDescription(String description) {
     programDescription = description;
   }
 
