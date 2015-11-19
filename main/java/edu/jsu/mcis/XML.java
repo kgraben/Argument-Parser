@@ -11,16 +11,16 @@ import java.io.*;
 import java.lang.*;
 
 /**
-* Class has two functions: Load and save xml.
+* XML class adds XML functionality to ArgumentParser
 *
 */
 
 public class XML {
 
   /**
-  * @param filename: Takes in the name of a file
-  * Opens an xml file, loads it into ArgumentParser and returns ArgumentParser
-  * so values can be passed in.
+  * @param fileName name of XML file to be read
+  * @return An ArgumentParser object with data from the XML file
+  *
   */
   public static ArgumentParser loadXML(String fileName) {
     ArgumentParser ap = new ArgumentParser();
@@ -87,6 +87,11 @@ public class XML {
     return ap;
   }
 
+  /**
+  * @param fileName name of XML file to be saved to
+  * @param a ArgumentParser object to be written to an XML file
+  *
+  */
    public void saveXML(String filepath, ArgumentParser a){
    	 	ArgumentParser ap = a;
    	 	String XMLData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
@@ -113,7 +118,6 @@ public class XML {
                 "\t</argument>" + "\n");
 			}
 
-
 			try{
 				Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream(outfile), "utf-8"));
@@ -121,7 +125,7 @@ public class XML {
 				writer.close();
 			}
 			catch(IOException e){
-				throw new HelpMessageException("");
+				throw new FileErrorException(filepath);
 			}
 
 
