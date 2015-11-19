@@ -1,9 +1,14 @@
-/*This is the first file
-By: Christopher Burdette
-    Kurtis Graben
-    Khoi Phan
-    Hui Wang
+/**
+* @author Christopher Burdette (cbgithub)
+* @author Kurtis Graben (kurtdawg24)
+* @author Khoi Phan (kphanjsu)
+* @author Hui Wang (wanghuida0)
+*
+* ArgumentParser is a library for taking command line arguments and returning
+* user defined values. ArgumentParser also has the capablility of loading and
+* saving arguments from an XML file.
 */
+
 package edu.jsu.mcis;
 
 import java.util.*;
@@ -20,7 +25,7 @@ public class ArgumentParser {
   private String programName;
   private String programDescription;
   private String fileName;
- 
+
 
 	public ArgumentParser() {
     	arguments = new LinkedHashMap<String,Argument>();
@@ -28,14 +33,41 @@ public class ArgumentParser {
     	positionalList = new ArrayList<String>();
   	}
 
+<<<<<<< HEAD
 	public void addPositionalArgument(String x) {
     	addPositionalArgument(x, Argument.Type.STRING, "");
 	}
 
 	public void addPositionalArgument(String x, Argument.Type t) {
     	addPositionalArgument(x, t, "");
+=======
+  /**
+  * Adds the positional argument "name" to the hashmap
+  *
+  * @param name Takes in the name
+  */
+	public void addPositionalArgument(String name) {
+    addPositionalArgument(name, Argument.Type.STRING, "");
 	}
 
+  /**
+  * Adds the positional argument "name" and "type" to the hashmap
+  *
+  * @param name Takes in the name
+  * @param type Takes in the type
+  */
+	public void addPositionalArgument(String name, Argument.Type type) {
+    addPositionalArgument(name, type, "");
+>>>>>>> 62a1adc36cf8ca1ad157cc01a46d8c95f5347d53
+	}
+
+  /**
+  * Adds the positional argument "name", "type" and "description" to the hashmap
+  *
+  * @param name Takes in the name
+  * @param type Takes in the type
+  * @param description Takes in the description
+  */
 	public void addPositionalArgument(String name, Argument.Type type, String description) {
 		positionalList.add(name);
   		Argument temp = new Argument();
@@ -47,7 +79,6 @@ public class ArgumentParser {
 
 
 	public void addNamedArgument(String name, String shortName, Argument.Type type, String defaultValue) {
-		//nameList.add(name);
 		NamedArgument temp = new NamedArgument(name);
 		temp.setShortName(shortName);
 		temp.setType(type);
@@ -55,7 +86,7 @@ public class ArgumentParser {
 		arguments.put(name, temp);
 		arguments.put(shortName,temp);
 		namedArguments.put(name, temp);
-		
+
 	}
 
 	public void parse(String[] args) {
@@ -80,19 +111,19 @@ public class ArgumentParser {
     				userArgs.remove("h");
     				throw new HelpMessageException(getHelpMessage());
     			}
-    			
+
     				Argument a = arguments.get(name);
-    			
+
     				if(a==null){
     					throw new UnknownArgumentException(name);
     				}
-    				
+
     				a.setValue(userArgs.get(i+1));
     				arguments.put(userArgs.get(i),a);
     				userArgs.set(i, "");
         			userArgs.set(i+1, "");
-        		
-        		
+
+
 
 			}
    		}
@@ -105,11 +136,15 @@ public class ArgumentParser {
 		checkUserDataType(posArgs);
 		checkUserInputSize(posArgs);
 	}
-	
-	
-	
 
+<<<<<<< HEAD
 	protected String getHelpMessage() {
+=======
+
+
+
+	private String getHelpMessage() {
+>>>>>>> 62a1adc36cf8ca1ad157cc01a46d8c95f5347d53
 		return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
 		programDescription + "\n" + "positional arguments:\n" +
         buildPositionalArguments();
@@ -124,7 +159,7 @@ public class ArgumentParser {
     	return s;
   	}
 
-	protected String getMissingArguments() {
+	private String getMissingArguments() {
 	   return buildArgumentUsage();
 	}
 
@@ -165,7 +200,7 @@ public class ArgumentParser {
     }
   }
 
- 	
+
 
   private void checkUserInputSize(List<String> list) {
     if(list.size() == 1) {
@@ -212,8 +247,8 @@ public class ArgumentParser {
                 throw new IncorrectDataTypeException(getIncorrectDataTypeMessage(name, list.get(i), a.getType().toString()));
               }
             }
-          
-            
+
+
           }
         }
       }
@@ -233,17 +268,17 @@ public class ArgumentParser {
     programName + ".java: error: argument " + argName + ": invalid " + type
     + " value: " + incorrectValue;
   }
-  
-  
+
+
   protected List<String> getPositionalList(){
   	return positionalList;
   }
-  
-  
+
+
   protected Map<String,Argument> getArgument(){
   	return arguments;
   }
-  
+
    protected Map<String,NamedArgument> getNamedArgument(){
   	return namedArguments;
   }
