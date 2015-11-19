@@ -23,7 +23,6 @@ public class ArgumentParserTest {
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
 
-
 	@Test (expected=MissingArgumentException.class)
 	public void testOnly1numberEntered() {
 		ap.assignProgramName("VolumeCalculator");
@@ -387,7 +386,6 @@ public class ArgumentParserTest {
 		ap.parse(data);
 	}
 
-
 	@Test
 	public void testShortNamedArgument() {
 		ap.assignProgramName("VolumeCalculator");
@@ -446,21 +444,15 @@ public class ArgumentParserTest {
 		assertEquals (ap.getProgramDescription(), "Calculate the volume of a box");
 	}
 
-
-
-
 	@Test
-    public void testCreatingNewXML() throws Exception{
-        ap.addPositionalArgument("pizza", Argument.Type.FLOAT, "pepperoni");
+  public void testCreatingNewXML() throws Exception{
+    ap.addPositionalArgument("pizza", Argument.Type.FLOAT, "pepperoni");
 		ap.addPositionalArgument("drink", Argument.Type.FLOAT, "sprite");
 		ap.addPositionalArgument("snack", Argument.Type.FLOAT, "hunny bun");
 		ap.addNamedArgument("Pizza", "p", Argument.Type.STRING, "pepperoni");
 		ap.addNamedArgument("Color", "c", Argument.Type.STRING, "Red");
-        xml.saveXML("newfile.xml", ap);
-    }
-
-
-
+    xml.saveXML("newfile.xml", ap);
+  }
 
 	@Test
 	public void testWeGetFloatDataTypeFromArguments() {
