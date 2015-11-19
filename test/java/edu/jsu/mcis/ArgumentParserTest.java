@@ -7,7 +7,6 @@ import org.junit.rules.ExpectedException;
 import java.util.*;
 import org.w3c.dom.Document;
 import javax.xml.parsers.*;
-import org.custommonkey.xmlunit.*;
 
 
 public class ArgumentParserTest {
