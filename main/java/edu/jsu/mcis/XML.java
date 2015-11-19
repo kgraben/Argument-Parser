@@ -10,7 +10,18 @@ import java.io.File;
 import java.io.*;
 import java.lang.*;
 
+/**
+* Class has two functions: Load and save xml.
+*
+*/
+
 public class XML {
+
+  /**
+  * @param filename: Takes in the name of a file
+  * Opens an xml file, loads it into ArgumentParser and returns ArgumentParser
+  * so values can be passed in.
+  */
   public static ArgumentParser loadXML(String fileName) {
     ArgumentParser ap = new ArgumentParser();
     try {
@@ -75,7 +86,7 @@ public class XML {
     }
     return ap;
   }
-  
+
    public void saveXML(String filepath, ArgumentParser a){
    	 	ArgumentParser ap = a;
    	 	String XMLData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
@@ -83,26 +94,26 @@ public class XML {
   		StringBuilder positionalMessage = new StringBuilder();
   		StringBuilder nameMessage = new StringBuilder();
   		String end = "</program>";
-		File outfile = new File(filepath);	
+		File outfile = new File(filepath);
 		for(int i=0; i < ap.getPositionalList().size(); i++){
 				Argument argument = ap.getArgument().get(ap.getPositionalList().get(i));
                 positionalMessage.append("\t<argument type=\"positional\">" + "\n" +
-                "\t\t<name>" + argument.getName() + "</name>" + "\n" + 
-               "\t\t<datatype>" + argument.getType() + "</datatype>" + "\n" + 
+                "\t\t<name>" + argument.getName() + "</name>" + "\n" +
+               "\t\t<datatype>" + argument.getType() + "</datatype>" + "\n" +
                "\t\t<description>" + argument.getDescription() + "</description>" + "\n" +
-                "\t</argument>" + "\n"); 	
+                "\t</argument>" + "\n");
 			}
 		for(String name : ap.getNamedArgument().keySet()) {
       			NamedArgument argument = ap.getNamedArgument().get(name);
       		    nameMessage.append("\t<argument type=\"named\">" + "\n" +
-                "\t\t<name>" + argument.getName() + "</name>" + "\n" + 
+                "\t\t<name>" + argument.getName() + "</name>" + "\n" +
                 "\t\t<shortName>" + argument.getShortName() + "</shortName>" + "\n" +
-               "\t\t<datatype>" + argument.getType() + "</datatype>" + "\n" + 
+               "\t\t<datatype>" + argument.getType() + "</datatype>" + "\n" +
                "\t\t<defaultValue>" + argument.getValue() + "</defaultValue>" + "\n" +
-                "\t</argument>" + "\n"); 	     
+                "\t</argument>" + "\n");
 			}
-			
-			
+
+
 			try{
 				Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream(outfile), "utf-8"));
@@ -112,10 +123,9 @@ public class XML {
 			catch(IOException e){
 				throw new HelpMessageException("");
 			}
-		            
-        
-		
-		
+
+
+
+
 	}
 }
-

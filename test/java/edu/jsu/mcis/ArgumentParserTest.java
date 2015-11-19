@@ -7,7 +7,6 @@ import org.junit.rules.ExpectedException;
 import java.util.*;
 import org.w3c.dom.Document;
 import javax.xml.parsers.*;
-import org.custommonkey.xmlunit.*;
 
 
 public class ArgumentParserTest {
@@ -23,8 +22,8 @@ public class ArgumentParserTest {
 
 	@Rule
 	public ExpectedException expectedEx = ExpectedException.none();
-	
-	
+
+
 	@Test (expected=MissingArgumentException.class)
 	public void testOnly1numberEntered() {
 		ap.assignProgramName("VolumeCalculator");
@@ -248,7 +247,7 @@ public class ArgumentParserTest {
 		ap.parse(data);
 		assertEquals(ap.getValue("Dog"), "true");
 	}
-	
+
 	@Test (expected=UnknownArgumentException.class)
 	public void testUnknownArgument() {
 		ap.assignProgramName("VolumeCalculator");
@@ -260,8 +259,8 @@ public class ArgumentParserTest {
 		ap.parse(data);
 		assertEquals(ap.getValue("Type"), "circle");
 	}
-	
-	
+
+
 	@Test
 	public void testTypeFloat() {
 		ap.assignProgramName("VolumeCalculator");
@@ -300,16 +299,20 @@ public class ArgumentParserTest {
 		String[] data = {"7","something", "4"};
 		ap.parse(data);
 	}
-	
-	
-
 
 	@Test
 	public void testHelpMessageStringBuilder() {
+		expectedEx.expect(MissingArgumentException.class);
+		String message = ("usage: java VolumeCalculator [length][width][height]" +
+		"\n" + "VolumeCalculator.java error: The following arguments are required length width height");
+		expectedEx.expectMessage(message);
+		ap.assignProgramName("VolumeCalculator");
+		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-		assertEquals("[length][width][height]", ap.getMissingArguments() );
+		String[] data = {};
+		ap.parse(data);
 	}
 
 	@Test (expected=IncorrectDataTypeException.class)
@@ -442,10 +445,10 @@ public class ArgumentParserTest {
 		ap.assignProgramDescription("Calculate the volume of a box");
 		assertEquals (ap.getProgramDescription(), "Calculate the volume of a box");
 	}
-	
 
-	
-	
+
+
+
 	@Test
     public void testCreatingNewXML() throws Exception{
         ap.addPositionalArgument("pizza", Argument.Type.FLOAT, "pepperoni");
@@ -455,10 +458,10 @@ public class ArgumentParserTest {
 		ap.addNamedArgument("Color", "c", Argument.Type.STRING, "Red");
         xml.saveXML("newfile.xml", ap);
     }
-	
-	
-	
-	
+
+
+
+
 	@Test
 	public void testWeGetFloatDataTypeFromArguments() {
 		ap.assignProgramName("VolumeCalculator");
