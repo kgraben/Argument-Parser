@@ -33,14 +33,6 @@ public class ArgumentParser {
     	positionalList = new ArrayList<String>();
   	}
 
-<<<<<<< HEAD
-	public void addPositionalArgument(String x) {
-    	addPositionalArgument(x, Argument.Type.STRING, "");
-	}
-
-	public void addPositionalArgument(String x, Argument.Type t) {
-    	addPositionalArgument(x, t, "");
-=======
   /**
   * Adds the positional argument "name" to the hashmap
   *
@@ -58,7 +50,6 @@ public class ArgumentParser {
   */
 	public void addPositionalArgument(String name, Argument.Type type) {
     addPositionalArgument(name, type, "");
->>>>>>> 62a1adc36cf8ca1ad157cc01a46d8c95f5347d53
 	}
 
   /**
@@ -137,19 +128,11 @@ public class ArgumentParser {
 		checkUserInputSize(posArgs);
 	}
 
-<<<<<<< HEAD
-	protected String getHelpMessage() {
-=======
-
-
-
 	private String getHelpMessage() {
->>>>>>> 62a1adc36cf8ca1ad157cc01a46d8c95f5347d53
 		return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
 		programDescription + "\n" + "positional arguments:\n" +
         buildPositionalArguments();
  	}
-
 
 	private String buildArgumentUsage() {
     	String s = "";
@@ -162,8 +145,6 @@ public class ArgumentParser {
 	private String getMissingArguments() {
 	   return buildArgumentUsage();
 	}
-
-
 
   private String buildPositionalArguments() {
     String s = "";
@@ -199,8 +180,6 @@ public class ArgumentParser {
       throw new UnknownArgumentException(name);
     }
   }
-
-
 
   private void checkUserInputSize(List<String> list) {
     if(list.size() == 1) {
