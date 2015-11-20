@@ -195,7 +195,7 @@ public class ArgumentParser {
     for (int i = size; i < list.size(); i++){
       missingArguments = missingArguments + " " + list.get(i).toString();
     }
-    return "usage: java " + programName + " " + buildArgumentUsage() +
+    return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
     programName + ".java error: The following arguments are required " +
     missingArguments;
   }

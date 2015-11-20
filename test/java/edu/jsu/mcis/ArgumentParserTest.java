@@ -303,14 +303,14 @@ public class ArgumentParserTest {
 	public void testHelpMessageStringBuilder() {
 		expectedEx.expect(MissingArgumentException.class);
 		String message = ("usage: java VolumeCalculator [length][width][height]" +
-		"\n" + "VolumeCalculator.java error: The following arguments are required length width height");
+		"\n" + "VolumeCalculator.java error: The following arguments are required  width height");
 		expectedEx.expectMessage(message);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
 		ap.addPositionalArgument("length");
 		ap.addPositionalArgument("width");
 		ap.addPositionalArgument("height");
-		String[] data = {};
+		String[] data = {"1"};
 		ap.parse(data);
 	}
 
