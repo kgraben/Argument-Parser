@@ -5,8 +5,68 @@
 * @author Hui Wang (wanghuida0)
 *
 * ArgumentParser is a library for taking command line arguments and returning
-* user defined values. ArgumentParser also has the capablility of loading and
-* saving arguments from an XML file.
+* user defined values. ArgumentParser can take positional Arguments and named Arguments.
+* ArgumentParser also has the capablility of loading and
+* saving arguments from an XML file. Below is an example of the positional Arguments.
+* <pre>
+* {@code
+* ArgumentParser ap = new ArgumentParser();
+* ap.addPositionalArgument(name, Argument.type, description);
+* }
+* <pre>
+* 
+* <p>
+* Named Arguments can have double dash(--) or single dash(-) in front 
+* of the name the user enters.
+* </p>
+* <p>
+* <pre>
+* {@code
+* ArgumentParser ap = new ArgumentParser();
+* ap.addNamedArgument(name, shortName, Argument.type, defaultValue);
+* }
+* </pre>
+* </p>
+* <p>
+* The parse() method is suppose to be called, after adding all the arguments. The parse()
+* method job is to store all the user arguments.
+* </p>
+* <p>
+* <pre>
+* {@code
+* ArgumentParser ap = new ArgumentParser();
+* ap.addPositionalArgument(name, Argument.type, description);
+* ap.addNamedArgument(name, shortName, Argument.type, description);
+* ap.parse(userInput);
+* }
+* </pre>
+* </p>
+* <p>
+* In order for to get the user input data the getValue() method should be called.
+* The getValue() method returns the value based on the generic type.
+* </p>
+* <p>
+* Below is a complete example of how ArgumentParser() works.
+* </p>
+* <p>
+* <pre>
+* {@code
+* ArgumentParser ap = new ArgumentParser();
+* ap.addPositionalArgument("length", Argument.type.FLOAT, "This is the length of the object");
+* ap.addPositionalArgument("width", Argument.type.FLOAT, "This is the width of the object");
+* ap.addPositionalArgument("height", Argument.type.FLOAT, "This is the height of the object");
+* ap.addNamedArgument("Pizza", "p", Argument.type.STRING, "pepperoni");
+* String[] userArray = { "5", "--Pizza", "cheese", "7", "8" };
+* ap.parse(userArray);
+* float length = ap.getValue("length");
+* String pizza = ap.getValue("Pizza");
+* }
+* </pre>
+* </p>
+*
+*
+* @author {TeamName}
+*
 */
 
 package edu.jsu.mcis;
@@ -33,14 +93,7 @@ public class ArgumentParser {
     	positionalList = new ArrayList<String>();
   	}
 
-<<<<<<< HEAD
-	public void addPositionalArgument(String x) {
-    	addPositionalArgument(x, Argument.Type.STRING, "");
-	}
 
-	public void addPositionalArgument(String x, Argument.Type t) {
-    	addPositionalArgument(x, t, "");
-=======
   /**
   * Adds the positional argument "name" to the hashmap
   *
@@ -58,7 +111,7 @@ public class ArgumentParser {
   */
 	public void addPositionalArgument(String name, Argument.Type type) {
     addPositionalArgument(name, type, "");
->>>>>>> 62a1adc36cf8ca1ad157cc01a46d8c95f5347d53
+
 	}
 
   /**
@@ -137,14 +190,9 @@ public class ArgumentParser {
 		checkUserInputSize(posArgs);
 	}
 
-<<<<<<< HEAD
-	protected String getHelpMessage() {
-=======
-
 
 
 	private String getHelpMessage() {
->>>>>>> 62a1adc36cf8ca1ad157cc01a46d8c95f5347d53
 		return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
 		programDescription + "\n" + "positional arguments:\n" +
         buildPositionalArguments();
@@ -287,11 +335,11 @@ public class ArgumentParser {
     return programName;
   }
 
-  protected void assignProgramName(String name) {
+  public void assignProgramName(String name) {
     programName = name;
   }
 
-  protected void assignProgramDescription(String description) {
+  public void assignProgramDescription(String description) {
     programDescription = description;
   }
 
