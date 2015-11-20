@@ -1,10 +1,7 @@
 package edu.jsu.mcis;
 /**
 * @author (TeamName)
-*/
-
-/**
-* Argument class sets and provides Argument Parser parameters
+*
 *
 */
 public class Argument{
