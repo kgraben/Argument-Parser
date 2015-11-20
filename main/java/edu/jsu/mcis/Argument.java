@@ -1,12 +1,34 @@
 package edu.jsu.mcis;
 /**
 * @author (TeamName)
-*
+*/
+
+/**
+* Argument class sets and provides Argument Parser parameters
 *
 */
 public class Argument{
-
-	public enum Type {INT, FLOAT, BOOLEAN, STRING};
+/**
+* Data type constants INT, FLOAT, BOOLEAN, STRING
+*/
+	public enum Type {
+		/**
+		* A integer data type
+		*/
+		INT,
+		/**
+		* A floating point number data type
+		*/
+		FLOAT,
+		/**
+		* A true/false boolean data type
+		*/
+		BOOLEAN,
+		/**
+		* A character String data type
+		*/
+		STRING
+	};
 	private String value;
 	protected String name;
 	private String shortName;
@@ -18,7 +40,7 @@ public class Argument{
 	*
 	*/
 
-	public Argument(){
+	public Argument() {
 		value = "0";
 		name = "";
 		shortName = "";

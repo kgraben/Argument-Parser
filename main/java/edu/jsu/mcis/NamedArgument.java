@@ -1,10 +1,15 @@
 package edu.jsu.mcis;
 
+/**
+* Takes in the name of a named argument
+*
+*/
 public class NamedArgument extends Argument {
-	
-	public NamedArgument(String n) {
-		name = n;
+/**
+* @param name Name of the named argument
+*
+*/
+	public NamedArgument(String name) {
+		this.name = name;
 	}
-	
-		
 }
