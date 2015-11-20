@@ -93,7 +93,10 @@ public class ArgumentParser {
     	positionalList = new ArrayList<String>();
   	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f8c6e15d5857e88fd5dc360af943816f586fa90e
   /**
   * Adds the positional argument "name" to the hashmap
   *
@@ -111,7 +114,10 @@ public class ArgumentParser {
   */
 	public void addPositionalArgument(String name, Argument.Type type) {
     addPositionalArgument(name, type, "");
+<<<<<<< HEAD
 
+=======
+>>>>>>> f8c6e15d5857e88fd5dc360af943816f586fa90e
 	}
 
   /**
@@ -190,14 +196,16 @@ public class ArgumentParser {
 		checkUserInputSize(posArgs);
 	}
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f8c6e15d5857e88fd5dc360af943816f586fa90e
 	private String getHelpMessage() {
 		return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
 		programDescription + "\n" + "positional arguments:\n" +
         buildPositionalArguments();
  	}
-
 
 	private String buildArgumentUsage() {
     	String s = "";
@@ -210,8 +218,6 @@ public class ArgumentParser {
 	private String getMissingArguments() {
 	   return buildArgumentUsage();
 	}
-
-
 
   private String buildPositionalArguments() {
     String s = "";
@@ -248,8 +254,6 @@ public class ArgumentParser {
     }
   }
 
-
-
   private void checkUserInputSize(List<String> list) {
     if(list.size() == 1) {
       throw new MissingArgumentException(getMissingArgumentsMessage(list.size(), positionalList));
@@ -264,7 +268,7 @@ public class ArgumentParser {
     for (int i = size; i < list.size(); i++){
       missingArguments = missingArguments + " " + list.get(i).toString();
     }
-    return "usage: java " + programName + " " + buildArgumentUsage() +
+    return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
     programName + ".java error: The following arguments are required " +
     missingArguments;
   }
