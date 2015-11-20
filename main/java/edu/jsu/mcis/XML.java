@@ -86,7 +86,7 @@ public class XML {
   }
 
   /**
-  * @param fileName name of XML file to be saved to
+  * @param filepath name of XML file to be saved to
   * @param a ArgumentParser object to be written to an XML file
   *
   */
