@@ -93,10 +93,7 @@ public class ArgumentParser {
     	positionalList = new ArrayList<String>();
   	}
 
-<<<<<<< HEAD
 
-=======
->>>>>>> f8c6e15d5857e88fd5dc360af943816f586fa90e
   /**
   * Adds the positional argument "name" to the hashmap
   *
@@ -114,10 +111,6 @@ public class ArgumentParser {
   */
 	public void addPositionalArgument(String name, Argument.Type type) {
     addPositionalArgument(name, type, "");
-<<<<<<< HEAD
-
-=======
->>>>>>> f8c6e15d5857e88fd5dc360af943816f586fa90e
 	}
 
   /**
@@ -196,11 +189,7 @@ public class ArgumentParser {
 		checkUserInputSize(posArgs);
 	}
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> f8c6e15d5857e88fd5dc360af943816f586fa90e
 	private String getHelpMessage() {
 		return "usage: java " + programName + " " + buildArgumentUsage() + "\n" +
 		programDescription + "\n" + "positional arguments:\n" +
