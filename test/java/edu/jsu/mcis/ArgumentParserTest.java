@@ -475,4 +475,24 @@ public class ArgumentParserTest {
       assertEquals(52.9f, ap.getValue("width"));
       assertEquals(88.6f, ap.getValue("height"));
     }
+
+		@Test
+		public void testWeDontLoadABadFile(){
+			expectedEx.expect(FileErrorException.class);
+			String message = ("Not Found: badFile.xml");
+			expectedEx.expectMessage(message);
+			ap = xml.loadXML("badFile.xml");
+		}
+
+		@Test
+    public void testLoadXMLGetsOtherDataTypes() {
+      ap = XML.loadXML("testXml.xml");
+ 			String[] inp = {"0.04", "23", "Jimmy John", "--payrate", "40"};
+ 			ap.parse(inp);
+      assertEquals(0.04f, ap.getValue("accountBalance"));
+      assertEquals(23, ap.getValue("myAge"));
+      assertEquals("Jimmy John", ap.getValue("myName"));
+
+			assertEquals(40.0f, ap.getValue("payrate"));
+     }
 }

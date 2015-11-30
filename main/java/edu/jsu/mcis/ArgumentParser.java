@@ -14,9 +14,9 @@
 * ap.addPositionalArgument(name, Argument.type, description);
 * }
 * <pre>
-* 
+*
 * <p>
-* Named Arguments can have double dash(--) or single dash(-) in front 
+* Named Arguments can have double dash(--) or single dash(-) in front
 * of the name the user enters.
 * </p>
 * <p>
@@ -203,10 +203,6 @@ public class ArgumentParser {
     	}
     	return s;
   	}
-
-	private String getMissingArguments() {
-	   return buildArgumentUsage();
-	}
 
   private String buildPositionalArguments() {
     String s = "";
