@@ -21,10 +21,15 @@ import java.lang.*;
 * ArgumentParser ap = new ArgumentParser();
 * ap.addPositionalArgument(name, Argument.type, description);
 * }
+<<<<<<< HEAD
 * </pre>
 * </p>
+=======
+* <pre>
+*
+>>>>>>> 29de077b08cd9b5de8f57d9c52e09a47e57a034b
 * <p>
-* Named Arguments can have double dash(--) or single dash(-) in front 
+* Named Arguments can have double dash(--) or single dash(-) in front
 * of the name the user enters.
 * </p>
 * <p>
@@ -227,10 +232,6 @@ public class ArgumentParser {
     	}
     	return s;
   	}
-
-	private String getMissingArguments() {
-	   return buildArgumentUsage();
-	}
 
   private String buildPositionalArguments() {
     String s = "";

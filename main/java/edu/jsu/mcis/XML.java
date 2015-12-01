@@ -43,9 +43,6 @@ public class XML {
           else if (elementType.equals("integer")){
             dataType = Argument.Type.INT;
           }
-          else if (elementType.equals("boolean")){
-            dataType = Argument.Type.BOOLEAN;
-          }
           else {
             dataType = Argument.Type.STRING;
           }
