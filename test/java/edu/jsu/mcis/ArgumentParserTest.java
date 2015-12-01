@@ -487,12 +487,12 @@ public class ArgumentParserTest {
 		@Test
     public void testLoadXMLGetsOtherDataTypes() {
       ap = XML.loadXML("testXml.xml");
- 			String[] inp = {"0.04", "23", "Jimmy John", "--payrate", "40"};
+ 			String[] inp = {"0.04", "23", "Jimmy John", "--payrate", "40", "-c", "true"};
  			ap.parse(inp);
       assertEquals(0.04f, ap.getValue("accountBalance"));
       assertEquals(23, ap.getValue("myAge"));
       assertEquals("Jimmy John", ap.getValue("myName"));
-
 			assertEquals(40.0f, ap.getValue("payrate"));
+			assertEquals(true, ap.getValue("cool"));
      }
 }
