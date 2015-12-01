@@ -1,81 +1,64 @@
-/**
-* @author Christopher Burdette (cbgithub)
-* @author Kurtis Graben (kurtdawg24)
-* @author Khoi Phan (kphanjsu)
-* @author Hui Wang (wanghuida0)
-*
-* ArgumentParser is a library for taking command line arguments and returning
-* user defined values. ArgumentParser can take positional Arguments and named Arguments.
-* ArgumentParser also has the capablility of loading and
-* saving arguments from an XML file. Below is an example of the positional Arguments.
-* <pre>
-* {@code
-* ArgumentParser ap = new ArgumentParser();
-* ap.addPositionalArgument(name, Argument.type, description);
-* }
-* <pre>
-*
-* <p>
-* Named Arguments can have double dash(--) or single dash(-) in front
-* of the name the user enters.
-* </p>
-* <p>
-* <pre>
-* {@code
-* ArgumentParser ap = new ArgumentParser();
-* ap.addNamedArgument(name, shortName, Argument.type, defaultValue);
-* }
-* </pre>
-* </p>
-* <p>
-* The parse() method is suppose to be called, after adding all the arguments. The parse()
-* method job is to store all the user arguments.
-* </p>
-* <p>
-* <pre>
-* {@code
-* ArgumentParser ap = new ArgumentParser();
-* ap.addPositionalArgument(name, Argument.type, description);
-* ap.addNamedArgument(name, shortName, Argument.type, description);
-* ap.parse(userInput);
-* }
-* </pre>
-* </p>
-* <p>
-* In order for to get the user input data the getValue() method should be called.
-* The getValue() method returns the value based on the generic type.
-* </p>
-* <p>
-* Below is a complete example of how ArgumentParser() works.
-* </p>
-* <p>
-* <pre>
-* {@code
-* ArgumentParser ap = new ArgumentParser();
-* ap.addPositionalArgument("length", Argument.type.FLOAT, "This is the length of the object");
-* ap.addPositionalArgument("width", Argument.type.FLOAT, "This is the width of the object");
-* ap.addPositionalArgument("height", Argument.type.FLOAT, "This is the height of the object");
-* ap.addNamedArgument("Pizza", "p", Argument.type.STRING, "pepperoni");
-* String[] userArray = { "5", "--Pizza", "cheese", "7", "8" };
-* ap.parse(userArray);
-* float length = ap.getValue("length");
-* String pizza = ap.getValue("Pizza");
-* }
-* </pre>
-* </p>
-*
-*
-* @author {TeamName}
-*
-*/
-
 package edu.jsu.mcis;
 
 import java.util.*;
 import java.io.*;
 import java.lang.*;
 
-
+/**
+*
+* ArgumentParser is a library for taking command line arguments and returning
+* user defined values. ArgumentParser can take positional Arguments and named Arguments.
+* ArgumentParser also has the capablility of loading and
+* saving arguments from an XML file. Below is an example of the positional Arguments.
+* <br>
+* <br>
+* {@code ArgumentParser ap = new ArgumentParser();} <br>
+* {@code ap.addPositionalArgument(name, Argument.type, description);} <br>
+* <br>
+* <br>
+* Named Arguments can have double dash(--) or single dash(-) in front
+* of the name the user enters.
+* <br>
+* <br>
+* {@code ArgumentParser ap = new ArgumentParser();} <br>
+* {@code ap.addNamedArgument(name, shortName, Argument.type, defaultValue);} <br>
+* <br>
+* <br>
+* The parse() method is suppose to be called, after adding all the arguments. The parse()
+* method job is to store all the user arguments.
+* <br>
+* <br>
+* {@code ArgumentParser ap = new ArgumentParser();} <br>
+* {@code ap.addPositionalArgument(name, Argument.type, description);} <br>
+* {@code ap.addNamedArgument(name, shortName, Argument.type, description);} <br>
+* {@code ap.parse(userInput);} <br>
+* <br>
+* <br>
+* In order for to get the user input data the getValue() method should be called.
+* The getValue() method returns the value based on the generic type.
+* Below is a complete example of how ArgumentParser() works.
+* <br>
+* <br>
+* {@code ArgumentParser ap = new ArgumentParser();} <br>
+* {@code ap.addPositionalArgument("length", Argument.type.FLOAT, "This is the length of the object");} <br>
+* {@code ap.addPositionalArgument("width", Argument.type.FLOAT, "This is the width of the object");} <br>
+* {@code ap.addPositionalArgument("height", Argument.type.FLOAT, "This is the height of the object");} <br>
+* {@code ap.addNamedArgument("Pizza", "p", Argument.type.STRING, "pepperoni");} <br>
+* {@code String[] userArray = { "5", "--Pizza", "cheese", "7", "8" };} <br>
+* {@code ap.parse(userArray);} <br>
+* {@code float length = ap.getValue("length");} <br>
+* {@code String pizza = ap.getValue("Pizza");} <br>
+*
+* <br>
+* <br>
+*
+* @author {TeamName}
+* @author Christopher Burdette (cbgithub)
+* @author Kurtis Graben (kurtdawg24)
+* @author Khoi Phan (kphanjsu)
+* @author Hui Wang (wanghuida0)
+*
+*/
 public class ArgumentParser {
 
   private Map<String, Argument> arguments;
