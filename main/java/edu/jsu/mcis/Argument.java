@@ -5,7 +5,6 @@ package edu.jsu.mcis;
 
 /**
 * Argument class sets and provides Argument Parser parameters
-*
 */
 public class Argument{
 /**
@@ -37,7 +36,6 @@ public class Argument{
 
 	/**
 	* Class constructor
-	*
 	*/
 
 	public Argument() {
@@ -49,7 +47,6 @@ public class Argument{
 	}
 
 	/** Sets the value of the Argument object
-	*
 	* @param value the value of the Argument
 	*/
 
@@ -58,7 +55,6 @@ public class Argument{
 	}
 
 	/** Gets the value of the Argument object
-	*
 	* @return the value of the Argument
 	*/
 
@@ -66,7 +62,6 @@ public class Argument{
 		return value;
 	}
 	/** Sets the type of the Argument object
-	*
 	* @param type the type of the Argument
 	*/
 
@@ -74,7 +69,6 @@ public class Argument{
 		this.type = type;
 	}
 	/** Gets the type of the Argument object
-	*
 	* @return the type of the Argument
 	*/
 
@@ -83,7 +77,6 @@ public class Argument{
 	}
 
 	/** Sets the name of the Argument object
-	*
 	* @param name the name of the Argument
 	*/
 
@@ -92,7 +85,6 @@ public class Argument{
 	}
 
 	/** Gets the name of the Argument object
-	*
 	* @return the name of the Argument
 	*/
 
@@ -101,7 +93,6 @@ public class Argument{
 	}
 
 	/** Sets the shortName of the Argument object
-	*
 	* @param shortName the shortName of the Argument
 	*/
 
@@ -110,7 +101,6 @@ public class Argument{
 	}
 
 	/** Gets the shortName of the Argument object
-	*
 	* @return the shortName of the Argument
 	*/
 
@@ -119,7 +109,6 @@ public class Argument{
 	}
 
 	/** Sets the description of the Argument object
-	*
 	* @param description the description of the Argument
 	*/
 
@@ -128,7 +117,6 @@ public class Argument{
 	}
 
 	/** Gets the description of the Argument object
-	*
 	* @return the description of the Argument
 	*/
 
