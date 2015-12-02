@@ -6,7 +6,7 @@ import java.lang.*;
 
 /**
 *
-* 
+*
 * ArgumentParser is a library for taking command line arguments and returning
 * user defined values. ArgumentParser can take positional Arguments and named Arguments.
 * ArgumentParser also has the capablility of loading and
@@ -35,7 +35,7 @@ import java.lang.*;
 * {@code ap.parse(userInput);} <br>
 * <br>
 * <br>
-* In order for to get the user input data the getValue() method should be called.
+* In order to gather the user input data the getValue() method should be called.
 * The getValue() method returns the value based on the generic type.
 * Below is a complete example of how ArgumentParser() works.
 * <br>
@@ -64,13 +64,16 @@ import java.lang.*;
 public class ArgumentParser {
 
   private Map<String, Argument> arguments;
-  protected Map<String, NamedArgument> namedArguments;
+  private Map<String, NamedArgument> namedArguments;
   private List<String> positionalList;
   private List<String> nameList;
   private String programName;
   private String programDescription;
   private String fileName;
 
+/**
+  * Initializes the HashMap's and ArrayList's for ArgumentParser
+  */
 
 	public ArgumentParser() {
     	arguments = new LinkedHashMap<String,Argument>();
@@ -82,7 +85,7 @@ public class ArgumentParser {
   /**
   * Adds the positional argument "name" to the hashmap
   *
-  * @param name Takes in the name
+  * @param name Takes in the name of the argument
   */
 	public void addPositionalArgument(String name) {
     addPositionalArgument(name, Argument.Type.STRING, "");
@@ -91,19 +94,19 @@ public class ArgumentParser {
   /**
   * Adds the positional argument "name" and "type" to the hashmap
   *
-  * @param name Takes in the name
-  * @param type Takes in the type
+  * @param name Takes in the name of the argument
+  * @param type Takes in the data type of the argument
   */
 	public void addPositionalArgument(String name, Argument.Type type) {
     addPositionalArgument(name, type, "");
 	}
 
   /**
-  * Adds the positional argument "name", "type" and "description" to the hashmap
+  * Adds the positional argument name, type and description to the hashmap
   *
-  * @param name Takes in the name
-  * @param type Takes in the type
-  * @param description Takes in the description
+  * @param name Takes in the name of the argument
+  * @param type Takes in the data type of the argument
+  * @param description Takes in the argument description
   */
 	public void addPositionalArgument(String name, Argument.Type type, String description) {
 		positionalList.add(name);
@@ -117,10 +120,10 @@ public class ArgumentParser {
  /**
   * Adds the named argument "name", "shortName", "type", and "defaultValue" to the hashmap
   *
-  * @param name Takes in the name
-  * @param shortName Takes in the shortName
-  * @param type Takes in the type
-  * @param defaultValue Takes in the defaultValue
+  * @param name Takes in the name of the named argument
+  * @param shortName Takes in the short name of the named argument
+  * @param type Takes in the data type of the named argument
+  * @param defaultValue Takes in the default value of the named argument
   */
 
 	public void addNamedArgument(String name, String shortName, Argument.Type type, String defaultValue) {
@@ -136,16 +139,16 @@ public class ArgumentParser {
  /** Parse the user input to be added to the Argument Parser object
      *
      * @param args Array of strings given as program input.
-     * Takes @param args and puts them into an List<String> userArgs.
+     * Takes @param args and puts them into an String List userArgs.
      * @throws HelpMessageException if userArgs contains h or help.
      * Checks userArgs for "-" or "--" then removes the dashes.
      * @throws UnknownArgumentException if argument is not in map.
-     * Takes userArgs and puts all positional arguments into a List<String> posArgs.
+     * Takes userArgs and puts all positional arguments into a String List posArgs.
      * posArgs is passed through two methods(checkUserDataType(posArgs), checkUserInputSize(posArgs))
      * to check the size and type of the argument.
      */
-     
-     
+
+
 	public void parse(String[] args) {
 		List<String> userArgs = new ArrayList<String>();
   		for(int i=0; i<args.length; i++){
@@ -218,14 +221,13 @@ public class ArgumentParser {
     return s.substring(0, s.length()-1);
   }
 
- 
-/** Get the value of a Argument in the proper data type
-     *
-     * @param name of the Argument
-     * @return  Value of the Argument given
-     * @throws UnknownArgumentException if name given is unknown
-     */
   @SuppressWarnings("unchecked")
+  /** Get the value of a Argument in the proper data type
+       *
+       * @param name of the Argument
+       * @return  Value of the Argument given
+       * @throws UnknownArgumentException if name given is unknown
+       */
   public <T> T getValue(String name){
     Argument arg = arguments.get(name);
     if(arg != null) {
@@ -320,7 +322,7 @@ public class ArgumentParser {
 
 /** Gets the List of the positionalList
 	*
-	* @return the List<String> of the positionalList
+	* @return the String List of the positionalList
 	*/
   protected List<String> getPositionalList(){
   	return positionalList;
@@ -328,37 +330,37 @@ public class ArgumentParser {
 
 /** Gets the Map of arguments
 	*
-	* @return the Map<String,Argument> of arguments
+	* @return the Map (String, Argument) of arguments
 	*/
   protected Map<String,Argument> getArgument(){
   	return arguments;
   }
 /** Gets the Map of namedArguments
 	*
-	* @return the Map<String,NamedArgument> of namedArguments
+	* @return the Map (String, NamedArgument) of namedArguments
 	*/
    protected Map<String,NamedArgument> getNamedArgument(){
   	return namedArguments;
   }
-/** Sets the programDescription of arguments
-	*
-	* @param description the programDescription of arguments
-	*/
+  /** Sets the programName of arguments
+  	*
+  	* @param name the programName of arguments
+  	*/
    public void assignProgramName(String name) {
     	programName = name;
   	}
 /** Gets the programName of arguments
 	*
 	* @return the programName of arguments
-	*/  
+	*/
    protected String getProgramName() {
     return programName;
   }
-/** Sets the programName of arguments
-	*
-	* @param name the programName of arguments
-	*/
 
+/** Sets the programDescription of arguments
+  *
+  * @param description the programDescription of arguments
+  */
   public void assignProgramDescription(String description) {
     programDescription = description;
   }
