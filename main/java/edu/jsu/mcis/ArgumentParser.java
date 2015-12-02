@@ -14,30 +14,12 @@ import java.lang.*;
 * user defined values. ArgumentParser can take positional Arguments and named Arguments.
 * ArgumentParser also has the capablility of loading and
 * saving arguments from an XML file. Below is an example of the positional Arguments.
-<<<<<<< HEAD
-* </p>
-* <p>
-* <pre>
-* {@code
-* ArgumentParser ap = new ArgumentParser();
-* ap.addPositionalArgument(name, Argument.type, description);
-* }
-<<<<<<< HEAD
-* </pre>
-* </p>
-=======
-* <pre>
-*
->>>>>>> 29de077b08cd9b5de8f57d9c52e09a47e57a034b
-* <p>
-=======
 * <br>
 * <br>
 * {@code ArgumentParser ap = new ArgumentParser();} <br>
 * {@code ap.addPositionalArgument(name, Argument.type, description);} <br>
 * <br>
 * <br>
->>>>>>> f73d0a9b01d21700f54b35a1bb2a26805246d2c1
 * Named Arguments can have double dash(--) or single dash(-) in front
 * of the name the user enters.
 * <br>
@@ -81,13 +63,7 @@ import java.lang.*;
 * @author Hui Wang (wanghuida0)
 *
 */
-<<<<<<< HEAD
 
-
-
-
-=======
->>>>>>> f73d0a9b01d21700f54b35a1bb2a26805246d2c1
 public class ArgumentParser {
 
   private Map<String, Argument> arguments;
