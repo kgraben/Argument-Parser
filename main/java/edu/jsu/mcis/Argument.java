@@ -30,7 +30,7 @@ public class Argument{
 	};
 	private String value;
 	protected String name;
-	private String shortName;
+	protected String shortName;
 	private Type type;
 	private String description;
 
@@ -54,7 +54,7 @@ public class Argument{
 		this.value = value;
 	}
 
-	/** Gets the value of the Argument object
+	/** Returns the value of the Argument object
 	* @return the value of the Argument
 	*/
 
@@ -68,7 +68,7 @@ public class Argument{
 	public void setType(Type type) {
 		this.type = type;
 	}
-	/** Gets the type of the Argument object
+	/** Returns the type of the Argument object
 	* @return the type of the Argument
 	*/
 
@@ -84,28 +84,12 @@ public class Argument{
 		this.name = name;
 	}
 
-	/** Gets the name of the Argument object
+	/** Returns the name of the Argument object
 	* @return the name of the Argument
 	*/
 
 	public String getName() {
 		return name;
-	}
-
-	/** Sets the shortName of the Argument object
-	* @param shortName the shortName of the Argument
-	*/
-
-	public void setShortName(String shortName) {
-		this.shortName = shortName;
-	}
-
-	/** Gets the shortName of the Argument object
-	* @return the shortName of the Argument
-	*/
-
-	public String getShortName() {
-		return shortName;
 	}
 
 	/** Sets the description of the Argument object
@@ -116,7 +100,7 @@ public class Argument{
 		this.description = description;
 	}
 
-	/** Gets the description of the Argument object
+	/** Returns the description of the Argument object
 	* @return the description of the Argument
 	*/
 
