@@ -1,15 +1,12 @@
 package edu.jsu.mcis;
-<<<<<<< HEAD
-=======
 
->>>>>>> f73d0a9b01d21700f54b35a1bb2a26805246d2c1
 import java.util.*;
 import java.io.*;
 import java.lang.*;
 
 /**
 *
-* <p>
+* 
 * ArgumentParser is a library for taking command line arguments and returning
 * user defined values. ArgumentParser can take positional Arguments and named Arguments.
 * ArgumentParser also has the capablility of loading and
