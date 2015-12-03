@@ -89,30 +89,30 @@ public class XML {
   */
    public void saveXML(String filepath, ArgumentParser a){
      ArgumentParser ap = a;
-     String XMLData = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<program>\n";
+     String XMLData = "<?xml version=\"1.0\" encoding=\"us-ascii\"?>\n" + "<program>\n";
      StringBuilder positionalMessage = new StringBuilder();
      StringBuilder nameMessage = new StringBuilder();
      String end = "</program>";
      File outfile = new File(filepath);
      for(int i=0; i < ap.getPositionalList().size(); i++){
        Argument argument = ap.getArgument().get(ap.getPositionalList().get(i));
-       positionalMessage.append("\t<argument type=\"positional\">" + "\n" +
-       "\t\t<name>" + argument.getName() + "</name>" + "\n" +"\t\t<datatype>" +
-       argument.getType() + "</datatype>" + "\n" + "\t\t<description>" +
-       argument.getDescription() + "</description>" + "\n" + "\t</argument>" + "\n");
+       positionalMessage.append("\t<positional>" + "\n" +
+       "\t\t<name>" + argument.getName() + "</name>" + "\n" +"\t\t<type>" +
+       argument.getType() + "</type>" + "\n" + "\t\t<description>" +
+       argument.getDescription() + "</description>" + "\n" + "\t</positional>" + "\n");
      }
      for(String name : ap.getNamedArgument().keySet()) {
        NamedArgument argument = ap.getNamedArgument().get(name);
-       nameMessage.append("\t<argument type=\"named\">" + "\n" +"\t\t<name>" +
-       argument.getName() + "</name>" + "\n" + "\t\t<shortName>" +
-       argument.getShortName() + "</shortName>" + "\n" + "\t\t<datatype>" +
-       argument.getType() + "</datatype>" + "\n" + "\t\t<defaultValue>" +
-       argument.getValue() + "</defaultValue>" + "\n" + "\t</argument>" + "\n");
+       nameMessage.append("\t<named>" + "\n" +"\t\t<name>" +
+       argument.getName() + "</name>" + "\n" + "\t\t<shortname>" +
+       argument.getShortName() + "</shortname>" + "\n" + "\t\t<type>" +
+       argument.getType() + "</type>" + "\n" + "\t\t<default>" +
+       argument.getValue() + "</default>" + "\n" + "\t</named>" + "\n");
      }
 
      try{
        Writer writer = new BufferedWriter(new OutputStreamWriter(
-       new FileOutputStream(outfile), "utf-8"));
+       new FileOutputStream(outfile), "us-ascii"));
        writer.append(XMLData + positionalMessage + nameMessage + end);
        writer.close();
      }
