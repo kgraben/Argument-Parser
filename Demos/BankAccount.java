@@ -56,7 +56,7 @@ public class BankAccount{
         						float total = Float.parseFloat(bal) - Float.parseFloat(withdraw);
         						ap.addNamedArgument("balance", "b", Argument.Type.FLOAT, 
         											total + " ");
-								xml.saveXML( name + ".xml", ap);	
+								xml.saveXML( ap.getValue("username") + ".xml", ap);	
         					}
         					else if(choice.equals("3")){
         						System.out.println("How much you want to deposit?");
@@ -65,7 +65,7 @@ public class BankAccount{
         						float total = Float.parseFloat(bal) + Float.parseFloat(deposit);
         						ap.addNamedArgument("balance", "b", Argument.Type.FLOAT, 
         											total + " ");
-								xml.saveXML( name + ".xml", ap);	
+								xml.saveXML( ap.getValue("username") + ".xml", ap);	
         					}
         					else if(choice.equals("5")){
         						boolean file = new File((ap.getValue("username") + ".xml")).delete();
