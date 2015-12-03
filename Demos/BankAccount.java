@@ -10,21 +10,21 @@ public class BankAccount{
     	String username = "";
         System.out.println("Welcome to ScrumBags Bank");
         System.out.println();
-		boolean run = true;
-		while(run){
-			System.out.println("Do you have an account? Y/N");
+	boolean run = true;
+	while(run){
+		System.out.println("Do you have an account? Y/N");
      		Scanner scanner = new Scanner(System.in);
-			String stay = scanner.nextLine();
+		String stay = scanner.nextLine();
+		System.out.println();
+		if(stay.equals("y") || stay.equals("Y")){
+			System.out.println("Enter your username:  ");
+			String name = scanner.nextLine();
 			System.out.println();
-			if(stay.equals("y") || stay.equals("Y")){
-				System.out.println("Enter your username:  ");
-				String name = scanner.nextLine();
-				System.out.println();
-				System.out.println("Enter your password:  ");
-				String password = scanner.nextLine();
-				System.out.println();
-				try{
-					XML xml = new XML();
+			System.out.println("Enter your password:  ");
+			String password = scanner.nextLine();
+			System.out.println();
+			try{
+				XML xml = new XML();
         			ArgumentParser ap = xml.loadXML( name + ".xml");
         			String[] data = { stay, name, password };
         			ap.parse(data);
@@ -48,7 +48,7 @@ public class BankAccount{
         					System.out.println();
         					if(choice.equals("1")){
         				  		System.out.println("Balance: "  + ap.getValue("balance"));
-        				    }
+        				    	}
         					else if(choice.equals("2")){
         						System.out.println("How much you want to withdraw?");
         						String withdraw = scanner.nextLine();
@@ -106,14 +106,14 @@ public class BankAccount{
         			System.out.println();
         		}
 					
-				}catch(FileErrorException ex){
-					System.out.println(name + " does not exist in our database ");
-					System.out.println();
+			}catch(FileErrorException ex){
+				System.out.println(name + " does not exist in our database ");
+				System.out.println();
 						
-				}
 			}
+		}
 			
-			else if (stay.equals("n") || stay.equals("N")){
+		else if (stay.equals("n") || stay.equals("N")){
 			System.out.println("Would you like to create one? Y/N");
 		 	stay = scanner.nextLine();
 		 	if(stay.equals("N") || stay.equals("n")){
@@ -135,7 +135,7 @@ public class BankAccount{
 				String DOB = scanner.nextLine();
 				System.out.println();
 				System.out.println("Create a username and userpassword :  ");
-		    	username = scanner.nextLine();
+		    		username = scanner.nextLine();
 				String userpassword = scanner.nextLine();
 				System.out.println();
 				System.out.println("How much money do you want to put in your account? ");
@@ -163,7 +163,7 @@ public class BankAccount{
         
 		
 			
-	 }
+	 	}
 		
         }
        
