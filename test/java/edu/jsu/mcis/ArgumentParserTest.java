@@ -72,10 +72,10 @@ public class ArgumentParserTest {
 	public void testHelpMessageCalled() {
 		expectedEx.expect(HelpMessageException.class);
 		String message = ("usage: java VolumeCalculator [length][width][height]" +
-		 "\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" +
-		 "\n" +   "length the length of the box (FLOAT)"  + "\n" +
-		 "width the width of the box (FLOAT)" + "\n" +
-		 "height the height of the box (FLOAT)");
+		"\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" +
+		"\n" +   "length the length of the box (FLOAT)"  + "\n" +
+		"width the width of the box (FLOAT)" + "\n" +
+		"height the height of the box (FLOAT)");
 		expectedEx.expectMessage(message);
 		ap.assignProgramName("VolumeCalculator");
 		ap.assignProgramDescription("Calculate the volume of a box.");
@@ -369,7 +369,7 @@ public class ArgumentParserTest {
 	@Test
 	public void testGetHelpMessageAnywhereWithNamedArguments() {
 		expectedEx.expect(HelpMessageException.class);
-		String message = ("usage: java VolumeCalculator [length][width][height][Type][t][Digits][d][--Type]" +
+		String message = ("usage: java VolumeCalculator [length][width][height][Type][t][Digits][d]" +
 		"\n" + "Calculate the volume of a box." + "\n" + "positional arguments:" +
 		"\n" + "length the length of the box (FLOAT)"  + "\n" +
 		"width the width of the box (FLOAT)" + "\n" + "height the height of the box (FLOAT)\n" +
@@ -382,7 +382,7 @@ public class ArgumentParserTest {
 		ap.addPositionalArgument("height", Argument.Type.FLOAT, "the height of the box");
 		ap.addNamedArgument("Type", "t", Argument.Type.STRING, "Box");
 		ap.addNamedArgument("Digits", "d", Argument.Type.INT, "4");
-		String[] data = {"7","--Type","circle","5", "--h", "4","--Digits","2"};
+		String[] data = {"7","--Type","circle","5", "-h", "4","--Digits","2"};
 		ap.parse(data);
 	}
 
@@ -466,33 +466,41 @@ public class ArgumentParserTest {
 		assertEquals(8.0f, ap.getValue("height"));
 	}
 
-	 @Test
-   public void testLoadXMLGetPositionalArgumentValue() {
-     	ap = XML.loadXML("arguments.xml");
-			String[] inp = {"233.5", "52.9", "88.6"};
-			ap.parse(inp);
-      assertEquals(233.5f, ap.getValue("length"));
-      assertEquals(52.9f, ap.getValue("width"));
-      assertEquals(88.6f, ap.getValue("height"));
-    }
+	@Test
+	public void testLoadXMLGetPositionalArgumentValue() {
+		ap = XML.loadXML("arguments.xml");
+		String[] inp = {"233.5", "52.9", "88.6"};
+		ap.parse(inp);
+		assertEquals(233.5f, ap.getValue("length"));
+		assertEquals(52.9f, ap.getValue("width"));
+		assertEquals(88.6f, ap.getValue("height"));
+	}
 
-		@Test
-		public void testWeDontLoadABadFile(){
-			expectedEx.expect(FileErrorException.class);
-			String message = ("Not Found: badFile.xml");
-			expectedEx.expectMessage(message);
-			ap = xml.loadXML("badFile.xml");
-		}
+	@Test
+	public void testWeDontLoadABadFile() {
+		expectedEx.expect(FileErrorException.class);
+		String message = ("Error with file: badFile.xml");
+		expectedEx.expectMessage(message);
+		ap = xml.loadXML("badFile.xml");
+	}
 
-		@Test
-    public void testLoadXMLGetsOtherDataTypes() {
-      ap = XML.loadXML("testXml.xml");
- 			String[] inp = {"0.04", "23", "Jimmy John", "--payrate", "40", "-c", "true"};
- 			ap.parse(inp);
-      assertEquals(0.04f, ap.getValue("accountBalance"));
-      assertEquals(23, ap.getValue("myAge"));
-      assertEquals("Jimmy John", ap.getValue("myName"));
-			assertEquals(40.0f, ap.getValue("payrate"));
-			assertEquals(true, ap.getValue("cool"));
-     }
+	@Test
+	public void testLoadXMLGetsOtherDataTypes() {
+		ap = XML.loadXML("testXml.xml");
+		String[] inp = {"0.04", "23", "Jimmy John", "--payrate", "40", "-c", "true"};
+		ap.parse(inp);
+		assertEquals(0.04f, ap.getValue("accountBalance"));
+		assertEquals(23, ap.getValue("myAge"));
+		assertEquals("Jimmy John", ap.getValue("myName"));
+		assertEquals(40.0f, ap.getValue("payrate"));
+		assertEquals(true, ap.getValue("cool"));
+	}
+
+	@Test
+	public void testSaveXMLHasFileErrorException() {
+		expectedEx.expect(FileErrorException.class);
+		String message = ("Error with file: ");
+		expectedEx.expectMessage(message);
+		xml.saveXML("", ap);
+	}
 }
